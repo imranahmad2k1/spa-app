@@ -58,44 +58,46 @@ class WelcomeView extends StatelessWidget {
             height: 110,
           ),
           InkWell(
-              onTap: () {},
-              borderRadius: BorderRadius.circular(30),
-              child: Ink(
-                width: 268,
-                height: 42,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
-                  color: const Color(primaryColor),
-                ),
-                child: const Center(
-                    child: Text(
-                  'Create new account',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold),
-                )),
+            onTap: () {},
+            borderRadius: BorderRadius.circular(30),
+            child: Ink(
+              width: 268,
+              height: 42,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30),
+                color: const Color(primaryColor),
+              ),
+              child: const Center(
+                  child: Text(
+                'Create new account',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 13,
+                    fontWeight: FontWeight.bold),
               )),
+            ),
+          ),
           const SizedBox(height: 19),
           InkWell(
-              onTap: () {},
-              borderRadius: BorderRadius.circular(30),
-              child: Ink(
-                width: 268,
-                height: 42,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
-                  color: const Color(secondaryColor),
-                ),
-                child: const Center(
-                    child: Text(
-                  'I already have an account',
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 13,
-                      fontWeight: FontWeight.normal),
-                )),
+            onTap: () {},
+            borderRadius: BorderRadius.circular(30),
+            child: Ink(
+              width: 268,
+              height: 42,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30),
+                color: const Color(secondaryColor),
+              ),
+              child: const Center(
+                  child: Text(
+                'I already have an account',
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 13,
+                    fontWeight: FontWeight.normal),
               )),
+            ),
+          ),
         ],
       ),
     );

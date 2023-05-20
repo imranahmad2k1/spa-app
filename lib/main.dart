@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:student_personal_assistant/constants/colors.dart';
+import 'package:student_personal_assistant/views/register/create_an_account_view.dart';
 import 'package:student_personal_assistant/views/welcome_view.dart';
 
 void main() {
@@ -10,7 +11,7 @@ void main() {
       colorScheme: ColorScheme.fromSeed(seedColor: const Color(primaryColor)),
       useMaterial3: true,
     ),
-    home: const WelcomeView(),
+    home: const CreateAnAccountView(),
   ));
 }
 
