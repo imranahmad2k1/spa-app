@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:student_personal_assistant/constants/colors.dart';
+import 'package:student_personal_assistant/components/custom_button.dart';
+import 'package:student_personal_assistant/components/custom_divider.dart';
 // import 'package:carousel_slider/carousel_slider.dart';
 
 class WelcomeView extends StatelessWidget {
@@ -16,12 +17,7 @@ class WelcomeView extends StatelessWidget {
             width: 265,
             height: 219,
           ),
-          const Divider(
-            color: Color(dividerColor),
-            height: 11,
-            indent: 45,
-            endIndent: 45,
-          ),
+          const CustomDivider(),
           const SizedBox(
             height: 40,
           ),
@@ -57,47 +53,16 @@ class WelcomeView extends StatelessWidget {
           const SizedBox(
             height: 110,
           ),
-          InkWell(
-            onTap: () {},
-            borderRadius: BorderRadius.circular(30),
-            child: Ink(
-              width: 268,
-              height: 42,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
-                color: const Color(primaryColor),
-              ),
-              child: const Center(
-                  child: Text(
-                'Create new account',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 13,
-                    fontWeight: FontWeight.bold),
-              )),
-            ),
+          CustomButton(
+            buttonText: "Create new account",
+            onPressed: () {},
           ),
           const SizedBox(height: 19),
-          InkWell(
-            onTap: () {},
-            borderRadius: BorderRadius.circular(30),
-            child: Ink(
-              width: 268,
-              height: 42,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
-                color: const Color(secondaryColor),
-              ),
-              child: const Center(
-                  child: Text(
-                'I already have an account',
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 13,
-                    fontWeight: FontWeight.normal),
-              )),
-            ),
-          ),
+          CustomButton(
+            buttonText: "I already have an account",
+            onPressed: () {},
+            isSecondary: true,
+          )
         ],
       ),
     );

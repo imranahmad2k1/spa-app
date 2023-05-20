@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:student_personal_assistant/constants/colors.dart';
+import 'package:student_personal_assistant/components/custom_button.dart';
+import 'package:student_personal_assistant/components/custom_heading.dart';
+import 'package:student_personal_assistant/components/custom_text.dart';
+import 'package:student_personal_assistant/components/custom_text_button.dart';
 
 class VerifyEmailView extends StatelessWidget {
   const VerifyEmailView({super.key});
@@ -19,49 +22,19 @@ class VerifyEmailView extends StatelessWidget {
               // width: , height: ,
             ),
             const SizedBox(height: 31),
-            const Text(
-              'We sent you an Email',
-              style: TextStyle(
-                fontSize: 25,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            const CustomHeading(text: "We sent you an Email"),
             const SizedBox(height: 18),
-            const Text(
-              'Verification email has been sent to your email.\nPlease open the link in your email\nto verify your account.',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 15,
-              ),
-            ),
+            const CustomText(
+                text:
+                    "Verification email has been sent to your email.\nPlease open the link in your email\nto verify your account."),
             const SizedBox(height: 24),
-            InkWell(
-              onTap: () {},
-              borderRadius: BorderRadius.circular(30),
-              child: Ink(
-                width: 268,
-                height: 42,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
-                  color: const Color(secondaryColor),
-                ),
-                child: const Center(
-                    child: Text(
-                  'Send me verification email again',
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 13,
-                      fontWeight: FontWeight.normal),
-                )),
-              ),
+            CustomButton(
+              buttonText: "Send me verification email again",
+              onPressed: () {},
+              isSecondary: true,
             ),
             const SizedBox(height: 12),
-            TextButton(
-                onPressed: () {},
-                child: const Text(
-                  "Change email",
-                  style: TextStyle(fontSize: 13),
-                ))
+            const CustomTextButton(text: "Change email"),
           ],
         ),
       ),

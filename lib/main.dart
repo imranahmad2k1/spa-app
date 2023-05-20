@@ -12,7 +12,7 @@ void main() {
       colorScheme: ColorScheme.fromSeed(seedColor: const Color(primaryColor)),
       useMaterial3: true,
     ),
-    home: const VerifyEmailView(),
+    home: const WelcomeView(),
   ));
 }
 

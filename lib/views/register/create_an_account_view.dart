@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:student_personal_assistant/constants/colors.dart';
+import 'package:student_personal_assistant/components/custom_button.dart';
+import 'package:student_personal_assistant/components/custom_divider.dart';
+import 'package:student_personal_assistant/components/custom_heading.dart';
+import 'package:student_personal_assistant/components/custom_text.dart';
+import 'package:student_personal_assistant/components/text_field.dart';
 
 class CreateAnAccountView extends StatelessWidget {
   const CreateAnAccountView({super.key});
@@ -13,94 +17,35 @@ class CreateAnAccountView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const SizedBox(height: 118),
-            const Text(
-              'Create an Account',
-              style: TextStyle(
-                fontSize: 25,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            const CustomHeading(text: "Create an account"),
             const SizedBox(height: 18),
-            const Text(
-              'Please complete your profile. \nDon’t worry, your data will remain private\nand only you can see it',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 15,
-              ),
-            ),
+            const CustomText(
+                text:
+                    "Please complete your profile. \nDon’t worry, your data will remain private\nand only you can see it"),
             const SizedBox(height: 20),
-            const Divider(
-              color: Color(dividerColor),
-              height: 11,
-              indent: 45,
-              endIndent: 45,
-            ),
+            const CustomDivider(),
             const SizedBox(height: 40),
             const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SizedBox(
+                CustomTextField(
                   width: 170,
-                  height: 37,
-                  child: TextField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'First name',
-                    ),
-                  ),
+                  labelText: "First Name",
                 ),
-                SizedBox(
+                CustomTextField(
                   width: 170,
-                  height: 37,
-                  child: TextField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Last name',
-                    ),
-                  ),
-                ),
+                  labelText: "Last Name",
+                )
               ],
             ),
             const SizedBox(height: 22),
-            const SizedBox(
-              height: 37,
-              child: TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Email address',
-                ),
-              ),
-            ),
+            const CustomTextField(labelText: "Email address"),
             const SizedBox(height: 22),
-            const SizedBox(
-              height: 37,
-              child: TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'New pasword',
-                ),
-              ),
-            ),
+            const CustomTextField(labelText: "New password"),
             const SizedBox(height: 208),
-            InkWell(
-              onTap: () {},
-              borderRadius: BorderRadius.circular(30),
-              child: Ink(
-                width: 268,
-                height: 42,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
-                  color: const Color(primaryColor),
-                ),
-                child: const Center(
-                    child: Text(
-                  'Register',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold),
-                )),
-              ),
+            CustomButton(
+              buttonText: "Register",
+              onPressed: () {},
             ),
           ],
         ),
