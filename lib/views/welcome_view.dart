@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:student_personal_assistant/constants/colors.dart';
-import 'package:carousel_slider/carousel_slider.dart';
+// import 'package:carousel_slider/carousel_slider.dart';
 
 class WelcomeView extends StatelessWidget {
   const WelcomeView({super.key});
@@ -25,35 +25,35 @@ class WelcomeView extends StatelessWidget {
           const SizedBox(
             height: 40,
           ),
-          CarouselSlider(
-            options: CarouselOptions(height: 110),
-            items: [
-              "Develop discipline, \nGenerate study plan, \nand ace your exams",
-              "Let's make your study sessions more effective and efficient!",
-              "Enhance your understanding and work on knowledge gaps",
-            ].map((i) {
-              return Builder(
-                builder: (BuildContext context) {
-                  return SizedBox(
-                    child: Text(
-                      i,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 25,
-                      ),
-                    ),
-                  );
-                },
-              );
-            }).toList(),
-          ),
-          // const Text(
-          //   "Develop discipline, \nGenerate study plan, \nand ace your exams",
-          //   textAlign: TextAlign.center,
-          //   style: TextStyle(
-          //     fontSize: 25,
-          //   ),
+          // CarouselSlider(
+          //   options: CarouselOptions(height: 110),
+          //   items: [
+          //     "Develop discipline, \nGenerate study plan, \nand ace your exams",
+          //     "Let's make your study sessions more effective and efficient!",
+          //     "Enhance your understanding and work on knowledge gaps",
+          //   ].map((i) {
+          //     return Builder(
+          //       builder: (BuildContext context) {
+          //         return SizedBox(
+          //           child: Text(
+          //             i,
+          //             textAlign: TextAlign.center,
+          //             style: const TextStyle(
+          //               fontSize: 25,
+          //             ),
+          //           ),
+          //         );
+          //       },
+          //     );
+          //   }).toList(),
           // ),
+          const Text(
+            "Develop discipline, \nGenerate study plan, \nand ace your exams",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 25,
+            ),
+          ),
           const SizedBox(
             height: 110,
           ),
