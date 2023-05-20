@@ -34,7 +34,7 @@ class VerifyEmailView extends StatelessWidget {
               isSecondary: true,
             ),
             const SizedBox(height: 12),
-            const CustomTextButton(text: "Change email"),
+            CustomTextButton(text: "Change email", onPressed: () {}),
           ],
         ),
       ),

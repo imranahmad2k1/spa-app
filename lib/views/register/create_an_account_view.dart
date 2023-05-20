@@ -3,7 +3,7 @@ import 'package:student_personal_assistant/components/custom_button.dart';
 import 'package:student_personal_assistant/components/custom_divider.dart';
 import 'package:student_personal_assistant/components/custom_heading.dart';
 import 'package:student_personal_assistant/components/custom_text.dart';
-import 'package:student_personal_assistant/components/text_field.dart';
+import 'package:student_personal_assistant/components/custom_text_field.dart';
 
 class CreateAnAccountView extends StatelessWidget {
   const CreateAnAccountView({super.key});
