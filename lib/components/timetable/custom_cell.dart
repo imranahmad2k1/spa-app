@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:student_personal_assistant/constants/colors.dart';
 
 class CustomCell extends StatelessWidget {
   final VoidCallback onPressed;
-  final String text;
-  const CustomCell({super.key, required this.text, required this.onPressed});
+  const CustomCell({super.key, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -12,12 +12,10 @@ class CustomCell extends StatelessWidget {
         onTap: onPressed,
         child: Container(
           margin: const EdgeInsets.symmetric(),
-          child: Center(
-            child: Text(
-              text,
-              style: const TextStyle(
-                fontSize: 12,
-              ),
+          child: const Center(
+            child: Icon(
+              Icons.add,
+              color: Color(borderColor),
             ),
           ),
         ),

@@ -6,6 +6,7 @@ import 'package:student_personal_assistant/components/custom_heading.dart';
 import 'package:student_personal_assistant/components/custom_text.dart';
 import 'package:student_personal_assistant/components/custom_text_button.dart';
 import 'package:student_personal_assistant/components/timetable/custom_cell.dart';
+import 'package:student_personal_assistant/constants/colors.dart';
 
 class SetWeeklyTimetableView extends StatelessWidget {
   const SetWeeklyTimetableView({super.key});
@@ -15,7 +16,7 @@ class SetWeeklyTimetableView extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 13),
+          margin: const EdgeInsets.symmetric(horizontal: 23),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -47,9 +48,12 @@ class SetWeeklyTimetableView extends StatelessWidget {
                 columnWidths: const {
                   0: FixedColumnWidth(90),
                 },
-                border: TableBorder.all(),
+                border: TableBorder.all(color: const Color(borderColor)),
                 children: [
                   TableRow(
+                    decoration: const BoxDecoration(
+                      color: Color(fieldBackgroundColor),
+                    ),
                     children: [
                       TableCell(
                         child: Container(
@@ -64,13 +68,16 @@ class SetWeeklyTimetableView extends StatelessWidget {
                           )),
                         ),
                       ),
-                      CustomCell(text: "+", onPressed: () {}),
-                      CustomCell(text: "+", onPressed: () {}),
-                      CustomCell(text: "+", onPressed: () {}),
-                      CustomCell(text: "+", onPressed: () {}),
+                      CustomCell(onPressed: () {}),
+                      CustomCell(onPressed: () {}),
+                      CustomCell(onPressed: () {}),
+                      CustomCell(onPressed: () {}),
                     ],
                   ),
                   TableRow(
+                    decoration: const BoxDecoration(
+                      color: Color(fieldBackgroundColor),
+                    ),
                     children: [
                       TableCell(
                         child: Container(
@@ -85,13 +92,16 @@ class SetWeeklyTimetableView extends StatelessWidget {
                           )),
                         ),
                       ),
-                      CustomCell(text: "+", onPressed: () {}),
-                      CustomCell(text: "+", onPressed: () {}),
-                      CustomCell(text: "+", onPressed: () {}),
-                      CustomCell(text: "+", onPressed: () {}),
+                      CustomCell(onPressed: () {}),
+                      CustomCell(onPressed: () {}),
+                      CustomCell(onPressed: () {}),
+                      CustomCell(onPressed: () {}),
                     ],
                   ),
                   TableRow(
+                    decoration: const BoxDecoration(
+                      color: Color(fieldBackgroundColor),
+                    ),
                     children: [
                       TableCell(
                         child: Container(
@@ -106,13 +116,16 @@ class SetWeeklyTimetableView extends StatelessWidget {
                           )),
                         ),
                       ),
-                      CustomCell(text: "+", onPressed: () {}),
-                      CustomCell(text: "+", onPressed: () {}),
-                      CustomCell(text: "+", onPressed: () {}),
-                      CustomCell(text: "+", onPressed: () {}),
+                      CustomCell(onPressed: () {}),
+                      CustomCell(onPressed: () {}),
+                      CustomCell(onPressed: () {}),
+                      CustomCell(onPressed: () {}),
                     ],
                   ),
                   TableRow(
+                    decoration: const BoxDecoration(
+                      color: Color(fieldBackgroundColor),
+                    ),
                     children: [
                       TableCell(
                         child: Container(
@@ -127,13 +140,16 @@ class SetWeeklyTimetableView extends StatelessWidget {
                           )),
                         ),
                       ),
-                      CustomCell(text: "+", onPressed: () {}),
-                      CustomCell(text: "+", onPressed: () {}),
-                      CustomCell(text: "+", onPressed: () {}),
-                      CustomCell(text: "+", onPressed: () {}),
+                      CustomCell(onPressed: () {}),
+                      CustomCell(onPressed: () {}),
+                      CustomCell(onPressed: () {}),
+                      CustomCell(onPressed: () {}),
                     ],
                   ),
                   TableRow(
+                    decoration: const BoxDecoration(
+                      color: Color(fieldBackgroundColor),
+                    ),
                     children: [
                       TableCell(
                         child: Container(
@@ -148,13 +164,16 @@ class SetWeeklyTimetableView extends StatelessWidget {
                           )),
                         ),
                       ),
-                      CustomCell(text: "+", onPressed: () {}),
-                      CustomCell(text: "+", onPressed: () {}),
-                      CustomCell(text: "+", onPressed: () {}),
-                      CustomCell(text: "+", onPressed: () {}),
+                      CustomCell(onPressed: () {}),
+                      CustomCell(onPressed: () {}),
+                      CustomCell(onPressed: () {}),
+                      CustomCell(onPressed: () {}),
                     ],
                   ),
                   TableRow(
+                    decoration: const BoxDecoration(
+                      color: Color(fieldBackgroundColor),
+                    ),
                     children: [
                       TableCell(
                         child: Container(
@@ -169,13 +188,16 @@ class SetWeeklyTimetableView extends StatelessWidget {
                           )),
                         ),
                       ),
-                      CustomCell(text: "+", onPressed: () {}),
-                      CustomCell(text: "+", onPressed: () {}),
-                      CustomCell(text: "+", onPressed: () {}),
-                      CustomCell(text: "+", onPressed: () {}),
+                      CustomCell(onPressed: () {}),
+                      CustomCell(onPressed: () {}),
+                      CustomCell(onPressed: () {}),
+                      CustomCell(onPressed: () {}),
                     ],
                   ),
                   TableRow(
+                    decoration: const BoxDecoration(
+                      color: Color(fieldBackgroundColor),
+                    ),
                     children: [
                       TableCell(
                         child: Container(
@@ -190,10 +212,10 @@ class SetWeeklyTimetableView extends StatelessWidget {
                           )),
                         ),
                       ),
-                      CustomCell(text: "+", onPressed: () {}),
-                      CustomCell(text: "+", onPressed: () {}),
-                      CustomCell(text: "+", onPressed: () {}),
-                      CustomCell(text: "+", onPressed: () {}),
+                      CustomCell(onPressed: () {}),
+                      CustomCell(onPressed: () {}),
+                      CustomCell(onPressed: () {}),
+                      CustomCell(onPressed: () {}),
                     ],
                   ),
                 ],
