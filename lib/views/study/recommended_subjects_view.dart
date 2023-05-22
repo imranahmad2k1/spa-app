@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:student_personal_assistant/components/custom_button.dart';
 import 'package:student_personal_assistant/components/custom_divider.dart';
 import 'package:student_personal_assistant/components/custom_heading.dart';
 import 'package:student_personal_assistant/components/custom_text.dart';
-import 'package:student_personal_assistant/components/end_study_button.dart';
 import 'package:student_personal_assistant/components/recommendations/carousel_slider.dart';
 
-class RecommendationsView extends StatelessWidget {
-  const RecommendationsView({super.key});
+class RecommendedSubjectsView extends StatelessWidget {
+  const RecommendedSubjectsView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,11 +20,11 @@ class RecommendationsView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: 83),
-                CustomHeading(text: "Recommended\nTopics"),
+                CustomHeading(text: "Recommended\nSubjects"),
                 SizedBox(height: 15),
                 CustomText(
                   text:
-                      "Here are your recommended topics\nbased on your weaknesses:",
+                      "All subjects are recommended based on your\nweaknesses.\nChoose subject of your interest",
                   alignLeft: true,
                 ),
                 SizedBox(height: 20),
@@ -38,7 +38,7 @@ class RecommendationsView extends StatelessWidget {
                 CarouselSliderComponent(),
                 const SizedBox(height: 35),
                 Center(
-                  child: EndStudyButton(onPressed: () {}),
+                  child: CustomButton(buttonText: "Next", onPressed: () {}),
                 ),
                 // SizedBox(height: 200)
               ],
