@@ -11,6 +11,7 @@ import 'package:student_personal_assistant/views/register/verify_email_view.dart
 import 'package:student_personal_assistant/views/setup/set_weekly_timetable_view.dart';
 import 'package:student_personal_assistant/views/setup/upload_course_outlines_view.dart';
 import 'package:student_personal_assistant/views/study/recommended_subjects_view.dart';
+import 'package:student_personal_assistant/views/study/study_view.dart';
 import 'package:student_personal_assistant/views/welcome_view.dart';
 
 void main() {
@@ -21,6 +22,6 @@ void main() {
       colorScheme: ColorScheme.fromSeed(seedColor: const Color(primaryColor)),
       useMaterial3: true,
     ),
-    home: const RecommendedSubjectsView(),
+    home: const StudyView(),
   ));
 }
