@@ -64,9 +64,9 @@ class HomepageView extends StatelessWidget {
                 ),
                 SizedBox(width: 8),
                 CustomModuleInfo(
-                    name: "Quiz",
+                    name: "Quiz/Test",
                     text:
-                        "Quiz/Test: Get ready for upcoming\nquizzes or tests by focusing on\nrecommended topics."),
+                        "Get ready for upcoming\nquizzes or tests by focusing on\nrecommended topics."),
               ],
             ),
           ],
