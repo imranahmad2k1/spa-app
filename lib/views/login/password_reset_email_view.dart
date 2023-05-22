@@ -41,6 +41,5 @@ class PasswordResetEmailView extends StatelessWidget {
         ),
       ),
     );
-    ;
   }
 }
