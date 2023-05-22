@@ -5,6 +5,7 @@ import 'package:student_personal_assistant/views/homepage_view.dart';
 import 'package:student_personal_assistant/views/login/forgot_password_view.dart';
 import 'package:student_personal_assistant/views/login/login_view.dart';
 import 'package:student_personal_assistant/views/login/password_reset_email_view.dart';
+import 'package:student_personal_assistant/views/quiz/quiztest_view.dart';
 import 'package:student_personal_assistant/views/recommended_topics_view.dart';
 import 'package:student_personal_assistant/views/register/create_an_account_view.dart';
 import 'package:student_personal_assistant/views/register/verify_email_view.dart';
@@ -23,6 +24,6 @@ void main() {
       colorScheme: ColorScheme.fromSeed(seedColor: const Color(primaryColor)),
       useMaterial3: true,
     ),
-    home: const ReviseView(),
+    home: const QuizTestView(),
   ));
 }
