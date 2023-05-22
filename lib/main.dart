@@ -8,6 +8,7 @@ import 'package:student_personal_assistant/views/login/password_reset_email_view
 import 'package:student_personal_assistant/views/recommended_topics_view.dart';
 import 'package:student_personal_assistant/views/register/create_an_account_view.dart';
 import 'package:student_personal_assistant/views/register/verify_email_view.dart';
+import 'package:student_personal_assistant/views/revise/revise_view.dart';
 import 'package:student_personal_assistant/views/setup/set_weekly_timetable_view.dart';
 import 'package:student_personal_assistant/views/setup/upload_course_outlines_view.dart';
 import 'package:student_personal_assistant/views/study/recommended_subjects_view.dart';
@@ -22,6 +23,6 @@ void main() {
       colorScheme: ColorScheme.fromSeed(seedColor: const Color(primaryColor)),
       useMaterial3: true,
     ),
-    home: const StudyView(),
+    home: const ReviseView(),
   ));
 }
