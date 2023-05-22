@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:student_personal_assistant/components/custom_divider.dart';
 import 'package:student_personal_assistant/components/custom_heading.dart';
 import 'package:student_personal_assistant/components/custom_module_info.dart';
+import 'package:student_personal_assistant/components/custom_navbar.dart';
 import 'package:student_personal_assistant/components/custom_text.dart';
 import 'package:student_personal_assistant/constants/colors.dart';
 import 'package:student_personal_assistant/custom_icons_icons.dart';
@@ -71,42 +72,7 @@ class HomepageView extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: NavigationBar(
-        destinations: const [
-          NavigationDestination(
-            icon: Icon(Icons.home),
-            label: "Home",
-            selectedIcon: Icon(
-              Icons.home,
-              color: Color(primaryColor),
-            ),
-          ),
-          NavigationDestination(
-            icon: Icon(CustomIcons.revise),
-            label: "Revise",
-            selectedIcon: Icon(
-              CustomIcons.revise,
-              color: Color(primaryColor),
-            ),
-          ),
-          NavigationDestination(
-            icon: Icon(CustomIcons.study),
-            label: "Study",
-            selectedIcon: Icon(
-              CustomIcons.study,
-              color: Color(primaryColor),
-            ),
-          ),
-          NavigationDestination(
-            icon: Icon(CustomIcons.quiz),
-            label: "Quiz",
-            selectedIcon: Icon(
-              CustomIcons.quiz,
-              color: Color(primaryColor),
-            ),
-          ),
-        ],
-      ),
+      bottomNavigationBar: const CustomNavBar(selectedMenu: 0),
     );
   }
 }
