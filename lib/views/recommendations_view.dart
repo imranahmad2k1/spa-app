@@ -20,7 +20,7 @@ class RecommendationsView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: 83),
-                CustomHeading(text: "Recommended Topics"),
+                CustomHeading(text: "Recommended\nTopics"),
                 SizedBox(height: 15),
                 CustomText(
                   text:

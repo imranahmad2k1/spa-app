@@ -11,31 +11,30 @@ class CarouselSliderComponent extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<Widget> imageSliders = items
         .map((item) => Container(
-              decoration: BoxDecoration(
-                color: const Color(secondaryColor),
-                border: Border.all(color: const Color(borderColor)),
-              ),
-              padding:
-                  const EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    'Index: ${items.indexOf(item)}, Item: $item',
+            decoration: BoxDecoration(
+              color: const Color(secondaryColor),
+              border: Border.all(color: const Color(borderColor)),
+            ),
+            padding: const EdgeInsets.only(left: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Flexible(
+                  child: Text(
+                    'Index: ${items.indexOf(item)}, Topic: $item',
                     style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 12.0,
-                      fontWeight: FontWeight.w300,
-                    ),
+                        color: Colors.black,
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.w300),
                   ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.check_circle_outline),
-                  )
-                ],
-              ),
-            ))
+                ),
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.check_circle_outline),
+                )
+              ],
+            )))
         .toList();
 
     return CarouselSlider(
