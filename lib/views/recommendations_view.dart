@@ -14,25 +14,35 @@ class RecommendationsView extends StatelessWidget {
       body: Container(
         margin: const EdgeInsets.symmetric(horizontal: 23),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            const SizedBox(height: 83),
-            const CustomHeading(text: "Recommended Topics"),
-            const SizedBox(height: 15),
-            const CustomText(
-              text:
-                  "Here are your recommended topics\nbased on your weaknesses:",
-              alignLeft: true,
+            const Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 83),
+                CustomHeading(text: "Recommended Topics"),
+                SizedBox(height: 15),
+                CustomText(
+                  text:
+                      "Here are your recommended topics\nbased on your weaknesses:",
+                  alignLeft: true,
+                ),
+                SizedBox(height: 20),
+                CustomDivider(alignLeft: true),
+                SizedBox(height: 35),
+              ],
             ),
-            const SizedBox(height: 20),
-            const CustomDivider(alignLeft: true),
-            const SizedBox(height: 35),
-            //PUT CAROUSEL HERE
-            CarouselSliderComponent(),
-            const SizedBox(height: 35),
-            Center(
-              child: EndStudyButton(onPressed: () {}),
-            ),
+            Column(
+              children: [
+                //CAROUSEL HERE
+                CarouselSliderComponent(),
+                const SizedBox(height: 35),
+                Center(
+                  child: EndStudyButton(onPressed: () {}),
+                ),
+                // SizedBox(height: 200)
+              ],
+            )
           ],
         ),
       ),
