@@ -17,6 +17,6 @@ void main() {
       colorScheme: ColorScheme.fromSeed(seedColor: const Color(primaryColor)),
       useMaterial3: true,
     ),
-    home: const HomepageView(),
+    home: const SetWeeklyTimetableView(),
   ));
 }
