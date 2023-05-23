@@ -16,11 +16,6 @@ class SelectSubjectTopicsView extends StatefulWidget {
 }
 
 class _SelectSubjectTopicsViewState extends State<SelectSubjectTopicsView> {
-  bool _value1 = false;
-  bool _value2 = false;
-  bool _value3 = false;
-  bool _value4 = false;
-
   @override
   Widget build(BuildContext context) {
     String dropdownvalue = 'Select subject';
