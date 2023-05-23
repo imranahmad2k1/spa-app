@@ -4,6 +4,7 @@ import 'package:student_personal_assistant/components/custom_heading.dart';
 import 'package:student_personal_assistant/components/custom_text.dart';
 import 'package:student_personal_assistant/components/end_study_button.dart';
 import 'package:student_personal_assistant/components/recommendations/carousel_slider.dart';
+import 'package:student_personal_assistant/constants/routes.dart';
 
 class RecommendedTopicsView extends StatelessWidget {
   const RecommendedTopicsView({super.key});
@@ -38,7 +39,9 @@ class RecommendedTopicsView extends StatelessWidget {
                 CarouselSliderComponent(),
                 const SizedBox(height: 35),
                 Center(
-                  child: EndStudyButton(onPressed: () {}),
+                  child: EndStudyButton(onPressed: () {
+                    Navigator.of(context).pushNamed(homepageRoute);
+                  }),
                 ),
                 // SizedBox(height: 200)
               ],

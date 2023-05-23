@@ -4,6 +4,7 @@ import 'package:student_personal_assistant/components/custom_divider.dart';
 import 'package:student_personal_assistant/components/custom_heading.dart';
 import 'package:student_personal_assistant/components/custom_text.dart';
 import 'package:student_personal_assistant/components/recommendations/carousel_slider.dart';
+import 'package:student_personal_assistant/constants/routes.dart';
 
 class RecommendedSubjectsView extends StatelessWidget {
   const RecommendedSubjectsView({super.key});
@@ -38,7 +39,11 @@ class RecommendedSubjectsView extends StatelessWidget {
                 CarouselSliderComponent(),
                 const SizedBox(height: 35),
                 Center(
-                  child: CustomButton(buttonText: "Next", onPressed: () {}),
+                  child: CustomButton(
+                      buttonText: "Next",
+                      onPressed: () {
+                        Navigator.of(context).pushNamed(recommendRoute);
+                      }),
                 ),
                 // SizedBox(height: 200)
               ],

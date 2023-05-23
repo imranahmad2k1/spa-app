@@ -7,6 +7,7 @@ import 'package:student_personal_assistant/components/custom_text.dart';
 import 'package:student_personal_assistant/components/custom_text_button.dart';
 import 'package:student_personal_assistant/components/timetable/custom_cell.dart';
 import 'package:student_personal_assistant/constants/colors.dart';
+import 'package:student_personal_assistant/constants/routes.dart';
 
 class SetWeeklyTimetableView extends StatelessWidget {
   const SetWeeklyTimetableView({super.key});
@@ -226,7 +227,9 @@ class SetWeeklyTimetableView extends StatelessWidget {
               Center(
                 child: CustomButton(
                   buttonText: "All set",
-                  onPressed: (() {}),
+                  onPressed: (() {
+                    Navigator.of(context).pushNamed(homepageRoute);
+                  }),
                 ),
               ),
               const SizedBox(
@@ -235,7 +238,9 @@ class SetWeeklyTimetableView extends StatelessWidget {
               Center(
                 child: CustomTextButton(
                   text: "Skip for now",
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(homepageRoute);
+                  },
                 ),
               ),
             ],

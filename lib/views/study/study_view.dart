@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:student_personal_assistant/components/custom_button.dart';
 import 'package:student_personal_assistant/components/custom_divider.dart';
 import 'package:student_personal_assistant/components/custom_heading.dart';
-import 'package:student_personal_assistant/components/custom_navbar.dart';
 import 'package:student_personal_assistant/components/custom_text.dart';
+import 'package:student_personal_assistant/constants/routes.dart';
 
 class StudyView extends StatelessWidget {
   const StudyView({super.key});
@@ -46,7 +46,10 @@ class StudyView extends StatelessWidget {
             height: 14,
           ),
           CustomButton(
-              buttonText: "Start studying subject-wise", onPressed: () {}),
+              buttonText: "Start studying subject-wise",
+              onPressed: () {
+                Navigator.of(context).pushNamed(recommendSubjectsRoute);
+              }),
           const SizedBox(
             height: 35,
           ),
@@ -58,10 +61,13 @@ class StudyView extends StatelessWidget {
           const SizedBox(
             height: 14,
           ),
-          CustomButton(buttonText: "Start studying overall", onPressed: () {}),
+          CustomButton(
+              buttonText: "Start studying overall",
+              onPressed: () {
+                Navigator.of(context).pushNamed(recommendRoute);
+              }),
         ],
       ),
-      bottomNavigationBar: const CustomNavBar(selectedMenu: 2),
     );
   }
 }

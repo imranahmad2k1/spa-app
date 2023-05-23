@@ -15,15 +15,32 @@ import 'package:student_personal_assistant/views/setup/upload_course_outlines_vi
 import 'package:student_personal_assistant/views/study/recommended_subjects_view.dart';
 import 'package:student_personal_assistant/views/study/study_view.dart';
 import 'package:student_personal_assistant/views/welcome_view.dart';
+import 'package:student_personal_assistant/constants/routes.dart';
 
 void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     title: 'Flutter Demo',
+    routes: {
+      initialRoute: (context) => const WelcomeView(),
+      loginRoute: (context) => const LoginView(),
+      forgotPassowrdRoute: (context) => const ForgotPasswordView(),
+      resetPassworRoute: (context) => const PasswordResetEmailView(),
+      registerRoute: (context) => const CreateAnAccountView(),
+      verifyEmailRoute: (context) => const VerifyEmailView(),
+      setupRoute: (context) => const SetWeeklyTimetableView(),
+      uploadOutlinesRoute: (context) => const UploadCourseOutlinesView(),
+      homepageRoute: (context) => const HomepageView(),
+      reviseRoute: (context) => const ReviseView(),
+      recommendRoute: (context) => const RecommendedTopicsView(),
+      studyRoute: (context) => const StudyView(),
+      recommendSubjectsRoute: (context) => const RecommendedSubjectsView(),
+      quizRoute: (context) => const QuizTestView(),
+    },
     theme: ThemeData(
       colorScheme: ColorScheme.fromSeed(seedColor: const Color(primaryColor)),
       useMaterial3: true,
     ),
-    home: const QuizTestView(),
+    home: const WelcomeView(),
   ));
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:student_personal_assistant/components/custom_button.dart';
 import 'package:student_personal_assistant/components/custom_divider.dart';
+import 'package:student_personal_assistant/constants/routes.dart';
 // import 'package:carousel_slider/carousel_slider.dart';
 
 class WelcomeView extends StatelessWidget {
@@ -55,12 +56,16 @@ class WelcomeView extends StatelessWidget {
           ),
           CustomButton(
             buttonText: "Create new account",
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed(registerRoute);
+            },
           ),
           const SizedBox(height: 19),
           CustomButton(
             buttonText: "I already have an account",
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed(loginRoute);
+            },
             isSecondary: true,
           )
         ],

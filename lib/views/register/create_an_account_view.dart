@@ -4,6 +4,7 @@ import 'package:student_personal_assistant/components/custom_divider.dart';
 import 'package:student_personal_assistant/components/custom_heading.dart';
 import 'package:student_personal_assistant/components/custom_text.dart';
 import 'package:student_personal_assistant/components/custom_text_field.dart';
+import 'package:student_personal_assistant/constants/routes.dart';
 
 class CreateAnAccountView extends StatelessWidget {
   const CreateAnAccountView({super.key});
@@ -45,7 +46,9 @@ class CreateAnAccountView extends StatelessWidget {
             const SizedBox(height: 208),
             CustomButton(
               buttonText: "Register",
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pushNamed(verifyEmailRoute);
+              },
             ),
           ],
         ),

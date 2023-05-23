@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:student_personal_assistant/components/custom_button.dart';
 import 'package:student_personal_assistant/components/custom_divider.dart';
 import 'package:student_personal_assistant/components/custom_heading.dart';
-import 'package:student_personal_assistant/components/custom_navbar.dart';
 import 'package:student_personal_assistant/components/custom_text.dart';
+import 'package:student_personal_assistant/constants/routes.dart';
 
 class ReviseView extends StatelessWidget {
   const ReviseView({super.key});
@@ -37,13 +37,16 @@ class ReviseView extends StatelessWidget {
           const SizedBox(
             height: 156,
           ),
-          CustomButton(buttonText: 'Let\'s start Revision', onPressed: () {}),
+          CustomButton(
+              buttonText: 'Let\'s start Revision',
+              onPressed: () {
+                Navigator.of(context).pushNamed(recommendRoute);
+              }),
           const SizedBox(
             height: 35,
           ),
         ],
       ),
-      bottomNavigationBar: const CustomNavBar(selectedMenu: 1),
     );
   }
 }

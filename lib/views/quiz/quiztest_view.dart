@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:student_personal_assistant/components/custom_button.dart';
 import 'package:student_personal_assistant/components/custom_divider.dart';
 import 'package:student_personal_assistant/components/custom_heading.dart';
-import 'package:student_personal_assistant/components/custom_navbar.dart';
 import 'package:student_personal_assistant/components/custom_text.dart';
+import 'package:student_personal_assistant/constants/routes.dart';
 
 class QuizTestView extends StatelessWidget {
   const QuizTestView({super.key});
@@ -38,13 +38,15 @@ class QuizTestView extends StatelessWidget {
             height: 156,
           ),
           CustomButton(
-              buttonText: 'Start quiz or test preparation', onPressed: () {}),
+              buttonText: 'Start quiz or test preparation',
+              onPressed: () {
+                Navigator.of(context).pushNamed(recommendRoute);
+              }),
           const SizedBox(
             height: 35,
           ),
         ],
       ),
-      bottomNavigationBar: const CustomNavBar(selectedMenu: 3),
     );
   }
 }

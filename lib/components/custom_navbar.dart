@@ -3,13 +3,21 @@ import 'package:student_personal_assistant/constants/colors.dart';
 import 'package:student_personal_assistant/custom_icons_icons.dart';
 
 class CustomNavBar extends StatelessWidget {
-  final int selectedMenu;
-  const CustomNavBar({super.key, required this.selectedMenu});
+  final void Function(int) onDestinationSelected;
+  final int selectedIndex;
+  const CustomNavBar(
+      {super.key,
+      required this.onDestinationSelected,
+      required this.selectedIndex});
 
   @override
   Widget build(BuildContext context) {
     return NavigationBar(
-      destinations: const [
+      onDestinationSelected: onDestinationSelected,
+      selectedIndex: selectedIndex,
+      labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
+      shadowColor: const Color(primaryColor),
+      destinations: const <Widget>[
         NavigationDestination(
           icon: Icon(Icons.home),
           label: "Home",
@@ -43,10 +51,6 @@ class CustomNavBar extends StatelessWidget {
           ),
         ),
       ],
-      selectedIndex: selectedMenu,
-      onDestinationSelected: (int index) {},
-      labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
-      shadowColor: const Color(primaryColor),
     );
   }
 }

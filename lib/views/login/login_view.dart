@@ -5,6 +5,7 @@ import 'package:student_personal_assistant/components/custom_heading.dart';
 import 'package:student_personal_assistant/components/custom_text.dart';
 import 'package:student_personal_assistant/components/custom_text_button.dart';
 import 'package:student_personal_assistant/components/custom_text_field.dart';
+import 'package:student_personal_assistant/constants/routes.dart';
 
 class LoginView extends StatelessWidget {
   const LoginView({super.key});
@@ -48,15 +49,24 @@ class LoginView extends StatelessWidget {
               Center(
                 child: Column(
                   children: [
-                    CustomButton(buttonText: "Log in", onPressed: () {}),
+                    CustomButton(
+                        buttonText: "Log in",
+                        onPressed: () {
+                          Navigator.of(context).pushNamed(setupRoute);
+                        }),
                     CustomTextButton(
-                        text: "Forgot Password?", onPressed: () {}),
+                        text: "Forgot Password?",
+                        onPressed: () {
+                          Navigator.of(context).pushNamed(forgotPassowrdRoute);
+                        }),
                     const SizedBox(
                       height: 175,
                     ),
                     CustomButton(
                       buttonText: "Create a new account",
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).pushNamed(registerRoute);
+                      },
                       isSecondary: true,
                     )
                   ],
