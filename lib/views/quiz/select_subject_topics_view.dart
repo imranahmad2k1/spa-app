@@ -53,6 +53,7 @@ class _SelectSubjectTopicsViewState extends State<SelectSubjectTopicsView> {
                 fontWeight: FontWeight.bold,
               ),
             ),
+            const SizedBox(height: 9),
             Container(
               decoration: BoxDecoration(
                 border: Border.all(color: const Color(borderColor)),
@@ -96,6 +97,7 @@ class _SelectSubjectTopicsViewState extends State<SelectSubjectTopicsView> {
                 fontWeight: FontWeight.bold,
               ),
             ),
+            const SizedBox(height: 9),
             const CustomTopicDropdown(),
             const CustomTopicDropdown(),
             const CustomTopicDropdown(),
