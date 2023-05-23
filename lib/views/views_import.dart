@@ -1,0 +1,16 @@
+export 'package:student_personal_assistant/views/homepage_view.dart';
+export 'package:student_personal_assistant/views/login/forgot_password_view.dart';
+export 'package:student_personal_assistant/views/login/login_view.dart';
+export 'package:student_personal_assistant/views/login/password_reset_email_view.dart';
+export 'package:student_personal_assistant/views/quiz/quiztest_view.dart';
+export 'package:student_personal_assistant/views/quiz/select_subject_topics_view.dart';
+export 'package:student_personal_assistant/views/recommended_topics_view.dart';
+export 'package:student_personal_assistant/views/register/create_an_account_view.dart';
+export 'package:student_personal_assistant/views/register/verify_email_view.dart';
+export 'package:student_personal_assistant/views/revise/revise_view.dart';
+export 'package:student_personal_assistant/views/revise/studied_today_view.dart';
+export 'package:student_personal_assistant/views/setup/set_weekly_timetable_view.dart';
+export 'package:student_personal_assistant/views/setup/upload_course_outlines_view.dart';
+export 'package:student_personal_assistant/views/study/recommended_subjects_view.dart';
+export 'package:student_personal_assistant/views/study/study_view.dart';
+export 'package:student_personal_assistant/views/welcome_view.dart';

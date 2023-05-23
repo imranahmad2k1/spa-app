@@ -40,7 +40,7 @@ class QuizTestView extends StatelessWidget {
           CustomButton(
               buttonText: 'Start quiz or test preparation',
               onPressed: () {
-                Navigator.of(context).pushNamed(recommendRoute);
+                Navigator.of(context).pushNamed(selectSubjectTopicsRoute);
               }),
           const SizedBox(
             height: 35,

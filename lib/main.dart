@@ -1,21 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:student_personal_assistant/constants/colors.dart';
-import 'package:student_personal_assistant/views/homepage_view.dart';
-import 'package:student_personal_assistant/views/login/forgot_password_view.dart';
-import 'package:student_personal_assistant/views/login/login_view.dart';
-import 'package:student_personal_assistant/views/login/password_reset_email_view.dart';
-import 'package:student_personal_assistant/views/quiz/quiztest_view.dart';
-import 'package:student_personal_assistant/views/recommended_topics_view.dart';
-import 'package:student_personal_assistant/views/register/create_an_account_view.dart';
-import 'package:student_personal_assistant/views/register/verify_email_view.dart';
-import 'package:student_personal_assistant/views/revise/revise_view.dart';
-import 'package:student_personal_assistant/views/revise/studied_today_view.dart';
-import 'package:student_personal_assistant/views/setup/set_weekly_timetable_view.dart';
-import 'package:student_personal_assistant/views/setup/upload_course_outlines_view.dart';
-import 'package:student_personal_assistant/views/study/recommended_subjects_view.dart';
-import 'package:student_personal_assistant/views/study/study_view.dart';
-import 'package:student_personal_assistant/views/welcome_view.dart';
 import 'package:student_personal_assistant/constants/routes.dart';
+import 'package:student_personal_assistant/views/views_import.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -32,11 +18,12 @@ void main() {
       uploadOutlinesRoute: (context) => const UploadCourseOutlinesView(),
       homepageRoute: (context) => const HomepageView(),
       reviseRoute: (context) => const ReviseView(),
-      studiedTodayRoute: (context) => const StudiedTodayView(),
+      studiedTodayRoute: (context) => const SelectSubjectTopicsView(),
       recommendRoute: (context) => const RecommendedTopicsView(),
       studyRoute: (context) => const StudyView(),
       recommendSubjectsRoute: (context) => const RecommendedSubjectsView(),
       quizRoute: (context) => const QuizTestView(),
+      selectSubjectTopicsRoute: (context) => const SelectSubjectTopicsView(),
     },
     theme: ThemeData(
       colorScheme: ColorScheme.fromSeed(seedColor: const Color(primaryColor)),
