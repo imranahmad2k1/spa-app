@@ -40,7 +40,7 @@ class ReviseView extends StatelessWidget {
           CustomButton(
               buttonText: 'Let\'s start Revision',
               onPressed: () {
-                Navigator.of(context).pushNamed(recommendRoute);
+                Navigator.of(context).pushNamed(studiedTodayRoute);
               }),
           const SizedBox(
             height: 35,
