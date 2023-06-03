@@ -27,7 +27,8 @@ class _HomepageViewState extends State<HomepageView> {
             setState(() {
               currentPageIndex = index;
             });
-          }, selectedIndex: currentPageIndex,
+          },
+          selectedIndex: currentPageIndex,
         ),
         body: <Widget>[
           Container(
@@ -36,7 +37,7 @@ class _HomepageViewState extends State<HomepageView> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: 91),
-                CustomHeading(text: "Welcome,\nUsername"),
+                CustomHeading(text: "Welcome,\nImran!"),
                 SizedBox(height: 15),
                 CustomText(
                     text:

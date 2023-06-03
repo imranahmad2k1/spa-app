@@ -25,7 +25,7 @@ class ReviseView extends StatelessWidget {
           ),
           const CustomText(
             text:
-                'Review what you have studied today \nand set understanding level',
+                'Review what you have studied today \nand set your understanding level in the topics you have studied',
             alignLeft: false,
           ),
           const SizedBox(

@@ -3,7 +3,7 @@ import 'package:student_personal_assistant/components/custom_button.dart';
 import 'package:student_personal_assistant/components/custom_divider.dart';
 import 'package:student_personal_assistant/components/custom_heading.dart';
 import 'package:student_personal_assistant/components/custom_text.dart';
-import 'package:student_personal_assistant/components/custom_topic_dropdown.dart';
+import 'package:student_personal_assistant/components/custom_quiztopic_dropdown.dart';
 import 'package:student_personal_assistant/constants/colors.dart';
 import 'package:student_personal_assistant/constants/routes.dart';
 
@@ -98,9 +98,9 @@ class _SelectSubjectTopicsViewState extends State<SelectSubjectTopicsView> {
               ),
             ),
             const SizedBox(height: 9),
-            const CustomTopicDropdown(),
-            const CustomTopicDropdown(),
-            const CustomTopicDropdown(),
+            const CustomQuizTopicDropdown(), //Enter subtopic should be dropdown
+            const CustomQuizTopicDropdown(),
+            const CustomQuizTopicDropdown(),
             const SizedBox(height: 140),
             Center(
               child: CustomButton(

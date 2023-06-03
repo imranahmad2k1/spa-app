@@ -18,7 +18,7 @@ void main() {
       uploadOutlinesRoute: (context) => const UploadCourseOutlinesView(),
       homepageRoute: (context) => const HomepageView(),
       reviseRoute: (context) => const ReviseView(),
-      studiedTodayRoute: (context) => const SelectSubjectTopicsView(),
+      studiedTodayRoute: (context) => const StudiedTodayView(),
       recommendRoute: (context) => const RecommendedTopicsView(),
       studyRoute: (context) => const StudyView(),
       recommendSubjectsRoute: (context) => const RecommendedSubjectsView(),
