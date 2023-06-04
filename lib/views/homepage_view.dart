@@ -4,6 +4,7 @@ import 'package:student_personal_assistant/components/custom_heading.dart';
 import 'package:student_personal_assistant/components/custom_module_info.dart';
 import 'package:student_personal_assistant/components/custom_navbar.dart';
 import 'package:student_personal_assistant/components/custom_text.dart';
+import 'package:student_personal_assistant/components/my_drawer.dart';
 import 'package:student_personal_assistant/constants/colors.dart';
 import 'package:student_personal_assistant/custom_icons_icons.dart';
 import 'package:student_personal_assistant/views/quiz/quiztest_view.dart';
@@ -22,6 +23,8 @@ class _HomepageViewState extends State<HomepageView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        drawer: const MyDrawer(),
+        appBar: AppBar(),
         bottomNavigationBar: CustomNavBar(
           onDestinationSelected: (index) {
             setState(() {
@@ -36,7 +39,7 @@ class _HomepageViewState extends State<HomepageView> {
             child: const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 91),
+                // SizedBox(height: 91),
                 CustomHeading(text: "Welcome,\nImran!"),
                 SizedBox(height: 15),
                 CustomText(

@@ -15,15 +15,23 @@ class SetWeeklyTimetableView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.of(context)
+                    .pushNamedAndRemoveUntil(loginRoute, (_) => false);
+              },
+              icon: const Icon(Icons.logout))
+        ],
+      ),
       body: Center(
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 23),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(
-                height: 91,
-              ),
+              // const SizedBox(height: 91),
               const CustomHeading(
                 text: 'Set your Weekly \nTimetable',
               ),

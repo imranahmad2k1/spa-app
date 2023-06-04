@@ -107,7 +107,8 @@ class _SelectSubjectTopicsViewState extends State<SelectSubjectTopicsView> {
               child: CustomButton(
                 buttonText: "Recommend Topics",
                 onPressed: () {
-                  Navigator.of(context).pushNamed(recommendRoute);
+                  Navigator.of(context)
+                      .pushNamedAndRemoveUntil(recommendRoute, (_) => false);
                 },
               ),
             ),

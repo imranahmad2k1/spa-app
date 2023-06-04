@@ -6,7 +6,7 @@ import 'package:student_personal_assistant/views/views_import.dart';
 void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    title: 'Flutter Demo',
+    title: 'SPA',
     routes: {
       initialRoute: (context) => const WelcomeView(),
       loginRoute: (context) => const LoginView(),
@@ -27,6 +27,8 @@ void main() {
     },
     theme: ThemeData(
       colorScheme: ColorScheme.fromSeed(seedColor: const Color(primaryColor)),
+      scaffoldBackgroundColor: const Color(0xFFFFFFFF),
+      appBarTheme: const AppBarTheme(surfaceTintColor: Color(0xFFFFFFFF)),
       useMaterial3: true,
     ),
     home: const WelcomeView(),
