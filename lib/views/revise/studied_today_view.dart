@@ -64,8 +64,8 @@ class _StudiedTodayViewState extends State<StudiedTodayView> {
               ],
             ),
             const CustomTopicDropdown(),
-            const CustomTopicDropdown(),
-            const CustomTopicDropdown(),
+            // const CustomTopicDropdown(),
+            // const CustomTopicDropdown(),
             const SizedBox(height: 15),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

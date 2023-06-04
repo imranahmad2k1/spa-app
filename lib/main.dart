@@ -28,7 +28,9 @@ void main() {
     theme: ThemeData(
       colorScheme: ColorScheme.fromSeed(seedColor: const Color(primaryColor)),
       scaffoldBackgroundColor: const Color(0xFFFFFFFF),
-      appBarTheme: const AppBarTheme(surfaceTintColor: Color(0xFFFFFFFF)),
+      appBarTheme: const AppBarTheme(
+          backgroundColor: Color(0xFFFFFFFF),
+          surfaceTintColor: Color(0xFFFFFFFF)),
       useMaterial3: true,
     ),
     home: const WelcomeView(),

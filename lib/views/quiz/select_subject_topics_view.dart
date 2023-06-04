@@ -100,8 +100,8 @@ class _SelectSubjectTopicsViewState extends State<SelectSubjectTopicsView> {
             ),
             const SizedBox(height: 9),
             const CustomQuizTopicDropdown(), //Enter subtopic should be dropdown
-            const CustomQuizTopicDropdown(),
-            const CustomQuizTopicDropdown(),
+            // const CustomQuizTopicDropdown(),
+            // const CustomQuizTopicDropdown(),
             const SizedBox(height: 110),
             Center(
               child: CustomButton(

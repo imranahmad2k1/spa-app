@@ -14,9 +14,9 @@ class QuizTestView extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const SizedBox(
-            height: 121,
-          ),
+          // const SizedBox(
+          //   height: 121,
+          // ),
           const CustomHeading(
             text: 'Quiz/Test',
           ),
