@@ -228,7 +228,7 @@ class SetWeeklyTimetableView extends StatelessWidget {
                 child: CustomButton(
                   buttonText: "All set",
                   onPressed: (() {
-                    Navigator.of(context).pushNamed(homepageRoute);
+                    Navigator.of(context).pushNamed(uploadOutlinesRoute);
                   }),
                 ),
               ),

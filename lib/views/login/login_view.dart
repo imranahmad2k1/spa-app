@@ -13,13 +13,14 @@ class LoginView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: Center(
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 21),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 118),
+              // const SizedBox(height: 118),
               const CustomHeading(text: "Log in"),
               const SizedBox(height: 18),
               const CustomText(
@@ -52,7 +53,8 @@ class LoginView extends StatelessWidget {
                     CustomButton(
                         buttonText: "Log in",
                         onPressed: () {
-                          Navigator.of(context).pushNamed(setupRoute);
+                          Navigator.of(context).pushNamedAndRemoveUntil(
+                              setupRoute, (_) => false);
                         }),
                     CustomTextButton(
                         text: "Forgot Password?",
@@ -65,7 +67,8 @@ class LoginView extends StatelessWidget {
                     CustomButton(
                       buttonText: "Create a new account",
                       onPressed: () {
-                        Navigator.of(context).pushNamed(registerRoute);
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                            registerRoute, (_) => false);
                       },
                       isSecondary: true,
                     )

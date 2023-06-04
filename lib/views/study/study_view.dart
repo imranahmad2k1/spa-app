@@ -64,7 +64,8 @@ class StudyView extends StatelessWidget {
           CustomButton(
               buttonText: "Start studying overall",
               onPressed: () {
-                Navigator.of(context).pushNamed(recommendRoute);
+                Navigator.of(context)
+                    .pushNamedAndRemoveUntil(recommendRoute, (_) => false);
               }),
         ],
       ),

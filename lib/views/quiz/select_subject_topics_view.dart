@@ -30,12 +30,13 @@ class _SelectSubjectTopicsViewState extends State<SelectSubjectTopicsView> {
       'Subject 5',
     ];
     return Scaffold(
+      appBar: AppBar(),
       body: Container(
         margin: const EdgeInsets.symmetric(horizontal: 23),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 83),
+            // const SizedBox(height: 83),
             const CustomHeading(text: "Select subject and\ntopics"),
             const SizedBox(height: 15),
             const CustomText(
@@ -101,7 +102,7 @@ class _SelectSubjectTopicsViewState extends State<SelectSubjectTopicsView> {
             const CustomQuizTopicDropdown(), //Enter subtopic should be dropdown
             const CustomQuizTopicDropdown(),
             const CustomQuizTopicDropdown(),
-            const SizedBox(height: 140),
+            const SizedBox(height: 110),
             Center(
               child: CustomButton(
                 buttonText: "Recommend Topics",

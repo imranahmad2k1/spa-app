@@ -22,12 +22,13 @@ class _StudiedTodayViewState extends State<StudiedTodayView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: Container(
         margin: const EdgeInsets.symmetric(horizontal: 23),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 83),
+            // const SizedBox(height: 83),
             const CustomHeading(
                 text: "What topics did you\nstudy in your class\ntoday?"),
             const SizedBox(height: 20),
@@ -155,12 +156,13 @@ class _StudiedTodayViewState extends State<StudiedTodayView> {
                 ),
               ],
             ),
-            const SizedBox(height: 139),
+            const SizedBox(height: 99),
             Center(
               child: CustomButton(
                 buttonText: "Next",
                 onPressed: () {
-                  Navigator.of(context).pushNamed(recommendRoute);
+                  Navigator.of(context)
+                      .pushNamedAndRemoveUntil(recommendRoute, (_) => false);
                 },
               ),
             ),

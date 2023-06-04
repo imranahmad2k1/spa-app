@@ -12,12 +12,13 @@ class CreateAnAccountView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: Container(
         margin: const EdgeInsets.symmetric(horizontal: 21),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const SizedBox(height: 118),
+            // const SizedBox(height: 118),
             const CustomHeading(text: "Create an account"),
             const SizedBox(height: 18),
             const CustomText(
@@ -43,12 +44,21 @@ class CreateAnAccountView extends StatelessWidget {
             const CustomTextField(labelText: "Email address"),
             const SizedBox(height: 22),
             const CustomTextField(labelText: "New password"),
-            const SizedBox(height: 208),
+            const SizedBox(height: 22),
             CustomButton(
               buttonText: "Register",
               onPressed: () {
                 Navigator.of(context).pushNamed(verifyEmailRoute);
               },
+            ),
+            const SizedBox(height: 169),
+            CustomButton(
+              buttonText: "Already have an account? Log in",
+              onPressed: () {
+                Navigator.of(context)
+                    .pushNamedAndRemoveUntil(loginRoute, (_) => false);
+              },
+              isSecondary: true,
             ),
           ],
         ),

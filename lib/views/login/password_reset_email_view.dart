@@ -3,6 +3,7 @@ import 'package:student_personal_assistant/components/custom_button.dart';
 import 'package:student_personal_assistant/components/custom_heading.dart';
 import 'package:student_personal_assistant/components/custom_text.dart';
 import 'package:student_personal_assistant/components/custom_text_button.dart';
+import 'package:student_personal_assistant/constants/routes.dart';
 
 class PasswordResetEmailView extends StatelessWidget {
   const PasswordResetEmailView({super.key});
@@ -10,13 +11,12 @@ class PasswordResetEmailView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: Center(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const SizedBox(
-              height: 86,
-            ),
+            // const SizedBox(height: 86),
             Image.asset(
               'assets/images/fingerprint.png',
               // width: , height: ,
@@ -35,8 +35,14 @@ class PasswordResetEmailView extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             CustomTextButton(text: "Change email", onPressed: () {}),
-            const SizedBox(height: 156),
-            CustomButton(buttonText: "Go back to Login page", onPressed: () {}),
+            const SizedBox(height: 126),
+            CustomButton(
+              buttonText: "Go back to Login page",
+              onPressed: () {
+                Navigator.of(context)
+                    .pushNamedAndRemoveUntil(loginRoute, (_) => false);
+              },
+            ),
           ],
         ),
       ),

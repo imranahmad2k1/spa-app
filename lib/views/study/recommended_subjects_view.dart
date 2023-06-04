@@ -12,6 +12,7 @@ class RecommendedSubjectsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: Container(
         margin: const EdgeInsets.symmetric(horizontal: 23),
         child: Column(
@@ -20,7 +21,7 @@ class RecommendedSubjectsView extends StatelessWidget {
             const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 83),
+                // SizedBox(height: 83),
                 CustomHeading(text: "Recommended\nSubjects"),
                 SizedBox(height: 15),
                 CustomText(
@@ -42,7 +43,8 @@ class RecommendedSubjectsView extends StatelessWidget {
                   child: CustomButton(
                       buttonText: "Next",
                       onPressed: () {
-                        Navigator.of(context).pushNamed(recommendRoute);
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                            recommendRoute, (_) => false);
                       }),
                 ),
                 // SizedBox(height: 200)

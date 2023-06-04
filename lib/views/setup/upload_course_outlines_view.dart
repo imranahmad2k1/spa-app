@@ -4,6 +4,7 @@ import 'package:student_personal_assistant/components/custom_divider.dart';
 import 'package:student_personal_assistant/components/custom_heading.dart';
 import 'package:student_personal_assistant/components/custom_text.dart';
 import 'package:student_personal_assistant/components/outlines/dropdown_outline.dart';
+import 'package:student_personal_assistant/constants/routes.dart';
 
 class UploadCourseOutlinesView extends StatelessWidget {
   const UploadCourseOutlinesView({super.key});
@@ -11,15 +12,16 @@ class UploadCourseOutlinesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: Center(
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 23),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(
-                height: 91,
-              ),
+              // const SizedBox(
+              //   height: 91,
+              // ),
               const CustomHeading(
                 text: 'Upload your Course\nOutlines',
               ),
@@ -49,10 +51,14 @@ class UploadCourseOutlinesView extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
+              const SizedBox(height: 35),
               Center(
                 child: CustomButton(
                   buttonText: "Set outlines",
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                        homepageRoute, (route) => false);
+                  },
                 ),
               ),
             ],
