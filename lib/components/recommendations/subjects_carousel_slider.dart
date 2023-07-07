@@ -28,7 +28,7 @@ class SubjectsCarouselSliderComponent extends StatelessWidget {
               children: [
                 Flexible(
                   child: Text(
-                    '$item',
+                    item,
                     style: const TextStyle(
                         color: Colors.black,
                         fontSize: 12.0,

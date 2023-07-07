@@ -1,29 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:student_personal_assistant/components/custom_heading.dart';
 import 'package:student_personal_assistant/constants/routes.dart';
+import 'package:student_personal_assistant/services/auth/auth_service.dart';
+import 'package:student_personal_assistant/utilities/show_logout_dialog.dart';
 
 class MyDrawer extends StatelessWidget {
-  const MyDrawer({super.key});
+  final String firstName;
+  const MyDrawer({super.key, required this.firstName});
 
   @override
   Widget build(BuildContext context) {
+    String displayName;
+    if (firstName.isEmpty) {
+      displayName = "User";
+    } else {
+      displayName = firstName;
+    }
     return Drawer(
       child: ListView(
         children: [
-          const SizedBox(
+          SizedBox(
             height: 165,
             child: DrawerHeader(
-              decoration: BoxDecoration(),
+              decoration: const BoxDecoration(),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CircleAvatar(
+                  const CircleAvatar(
                     radius: 25.0,
                     backgroundImage: AssetImage('assets/images/avatar.png'),
                     backgroundColor: Colors.transparent,
                   ),
-                  SizedBox(height: 20),
-                  CustomHeading(text: 'Imran'),
+                  const SizedBox(height: 20),
+                  CustomHeading(text: displayName),
                 ],
               ),
             ),
@@ -38,9 +47,17 @@ class MyDrawer extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.logout),
             title: const Text('Sign out'),
-            onTap: () {
-              Navigator.of(context)
-                  .pushNamedAndRemoveUntil(loginRoute, (route) => false);
+            onTap: () async {
+              final shouldLogout = await showLogOutDialog(context);
+              if (shouldLogout) {
+                await AuthService.firebase().logOut();
+                if (context.mounted) {
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                    loginRoute,
+                    (_) => false,
+                  );
+                }
+              }
             },
           ),
         ],

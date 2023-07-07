@@ -13,57 +13,61 @@ class UploadCourseOutlinesView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Center(
-        child: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 23),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // const SizedBox(
-              //   height: 91,
-              // ),
-              const CustomHeading(
-                text: 'Upload your Course\nOutlines',
+      body: ListView(
+        children: [
+          Center(
+            child: Container(
+              margin: const EdgeInsets.symmetric(horizontal: 23),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // const SizedBox(
+                  //   height: 91,
+                  // ),
+                  const CustomHeading(
+                    text: 'Upload your Course\nOutlines',
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  const CustomText(
+                    text:
+                        "Upload or select your course outlines\nform the dropdown to personalize\nyour study recommendations",
+                    alignLeft: true,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const CustomDivider(
+                    alignLeft: true,
+                  ),
+                  const SizedBox(
+                    height: 26,
+                  ),
+                  const CustomOutline(),
+                  const CustomOutline(),
+                  const CustomOutline(),
+                  const CustomOutline(),
+                  const CustomOutline(),
+                  const CustomOutline(),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  const SizedBox(height: 35),
+                  Center(
+                    child: CustomButton(
+                      buttonText: "Set outlines",
+                      onPressed: () {
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                            homepageRoute, (route) => false);
+                      },
+                    ),
+                  ),
+                ],
               ),
-              const SizedBox(
-                height: 15,
-              ),
-              const CustomText(
-                text:
-                    "Upload or select your course outlines\nform the dropdown to personalize\nyour study recommendations",
-                alignLeft: true,
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              const CustomDivider(
-                alignLeft: true,
-              ),
-              const SizedBox(
-                height: 26,
-              ),
-              const CustomOutline(),
-              const CustomOutline(),
-              const CustomOutline(),
-              const CustomOutline(),
-              const CustomOutline(),
-              const CustomOutline(),
-              const SizedBox(
-                height: 10,
-              ),
-              const SizedBox(height: 35),
-              Center(
-                child: CustomButton(
-                  buttonText: "Set outlines",
-                  onPressed: () {
-                    Navigator.of(context).pushNamedAndRemoveUntil(
-                        homepageRoute, (route) => false);
-                  },
-                ),
-              ),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }

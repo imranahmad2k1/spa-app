@@ -13,42 +13,46 @@ class RecommendedTopicsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 23),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            const Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+      body: ListView(
+        children: [
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 23),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                // SizedBox(height: 83),
-                CustomHeading(text: "Recommended\nTopics"),
-                SizedBox(height: 15),
-                CustomText(
-                  text:
-                      "Here are your recommended topics\nbased on your weaknesses:",
-                  alignLeft: true,
+                const Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // SizedBox(height: 83),
+                    CustomHeading(text: "Recommended\nTopics"),
+                    SizedBox(height: 15),
+                    CustomText(
+                      text:
+                          "Here are your recommended topics\nbased on your weaknesses:",
+                      alignLeft: true,
+                    ),
+                    SizedBox(height: 20),
+                    CustomDivider(alignLeft: true),
+                    SizedBox(height: 35),
+                  ],
                 ),
-                SizedBox(height: 20),
-                CustomDivider(alignLeft: true),
-                SizedBox(height: 35),
+                Column(
+                  children: [
+                    //CAROUSEL HERE
+                    CarouselSliderComponent(),
+                    const SizedBox(height: 35),
+                    Center(
+                      child: EndStudyButton(onPressed: () {
+                        Navigator.of(context).pushNamed(homepageRoute);
+                      }),
+                    ),
+                    // SizedBox(height: 200)
+                  ],
+                )
               ],
             ),
-            Column(
-              children: [
-                //CAROUSEL HERE
-                CarouselSliderComponent(),
-                const SizedBox(height: 35),
-                Center(
-                  child: EndStudyButton(onPressed: () {
-                    Navigator.of(context).pushNamed(homepageRoute);
-                  }),
-                ),
-                // SizedBox(height: 200)
-              ],
-            )
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

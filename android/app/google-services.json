@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "308814908368",
+    "project_id": "spa-flutter-app-ed4a8",
+    "storage_bucket": "spa-flutter-app-ed4a8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:308814908368:android:57e55c0b0db45eebc5c7d5",
+        "android_client_info": {
+          "package_name": "com.studentpersonalassistant.student_personal_assistant"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "308814908368-85d8endgheu1f45b0qlea1bbkv982l0c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2amOzPwhJDnPcJOqHTJexbhEDtiv4bM0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "308814908368-85d8endgheu1f45b0qlea1bbkv982l0c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

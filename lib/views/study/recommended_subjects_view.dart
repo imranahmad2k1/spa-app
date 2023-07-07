@@ -13,45 +13,49 @@ class RecommendedSubjectsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 23),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            const Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+      body: ListView(
+        children: [
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 23),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                // SizedBox(height: 83),
-                CustomHeading(text: "Recommended\nSubjects"),
-                SizedBox(height: 15),
-                CustomText(
-                  text:
-                      "All subjects are recommended based on your\nweaknesses.\nChoose subject of your interest",
-                  alignLeft: true,
+                const Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // SizedBox(height: 83),
+                    CustomHeading(text: "Recommended\nSubjects"),
+                    SizedBox(height: 15),
+                    CustomText(
+                      text:
+                          "All subjects are recommended based on your\nweaknesses.\nChoose subject of your interest",
+                      alignLeft: true,
+                    ),
+                    SizedBox(height: 20),
+                    CustomDivider(alignLeft: true),
+                    SizedBox(height: 35),
+                  ],
                 ),
-                SizedBox(height: 20),
-                CustomDivider(alignLeft: true),
-                SizedBox(height: 35),
+                Column(
+                  children: [
+                    //CAROUSEL HERE
+                    SubjectsCarouselSliderComponent(),
+                    const SizedBox(height: 35),
+                    Center(
+                      child: CustomButton(
+                          buttonText: "Next",
+                          onPressed: () {
+                            Navigator.of(context).pushNamedAndRemoveUntil(
+                                recommendRoute, (_) => false);
+                          }),
+                    ),
+                    // SizedBox(height: 200)
+                  ],
+                )
               ],
             ),
-            Column(
-              children: [
-                //CAROUSEL HERE
-                SubjectsCarouselSliderComponent(),
-                const SizedBox(height: 35),
-                Center(
-                  child: CustomButton(
-                      buttonText: "Next",
-                      onPressed: () {
-                        Navigator.of(context).pushNamedAndRemoveUntil(
-                            recommendRoute, (_) => false);
-                      }),
-                ),
-                // SizedBox(height: 200)
-              ],
-            )
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

@@ -23,151 +23,155 @@ class _StudiedTodayViewState extends State<StudiedTodayView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 23),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // const SizedBox(height: 83),
-            const CustomHeading(
-                text: "What topics did you\nstudy in your class\ntoday?"),
-            const SizedBox(height: 20),
-            const CustomDivider(alignLeft: true),
-            const SizedBox(height: 14),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      body: ListView(
+        children: [
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 23),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  "Data Structures & Algorithms",
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                  ),
+                // const SizedBox(height: 83),
+                const CustomHeading(
+                    text: "What topics did you\nstudy in your class\ntoday?"),
+                const SizedBox(height: 20),
+                const CustomDivider(alignLeft: true),
+                const SizedBox(height: 14),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      "Data Structures & Algorithms",
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Transform.scale(
+                      scale: .8,
+                      child: Switch(
+                        activeColor: const Color(primaryColor),
+                        inactiveThumbColor: Colors.red,
+                        inactiveTrackColor: const Color(secondaryColor),
+                        trackOutlineColor:
+                            const MaterialStatePropertyAll(Color(0x00000000)),
+                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        value: _value1,
+                        onChanged: (value) {
+                          setState(() {
+                            _value1 = value;
+                          });
+                        },
+                      ),
+                    ),
+                  ],
                 ),
-                Transform.scale(
-                  scale: .8,
-                  child: Switch(
-                    activeColor: const Color(primaryColor),
-                    inactiveThumbColor: Colors.red,
-                    inactiveTrackColor: const Color(secondaryColor),
-                    trackOutlineColor:
-                        const MaterialStatePropertyAll(Color(0x00000000)),
-                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    value: _value1,
-                    onChanged: (value) {
-                      setState(() {
-                        _value1 = value;
-                      });
+                const CustomTopicDropdown(),
+                // const CustomTopicDropdown(),
+                // const CustomTopicDropdown(),
+                const SizedBox(height: 15),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      "Intro. to Software Engineering",
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Transform.scale(
+                      scale: .8,
+                      child: Switch(
+                        activeColor: const Color(primaryColor),
+                        inactiveThumbColor: Colors.red,
+                        inactiveTrackColor: const Color(secondaryColor),
+                        trackOutlineColor:
+                            const MaterialStatePropertyAll(Color(0x00000000)),
+                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        value: _value2,
+                        onChanged: (value) {
+                          setState(() {
+                            _value2 = value;
+                          });
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 15),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      "Discrete Structure",
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Transform.scale(
+                      scale: .8,
+                      child: Switch(
+                        activeColor: const Color(primaryColor),
+                        inactiveThumbColor: Colors.red,
+                        inactiveTrackColor: const Color(secondaryColor),
+                        trackOutlineColor:
+                            const MaterialStatePropertyAll(Color(0x00000000)),
+                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        value: _value3,
+                        onChanged: (value) {
+                          setState(() {
+                            _value3 = value;
+                          });
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 15),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      "Intro to DBMS",
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Transform.scale(
+                      scale: .8,
+                      child: Switch(
+                        activeColor: const Color(primaryColor),
+                        inactiveThumbColor: Colors.red,
+                        inactiveTrackColor: const Color(secondaryColor),
+                        trackOutlineColor:
+                            const MaterialStatePropertyAll(Color(0x00000000)),
+                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        value: _value4,
+                        onChanged: (value) {
+                          setState(() {
+                            _value4 = value;
+                          });
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 99),
+                Center(
+                  child: CustomButton(
+                    buttonText: "Next",
+                    onPressed: () {
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                          recommendRoute, (_) => false);
                     },
                   ),
                 ),
               ],
             ),
-            const CustomTopicDropdown(),
-            // const CustomTopicDropdown(),
-            // const CustomTopicDropdown(),
-            const SizedBox(height: 15),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text(
-                  "Intro. to Software Engineering",
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Transform.scale(
-                  scale: .8,
-                  child: Switch(
-                    activeColor: const Color(primaryColor),
-                    inactiveThumbColor: Colors.red,
-                    inactiveTrackColor: const Color(secondaryColor),
-                    trackOutlineColor:
-                        const MaterialStatePropertyAll(Color(0x00000000)),
-                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    value: _value2,
-                    onChanged: (value) {
-                      setState(() {
-                        _value2 = value;
-                      });
-                    },
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 15),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text(
-                  "Discrete Structure",
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Transform.scale(
-                  scale: .8,
-                  child: Switch(
-                    activeColor: const Color(primaryColor),
-                    inactiveThumbColor: Colors.red,
-                    inactiveTrackColor: const Color(secondaryColor),
-                    trackOutlineColor:
-                        const MaterialStatePropertyAll(Color(0x00000000)),
-                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    value: _value3,
-                    onChanged: (value) {
-                      setState(() {
-                        _value3 = value;
-                      });
-                    },
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 15),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text(
-                  "Intro to DBMS",
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Transform.scale(
-                  scale: .8,
-                  child: Switch(
-                    activeColor: const Color(primaryColor),
-                    inactiveThumbColor: Colors.red,
-                    inactiveTrackColor: const Color(secondaryColor),
-                    trackOutlineColor:
-                        const MaterialStatePropertyAll(Color(0x00000000)),
-                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    value: _value4,
-                    onChanged: (value) {
-                      setState(() {
-                        _value4 = value;
-                      });
-                    },
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 99),
-            Center(
-              child: CustomButton(
-                buttonText: "Next",
-                onPressed: () {
-                  Navigator.of(context)
-                      .pushNamedAndRemoveUntil(recommendRoute, (_) => false);
-                },
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

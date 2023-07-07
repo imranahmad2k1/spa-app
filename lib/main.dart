@@ -11,7 +11,9 @@ void main() {
       initialRoute: (context) => const WelcomeView(),
       loginRoute: (context) => const LoginView(),
       forgotPassowrdRoute: (context) => const ForgotPasswordView(),
-      resetPassworRoute: (context) => const PasswordResetEmailView(),
+      resetPassworRoute: (context) => const PasswordResetEmailView(
+            email: '',
+          ),
       registerRoute: (context) => const CreateAnAccountView(),
       verifyEmailRoute: (context) => const VerifyEmailView(),
       setupRoute: (context) => const SetWeeklyTimetableView(),
