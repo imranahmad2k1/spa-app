@@ -33,7 +33,7 @@ class FirebaseAuthProvider implements AuthProvider {
         throw UserNotLoggedInAuthException();
       }
     } on FirebaseAuthException catch (e) {
-      // LoadingScreen().hide();
+      LoadingScreen().hide();
       if (e.code == 'weak-password') {
         throw WeakPasswordAuthException();
       } else if (e.code == 'email-already-in-use') {
@@ -123,5 +123,28 @@ class FirebaseAuthProvider implements AuthProvider {
   @override
   Future<void> resetPassword(String email) async {
     await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+  }
+
+  @override
+  Future<void> updateEmail(String email) async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      try {
+        await user.updateEmail(email);
+      } on FirebaseAuthException catch (e) {
+        LoadingScreen().hide();
+        if (e.code == 'user-not-found') {
+          throw UserNotFoundAuthException();
+        } else if (e.code == 'invalid-email') {
+          throw InvalidEmailAuthException();
+        } else if (e.code == 'email-already-in-use') {
+          throw EmailAlreadyInUseAuthException();
+        } else {
+          throw GenericAuthException();
+        }
+      }
+    } else {
+      throw UserNotFoundAuthException();
+    }
   }
 }

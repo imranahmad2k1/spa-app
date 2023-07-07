@@ -10,66 +10,68 @@ class WelcomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          const SizedBox(height: 115),
-          Image.asset(
-            'assets/images/welcome.png',
-            width: 265,
-            height: 219,
-          ),
-          const CustomDivider(),
-          const SizedBox(
-            height: 40,
-          ),
-          // CarouselSlider(
-          //   options: CarouselOptions(height: 110),
-          //   items: [
-          //     "Develop discipline, \nGenerate study plan, \nand ace your exams",
-          //     "Let's make your study sessions more effective and efficient!",
-          //     "Enhance your understanding and work on knowledge gaps",
-          //   ].map((i) {
-          //     return Builder(
-          //       builder: (BuildContext context) {
-          //         return SizedBox(
-          //           child: Text(
-          //             i,
-          //             textAlign: TextAlign.center,
-          //             style: const TextStyle(
-          //               fontSize: 25,
-          //             ),
-          //           ),
-          //         );
-          //       },
-          //     );
-          //   }).toList(),
-          // ),
-          const Text(
-            "Develop discipline, \nGenerate study plan, \nand ace your exams",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 25,
+      body: ListView(children: [
+        Column(
+          children: [
+            const SizedBox(height: 85),
+            Image.asset(
+              'assets/images/welcome.png',
+              width: 265,
+              height: 219,
             ),
-          ),
-          const SizedBox(
-            height: 110,
-          ),
-          CustomButton(
-            buttonText: "Create new account",
-            onPressed: () {
-              Navigator.of(context).pushNamed(registerRoute);
-            },
-          ),
-          const SizedBox(height: 19),
-          CustomButton(
-            buttonText: "I already have an account",
-            onPressed: () {
-              Navigator.of(context).pushNamed(loginRoute);
-            },
-            isSecondary: true,
-          )
-        ],
-      ),
+            const CustomDivider(),
+            const SizedBox(
+              height: 40,
+            ),
+            // CarouselSlider(
+            //   options: CarouselOptions(height: 110),
+            //   items: [
+            //     "Develop discipline, \nGenerate study plan, \nand ace your exams",
+            //     "Let's make your study sessions more effective and efficient!",
+            //     "Enhance your understanding and work on knowledge gaps",
+            //   ].map((i) {
+            //     return Builder(
+            //       builder: (BuildContext context) {
+            //         return SizedBox(
+            //           child: Text(
+            //             i,
+            //             textAlign: TextAlign.center,
+            //             style: const TextStyle(
+            //               fontSize: 25,
+            //             ),
+            //           ),
+            //         );
+            //       },
+            //     );
+            //   }).toList(),
+            // ),
+            const Text(
+              "Develop discipline, \nGenerate study plan, \nand ace your exams",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 25,
+              ),
+            ),
+            const SizedBox(
+              height: 110,
+            ),
+            CustomButton(
+              buttonText: "Create new account",
+              onPressed: () {
+                Navigator.of(context).pushNamed(registerRoute);
+              },
+            ),
+            const SizedBox(height: 19),
+            CustomButton(
+              buttonText: "I already have an account",
+              onPressed: () {
+                Navigator.of(context).pushNamed(loginRoute);
+              },
+              isSecondary: true,
+            )
+          ],
+        ),
+      ]),
     );
   }
 }

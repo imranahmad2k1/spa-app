@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:student_personal_assistant/helpers/loading/loading_screen.dart';
 import 'package:student_personal_assistant/services/auth/auth_exceptions.dart';
 import 'package:student_personal_assistant/services/auth/auth_service.dart';
 import 'package:student_personal_assistant/components/custom_button.dart';
@@ -105,17 +106,21 @@ class _CreateAnAccountViewState extends State<CreateAnAccountView> {
                                 password.isEmpty) {
                               throw EmptyFieldAuthException();
                             }
+                            LoadingScreen().show(
+                                context: context,
+                                text: "Finalizing account creation...");
                             await AuthService.firebase().createUser(
                               email: email,
                               password: password,
                             );
 
                             //adding user's credentials to database
-                            await AuthService.firebase()
-                                .addUserCredentials(fName, lName, email);
+                            await AuthService.firebase().addUserCredentials(
+                                fName, lName, email.toLowerCase());
 
                             await AuthService.firebase()
                                 .sendEmailVerification();
+                            LoadingScreen().hide();
                             if (context.mounted) {
                               Navigator.of(context).pushNamed(verifyEmailRoute);
                             }
@@ -161,7 +166,7 @@ class _CreateAnAccountViewState extends State<CreateAnAccountView> {
                   );
 
                 default:
-                  return const CircularProgressIndicator();
+                  return const Center(child: CircularProgressIndicator());
               }
             },
           ),
