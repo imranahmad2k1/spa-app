@@ -7,11 +7,15 @@ import 'package:student_personal_assistant/components/outlines/dropdown_outline.
 import 'package:student_personal_assistant/constants/routes.dart';
 
 class UploadCourseOutlinesView extends StatelessWidget {
-  final List<String> subjectNames;
-  const UploadCourseOutlinesView({super.key, required this.subjectNames});
+  // final List<String> subjectNames;
+  const UploadCourseOutlinesView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final routes =
+        ModalRoute.of(context)!.settings.arguments as Map<String, List<String>>;
+    final subjectNames = routes["subjectNames"];
+
     return Scaffold(
       appBar: AppBar(),
       body: ListView(
@@ -47,18 +51,11 @@ class UploadCourseOutlinesView extends StatelessWidget {
                   ),
                   ListView.builder(
                     shrinkWrap: true,
-                    itemCount: subjectNames.length,
+                    itemCount: subjectNames!.length,
                     itemBuilder: (context, index) {
-                      print(subjectNames.length);
                       return const CustomOutline();
                     },
                   ),
-                  // const CustomOutline(),
-                  // const CustomOutline(),
-                  // const CustomOutline(),
-                  // const CustomOutline(),
-                  // const CustomOutline(),
-                  // const CustomOutline(),
                   const SizedBox(
                     height: 10,
                   ),

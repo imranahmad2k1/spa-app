@@ -7,11 +7,13 @@ import 'package:student_personal_assistant/constants/routes.dart';
 import 'package:student_personal_assistant/services/auth/auth_service.dart';
 
 class PasswordResetEmailView extends StatelessWidget {
-  final String email;
-  const PasswordResetEmailView({super.key, required this.email});
+  const PasswordResetEmailView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final routes =
+        ModalRoute.of(context)!.settings.arguments as Map<String, String>;
+    final email = routes["email"];
     return Scaffold(
       appBar: AppBar(),
       body: ListView(
@@ -28,14 +30,14 @@ class PasswordResetEmailView extends StatelessWidget {
                 const SizedBox(height: 31),
                 const CustomHeading(text: "We sent you an Email"),
                 const SizedBox(height: 18),
-                CustomText(
+                const CustomText(
                     text:
-                        "Password reset link has been sent to $email.\nPlease open the link in your email\nto reset your password."),
+                        "Password reset link has been sent to your email.\nPlease open the link in your email\nto reset your password."),
                 const SizedBox(height: 24),
                 CustomButton(
                   buttonText: "Send me password reset link again",
                   onPressed: () {
-                    AuthService.firebase().resetPassword(email);
+                    AuthService.firebase().resetPassword(email!);
                   },
                   isSecondary: true,
                 ),

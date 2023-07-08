@@ -54,7 +54,9 @@ class _SetWeeklyTimetableViewState extends State<SetWeeklyTimetableView> {
         return daysMapData;
       }
     } catch (e) {
-      print('Error fetching daysMap from Firestore: $e');
+      //[OPTIONAL TO-DO] can add error handling
+      //print('Error fetching daysMap from Firestore: $e');
+
       const daysMapData = null;
       return daysMapData;
     }
@@ -147,22 +149,18 @@ class _SetWeeklyTimetableViewState extends State<SetWeeklyTimetableView> {
                                 CustomCell(
                                   onPressed: "1",
                                   daysMap: daysMap,
-                                  subjectNames: subjectNames,
                                 ),
                                 CustomCell(
                                   onPressed: "2",
                                   daysMap: daysMap,
-                                  subjectNames: subjectNames,
                                 ),
                                 CustomCell(
                                   onPressed: "3",
                                   daysMap: daysMap,
-                                  subjectNames: subjectNames,
                                 ),
                                 CustomCell(
                                   onPressed: "4",
                                   daysMap: daysMap,
-                                  subjectNames: subjectNames,
                                 ),
                               ],
                             ),
@@ -188,22 +186,18 @@ class _SetWeeklyTimetableViewState extends State<SetWeeklyTimetableView> {
                                 CustomCell(
                                   onPressed: "5",
                                   daysMap: daysMap,
-                                  subjectNames: subjectNames,
                                 ),
                                 CustomCell(
                                   onPressed: "6",
                                   daysMap: daysMap,
-                                  subjectNames: subjectNames,
                                 ),
                                 CustomCell(
                                   onPressed: "7",
                                   daysMap: daysMap,
-                                  subjectNames: subjectNames,
                                 ),
                                 CustomCell(
                                   onPressed: "8",
                                   daysMap: daysMap,
-                                  subjectNames: subjectNames,
                                 ),
                               ],
                             ),
@@ -229,22 +223,18 @@ class _SetWeeklyTimetableViewState extends State<SetWeeklyTimetableView> {
                                 CustomCell(
                                   onPressed: "9",
                                   daysMap: daysMap,
-                                  subjectNames: subjectNames,
                                 ),
                                 CustomCell(
                                   onPressed: "10",
                                   daysMap: daysMap,
-                                  subjectNames: subjectNames,
                                 ),
                                 CustomCell(
                                   onPressed: "11",
                                   daysMap: daysMap,
-                                  subjectNames: subjectNames,
                                 ),
                                 CustomCell(
                                   onPressed: "12",
                                   daysMap: daysMap,
-                                  subjectNames: subjectNames,
                                 ),
                               ],
                             ),
@@ -270,22 +260,18 @@ class _SetWeeklyTimetableViewState extends State<SetWeeklyTimetableView> {
                                 CustomCell(
                                   onPressed: "13",
                                   daysMap: daysMap,
-                                  subjectNames: subjectNames,
                                 ),
                                 CustomCell(
                                   onPressed: "14",
                                   daysMap: daysMap,
-                                  subjectNames: subjectNames,
                                 ),
                                 CustomCell(
                                   onPressed: "15",
                                   daysMap: daysMap,
-                                  subjectNames: subjectNames,
                                 ),
                                 CustomCell(
                                   onPressed: "16",
                                   daysMap: daysMap,
-                                  subjectNames: subjectNames,
                                 ),
                               ],
                             ),
@@ -311,22 +297,18 @@ class _SetWeeklyTimetableViewState extends State<SetWeeklyTimetableView> {
                                 CustomCell(
                                   onPressed: "17",
                                   daysMap: daysMap,
-                                  subjectNames: subjectNames,
                                 ),
                                 CustomCell(
                                   onPressed: "18",
                                   daysMap: daysMap,
-                                  subjectNames: subjectNames,
                                 ),
                                 CustomCell(
                                   onPressed: "19",
                                   daysMap: daysMap,
-                                  subjectNames: subjectNames,
                                 ),
                                 CustomCell(
                                   onPressed: "20",
                                   daysMap: daysMap,
-                                  subjectNames: subjectNames,
                                 ),
                               ],
                             ),
@@ -352,22 +334,18 @@ class _SetWeeklyTimetableViewState extends State<SetWeeklyTimetableView> {
                                 CustomCell(
                                   onPressed: "21",
                                   daysMap: daysMap,
-                                  subjectNames: subjectNames,
                                 ),
                                 CustomCell(
                                   onPressed: "22",
                                   daysMap: daysMap,
-                                  subjectNames: subjectNames,
                                 ),
                                 CustomCell(
                                   onPressed: "23",
                                   daysMap: daysMap,
-                                  subjectNames: subjectNames,
                                 ),
                                 CustomCell(
                                   onPressed: "24",
                                   daysMap: daysMap,
-                                  subjectNames: subjectNames,
                                 ),
                               ],
                             ),
@@ -393,22 +371,18 @@ class _SetWeeklyTimetableViewState extends State<SetWeeklyTimetableView> {
                                 CustomCell(
                                   onPressed: "25",
                                   daysMap: daysMap,
-                                  subjectNames: subjectNames,
                                 ),
                                 CustomCell(
                                   onPressed: "26",
                                   daysMap: daysMap,
-                                  subjectNames: subjectNames,
                                 ),
                                 CustomCell(
                                   onPressed: "27",
                                   daysMap: daysMap,
-                                  subjectNames: subjectNames,
                                 ),
                                 CustomCell(
                                   onPressed: "28",
                                   daysMap: daysMap,
-                                  subjectNames: subjectNames,
                                 ),
                               ],
                             ),
@@ -423,18 +397,24 @@ class _SetWeeklyTimetableViewState extends State<SetWeeklyTimetableView> {
                             onPressed: (() async {
                               // print(daysMap);
                               // print(subjectNames);
-                              await AuthService.firebase()
-                                  .addDaysMap(daysMap)
-                                  .then((value) => print("daysMap added"))
-                                  .catchError((e) => print(e));
+                              await AuthService.firebase().addDaysMap(daysMap);
                               //[OPTIONAL TO-DO] CAN DO ERROR HANDLING HERE
 
-                              // navigate to uploadoutlinesroute
+                              // SubjectNames Logic
                               if (context.mounted) {
+                                subjectNames.clear();
+                                daysMap.forEach((key, value) {
+                                  if (value != null) {
+                                    if (!subjectNames.contains(value)) {
+                                      subjectNames.add(value);
+                                    }
+                                  }
+                                });
+
+                                // navigate to uploadoutlinesroute
                                 Navigator.of(context)
                                     .pushNamed(uploadOutlinesRoute, arguments: {
-                                  // 'daysMap': daysMap,
-                                  'subjectNames': subjectNames,
+                                  "subjectNames": subjectNames,
                                 });
                               }
                             }),
@@ -533,22 +513,18 @@ class _SetWeeklyTimetableViewState extends State<SetWeeklyTimetableView> {
                                 CustomCell(
                                   onPressed: "1",
                                   daysMap: daysMap,
-                                  subjectNames: subjectNames,
                                 ),
                                 CustomCell(
                                   onPressed: "2",
                                   daysMap: daysMap,
-                                  subjectNames: subjectNames,
                                 ),
                                 CustomCell(
                                   onPressed: "3",
                                   daysMap: daysMap,
-                                  subjectNames: subjectNames,
                                 ),
                                 CustomCell(
                                   onPressed: "4",
                                   daysMap: daysMap,
-                                  subjectNames: subjectNames,
                                 ),
                               ],
                             ),
@@ -574,22 +550,18 @@ class _SetWeeklyTimetableViewState extends State<SetWeeklyTimetableView> {
                                 CustomCell(
                                   onPressed: "5",
                                   daysMap: daysMap,
-                                  subjectNames: subjectNames,
                                 ),
                                 CustomCell(
                                   onPressed: "6",
                                   daysMap: daysMap,
-                                  subjectNames: subjectNames,
                                 ),
                                 CustomCell(
                                   onPressed: "7",
                                   daysMap: daysMap,
-                                  subjectNames: subjectNames,
                                 ),
                                 CustomCell(
                                   onPressed: "8",
                                   daysMap: daysMap,
-                                  subjectNames: subjectNames,
                                 ),
                               ],
                             ),
@@ -615,22 +587,18 @@ class _SetWeeklyTimetableViewState extends State<SetWeeklyTimetableView> {
                                 CustomCell(
                                   onPressed: "9",
                                   daysMap: daysMap,
-                                  subjectNames: subjectNames,
                                 ),
                                 CustomCell(
                                   onPressed: "10",
                                   daysMap: daysMap,
-                                  subjectNames: subjectNames,
                                 ),
                                 CustomCell(
                                   onPressed: "11",
                                   daysMap: daysMap,
-                                  subjectNames: subjectNames,
                                 ),
                                 CustomCell(
                                   onPressed: "12",
                                   daysMap: daysMap,
-                                  subjectNames: subjectNames,
                                 ),
                               ],
                             ),
@@ -656,22 +624,18 @@ class _SetWeeklyTimetableViewState extends State<SetWeeklyTimetableView> {
                                 CustomCell(
                                   onPressed: "13",
                                   daysMap: daysMap,
-                                  subjectNames: subjectNames,
                                 ),
                                 CustomCell(
                                   onPressed: "14",
                                   daysMap: daysMap,
-                                  subjectNames: subjectNames,
                                 ),
                                 CustomCell(
                                   onPressed: "15",
                                   daysMap: daysMap,
-                                  subjectNames: subjectNames,
                                 ),
                                 CustomCell(
                                   onPressed: "16",
                                   daysMap: daysMap,
-                                  subjectNames: subjectNames,
                                 ),
                               ],
                             ),
@@ -697,22 +661,18 @@ class _SetWeeklyTimetableViewState extends State<SetWeeklyTimetableView> {
                                 CustomCell(
                                   onPressed: "17",
                                   daysMap: daysMap,
-                                  subjectNames: subjectNames,
                                 ),
                                 CustomCell(
                                   onPressed: "18",
                                   daysMap: daysMap,
-                                  subjectNames: subjectNames,
                                 ),
                                 CustomCell(
                                   onPressed: "19",
                                   daysMap: daysMap,
-                                  subjectNames: subjectNames,
                                 ),
                                 CustomCell(
                                   onPressed: "20",
                                   daysMap: daysMap,
-                                  subjectNames: subjectNames,
                                 ),
                               ],
                             ),
@@ -738,22 +698,18 @@ class _SetWeeklyTimetableViewState extends State<SetWeeklyTimetableView> {
                                 CustomCell(
                                   onPressed: "21",
                                   daysMap: daysMap,
-                                  subjectNames: subjectNames,
                                 ),
                                 CustomCell(
                                   onPressed: "22",
                                   daysMap: daysMap,
-                                  subjectNames: subjectNames,
                                 ),
                                 CustomCell(
                                   onPressed: "23",
                                   daysMap: daysMap,
-                                  subjectNames: subjectNames,
                                 ),
                                 CustomCell(
                                   onPressed: "24",
                                   daysMap: daysMap,
-                                  subjectNames: subjectNames,
                                 ),
                               ],
                             ),
@@ -779,22 +735,18 @@ class _SetWeeklyTimetableViewState extends State<SetWeeklyTimetableView> {
                                 CustomCell(
                                   onPressed: "25",
                                   daysMap: daysMap,
-                                  subjectNames: subjectNames,
                                 ),
                                 CustomCell(
                                   onPressed: "26",
                                   daysMap: daysMap,
-                                  subjectNames: subjectNames,
                                 ),
                                 CustomCell(
                                   onPressed: "27",
                                   daysMap: daysMap,
-                                  subjectNames: subjectNames,
                                 ),
                                 CustomCell(
                                   onPressed: "28",
                                   daysMap: daysMap,
-                                  subjectNames: subjectNames,
                                 ),
                               ],
                             ),
@@ -809,18 +761,24 @@ class _SetWeeklyTimetableViewState extends State<SetWeeklyTimetableView> {
                             onPressed: (() async {
                               // print(daysMap);
                               // print(subjectNames);
-                              await AuthService.firebase()
-                                  .addDaysMap(daysMap)
-                                  .then((value) => print("daysMap added"))
-                                  .catchError((e) => print(e));
+                              await AuthService.firebase().addDaysMap(daysMap);
                               //[OPTIONAL TO-DO] CAN DO ERROR HANDLING HERE
 
-                              // navigate to uploadoutlinesroute
+                              // SubjectNames Logic
                               if (context.mounted) {
+                                subjectNames.clear();
+                                daysMap.forEach((key, value) {
+                                  if (value != null) {
+                                    if (!subjectNames.contains(value)) {
+                                      subjectNames.add(value);
+                                    }
+                                  }
+                                });
+
+                                // navigate to uploadoutlinesroute
                                 Navigator.of(context)
                                     .pushNamed(uploadOutlinesRoute, arguments: {
-                                  // 'daysMap': daysMap,
-                                  'subjectNames': subjectNames,
+                                  "subjectNames": subjectNames,
                                 });
                               }
                             }),

@@ -11,15 +11,11 @@ void main() {
       initialRoute: (context) => const WelcomeView(),
       loginRoute: (context) => const LoginView(),
       forgotPassowrdRoute: (context) => const ForgotPasswordView(),
-      resetPassworRoute: (context) => const PasswordResetEmailView(
-            email: '',
-          ),
+      resetPassworRoute: (context) => const PasswordResetEmailView(),
       registerRoute: (context) => const CreateAnAccountView(),
       verifyEmailRoute: (context) => const VerifyEmailView(),
       setupRoute: (context) => const SetWeeklyTimetableView(),
-      uploadOutlinesRoute: (context) => const UploadCourseOutlinesView(
-            subjectNames: [],
-          ),
+      uploadOutlinesRoute: (context) => const UploadCourseOutlinesView(),
       homepageRoute: (context) => const HomepageView(),
       reviseRoute: (context) => const ReviseView(),
       studiedTodayRoute: (context) => const StudiedTodayView(),

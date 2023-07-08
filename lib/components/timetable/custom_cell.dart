@@ -5,12 +5,11 @@ class CustomCell extends StatefulWidget {
   // final VoidCallback onPressed;
   final String onPressed;
   final Map<String, dynamic> daysMap;
-  final List<String> subjectNames;
-  const CustomCell(
-      {super.key,
-      required this.onPressed,
-      required this.daysMap,
-      required this.subjectNames});
+  const CustomCell({
+    super.key,
+    required this.onPressed,
+    required this.daysMap,
+  });
 
   @override
   State<CustomCell> createState() => _CustomCellState();
@@ -19,8 +18,6 @@ class CustomCell extends StatefulWidget {
 class _CustomCellState extends State<CustomCell> {
   final TextEditingController _subjectNameController = TextEditingController();
   String? _subjectName;
-  // static List<String> subjectNames = [];
-  // static Map<int, String> daysMap = {};
 
   @override
   void dispose() {
@@ -57,12 +54,8 @@ class _CustomCellState extends State<CustomCell> {
                   TextButton(
                     onPressed: () {
                       var newSubjectName = _subjectNameController.text.trim();
-                      //newSubjectName to TitleCase
                       if (newSubjectName.isNotEmpty) {
                         newSubjectName = toTitleCase(newSubjectName);
-                        if (!widget.subjectNames.contains(newSubjectName)) {
-                          widget.subjectNames.add(newSubjectName);
-                        }
                         //access daysMap from widget
                         if (!widget.daysMap.containsKey(newSubjectName)) {
                           widget.daysMap[widget.onPressed] = newSubjectName;
