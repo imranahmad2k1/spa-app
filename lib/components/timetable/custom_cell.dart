@@ -3,8 +3,14 @@ import 'package:student_personal_assistant/constants/colors.dart';
 
 class CustomCell extends StatefulWidget {
   // final VoidCallback onPressed;
-  final int onPressed;
-  const CustomCell({super.key, required this.onPressed});
+  final String onPressed;
+  final Map<String, dynamic> daysMap;
+  final List<String> subjectNames;
+  const CustomCell(
+      {super.key,
+      required this.onPressed,
+      required this.daysMap,
+      required this.subjectNames});
 
   @override
   State<CustomCell> createState() => _CustomCellState();
@@ -13,8 +19,8 @@ class CustomCell extends StatefulWidget {
 class _CustomCellState extends State<CustomCell> {
   final TextEditingController _subjectNameController = TextEditingController();
   String? _subjectName;
-  static List<String> subjectNames = [];
-  static Map<int, String> daysMap = {};
+  // static List<String> subjectNames = [];
+  // static Map<int, String> daysMap = {};
 
   @override
   void dispose() {
@@ -24,6 +30,10 @@ class _CustomCellState extends State<CustomCell> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.daysMap[widget.onPressed] != null) {
+      _subjectName = widget.daysMap[widget.onPressed];
+    }
+
     return TableCell(
       child: GestureDetector(
         // onTap: onPressed,
@@ -46,20 +56,31 @@ class _CustomCellState extends State<CustomCell> {
                   ),
                   TextButton(
                     onPressed: () {
-                      final newSubjectName = _subjectNameController.text;
-                      if (!subjectNames.contains(newSubjectName)) {
-                        subjectNames.add(newSubjectName);
+                      var newSubjectName = _subjectNameController.text.trim();
+                      //newSubjectName to TitleCase
+                      if (newSubjectName.isNotEmpty) {
+                        newSubjectName = toTitleCase(newSubjectName);
+                        if (!widget.subjectNames.contains(newSubjectName)) {
+                          widget.subjectNames.add(newSubjectName);
+                        }
+                        //access daysMap from widget
+                        if (!widget.daysMap.containsKey(newSubjectName)) {
+                          widget.daysMap[widget.onPressed] = newSubjectName;
+                        }
+                        setState(() {
+                          _subjectName = newSubjectName;
+                        });
+                      } else {
+                        widget.daysMap.remove(widget.onPressed);
+                        setState(() {
+                          _subjectName = null;
+                        });
+                        // ScaffoldMessenger.of(context).showSnackBar(
+                        //   const SnackBar(
+                        //     content: Text("Subject name cannot be empty"),
+                        //   ),
+                        // );
                       }
-                      if (!daysMap.containsKey(newSubjectName)) {
-                        daysMap[widget.onPressed] = newSubjectName;
-                      }
-                      setState(() {
-                        _subjectName = _subjectNameController.text;
-
-                        //FOR TESTING PURPOSE
-                        // print(subjectNames);
-                        // print(daysMap);
-                      });
                       Navigator.of(context).pop();
                     },
                     child: const Text('Add'),
@@ -85,4 +106,12 @@ class _CustomCellState extends State<CustomCell> {
       ),
     );
   }
+}
+
+String toTitleCase(String input) {
+  List<String> words = input.split(' ');
+  words = words.map((word) {
+    return word[0].toUpperCase() + word.substring(1).toLowerCase();
+  }).toList();
+  return words.join(' ');
 }

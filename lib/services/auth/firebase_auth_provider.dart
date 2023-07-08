@@ -147,4 +147,33 @@ class FirebaseAuthProvider implements AuthProvider {
       throw UserNotFoundAuthException();
     }
   }
+
+  @override
+  Future addDaysMap(Map<String, dynamic> daysMap) async {
+    final user = FirebaseAuth.instance.currentUser;
+
+    //if already exists, then update it
+    bool exists = false;
+    await FirebaseFirestore.instance
+        .collection('DaysMaps')
+        .where('Email', isEqualTo: user!.email)
+        .get()
+        .then((value) {
+      for (var element in value.docs) {
+        if (element.exists) {
+          exists = true;
+          element.reference.update({'daysMap': daysMap});
+        }
+      }
+    });
+
+    //if it doesn't, then add it
+    //CAN ADD EXCEPTIONS HERE
+    if (!exists) {
+      await FirebaseFirestore.instance.collection('DaysMaps').add({
+        'Email': user.email,
+        'daysMap': daysMap,
+      });
+    }
+  }
 }

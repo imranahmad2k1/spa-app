@@ -47,4 +47,8 @@ class AuthService implements AuthProvider {
 
   @override
   Future<void> updateEmail(String email) => provider.updateEmail(email);
+
+  @override
+  Future addDaysMap(Map<String, dynamic> daysMap) =>
+      provider.addDaysMap(daysMap);
 }

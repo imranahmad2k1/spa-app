@@ -17,7 +17,9 @@ void main() {
       registerRoute: (context) => const CreateAnAccountView(),
       verifyEmailRoute: (context) => const VerifyEmailView(),
       setupRoute: (context) => const SetWeeklyTimetableView(),
-      uploadOutlinesRoute: (context) => const UploadCourseOutlinesView(),
+      uploadOutlinesRoute: (context) => const UploadCourseOutlinesView(
+            subjectNames: [],
+          ),
       homepageRoute: (context) => const HomepageView(),
       reviseRoute: (context) => const ReviseView(),
       studiedTodayRoute: (context) => const StudiedTodayView(),
