@@ -35,6 +35,7 @@ class _CustomCellState extends State<CustomCell> {
       child: GestureDetector(
         // onTap: onPressed,
         onTap: () {
+          _subjectNameController.text = _subjectName ?? '';
           showDialog(
             context: context,
             builder: (BuildContext context) {
@@ -76,7 +77,7 @@ class _CustomCellState extends State<CustomCell> {
                       }
                       Navigator.of(context).pop();
                     },
-                    child: const Text('Add'),
+                    child: const Text('Set'),
                   ),
                 ],
               );
