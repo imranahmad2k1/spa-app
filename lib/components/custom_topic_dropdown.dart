@@ -26,7 +26,8 @@ class CustomTopicDropdown extends StatelessWidget {
               decoration: BoxDecoration(
                 border: Border.all(color: const Color(borderColor)),
                 borderRadius: BorderRadius.circular(3.0),
-                color: const Color(fieldBackgroundColor),
+                // color: Colors.white,
+                // color: const Color(fieldBackgroundColor),
               ),
               child: DropdownButtonHideUnderline(
                 child: SizedBox(
