@@ -18,7 +18,8 @@ class StudiedTodayView extends StatefulWidget {
 class _StudiedTodayViewState extends State<StudiedTodayView> {
   Map<String, dynamic>? subjectsToday;
   Map<String, bool> subjectSwitches = {};
-  List<bool> dropdownStates = [false];
+  Map<String, List<bool>> topicDropdowns = {};
+  bool isFirst = true;
 
   fetchSubjectsFromFirestore() async {
     final subjects = await FirebaseFirestore.instance
@@ -78,6 +79,9 @@ class _StudiedTodayViewState extends State<StudiedTodayView> {
           // Initialize the switch state for each subject
           subjectSwitches = {
             for (var subject in subjectsToday!.values) subject as String: false
+          };
+          topicDropdowns = {
+            for (var subject in subjectsToday!.values) subject as String: [],
           };
         }
       });
@@ -146,18 +150,46 @@ class _StudiedTodayViewState extends State<StudiedTodayView> {
                                   ],
                                 ),
                                 if (subjectSwitches[subject] ?? false)
-                                  Row(
-                                    children: [
-                                      const CustomTopicDropdown(),
-                                      IconButton(
-                                        onPressed: () {},
-                                        icon: const Icon(
-                                          Icons.add,
-                                          size: 24,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                  for (var i = -1;
+                                      i < topicDropdowns[subject]!.length;
+                                      i++)
+                                    Row(
+                                      children: [
+                                        //for loop in the range of length of topicDropdowns
+                                        const CustomTopicDropdown(),
+                                        if (isFirst)
+                                          IconButton(
+                                            onPressed: () {
+                                              setState(() {
+                                                //add a new topic dropdown for subject
+                                                topicDropdowns[subject]!
+                                                    .add(true);
+                                                isFirst = false;
+                                                // print("added $topicDropdowns");
+                                              });
+                                            },
+                                            icon: const Icon(
+                                              Icons.add,
+                                              size: 24,
+                                            ),
+                                          )
+                                        else
+                                          IconButton(
+                                            onPressed: () {
+                                              setState(() {
+                                                //add a new topic dropdown for subject
+                                                topicDropdowns[subject]!
+                                                    .remove(true);
+                                                // print("removed $topicDropdowns");
+                                              });
+                                            },
+                                            icon: const Icon(
+                                              Icons.remove,
+                                              size: 24,
+                                            ),
+                                          ),
+                                      ],
+                                    ),
                                 const SizedBox(height: 15),
                               ],
                             ),
