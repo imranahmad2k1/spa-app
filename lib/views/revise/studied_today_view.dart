@@ -114,7 +114,7 @@ class _StudiedTodayViewState extends State<StudiedTodayView> {
                         padding: const EdgeInsets.only(left: 7),
                         //backgroundColor of container
                         decoration: BoxDecoration(
-                          // color: const Color(secondaryColor),
+                          color: const Color(secondaryColor),
                           borderRadius: BorderRadius.circular(2),
                         ),
                         height: 400,
@@ -218,22 +218,25 @@ class _StudiedTodayViewState extends State<StudiedTodayView> {
                         ),
                       )
                     else
-                      const Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            CircularProgressIndicator(
-                              color: Color(primaryColor),
-                            ),
-                            SizedBox(height: 16),
-                            Text(
-                              'Loading subjects...',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
+                      const SizedBox(
+                        height: 400,
+                        child: Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              CircularProgressIndicator(
+                                color: Color(primaryColor),
                               ),
-                            ),
-                          ],
+                              SizedBox(height: 16),
+                              Text(
+                                'Loading subjects...',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                   ],
