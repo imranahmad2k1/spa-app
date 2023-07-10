@@ -112,9 +112,8 @@ class _StudiedTodayViewState extends State<StudiedTodayView> {
                     if (subjectsToday != null)
                       Container(
                         padding: const EdgeInsets.only(left: 7),
-                        //backgroundColor of container
                         decoration: BoxDecoration(
-                          color: const Color(secondaryColor),
+                          // color: const Color(secondaryColor),
                           borderRadius: BorderRadius.circular(2),
                         ),
                         height: 400,
