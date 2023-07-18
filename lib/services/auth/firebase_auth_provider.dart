@@ -1,5 +1,7 @@
+import 'dart:io' show File;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:student_personal_assistant/helpers/loading/loading_screen.dart';
 import 'package:student_personal_assistant/services/auth/auth_exceptions.dart';
 import 'package:student_personal_assistant/services/auth/auth_provider.dart';
@@ -175,5 +177,31 @@ class FirebaseAuthProvider implements AuthProvider {
         'daysMap': daysMap,
       });
     }
+  }
+
+  @override
+  Future<firebase_storage.UploadTask> uploadFile(
+      File file, String subjectName, String fileName) async {
+    // if (file == null) {
+    //  return CircularProgressIndicator();
+    // }
+    firebase_storage.UploadTask uploadTask;
+
+    // Create a Reference to the file
+    firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance
+        .ref()
+        .child('files')
+        .child('/$subjectName')
+        .child("/$fileName.pdf");
+
+    final metadata = firebase_storage.SettableMetadata(
+        contentType: 'file/pdf',
+        customMetadata: {'picked-file-path': file.path});
+    print("Uploading..!");
+
+    uploadTask = ref.putData(await file.readAsBytes(), metadata);
+
+    print("Done..!");
+    return Future.value(uploadTask);
   }
 }

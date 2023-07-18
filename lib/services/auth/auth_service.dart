@@ -1,3 +1,5 @@
+import 'dart:io' show File;
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:student_personal_assistant/services/auth/auth_provider.dart';
 import 'package:student_personal_assistant/services/auth/auth_user.dart';
 import 'package:student_personal_assistant/services/auth/firebase_auth_provider.dart';
@@ -51,4 +53,9 @@ class AuthService implements AuthProvider {
   @override
   Future addDaysMap(Map<String, dynamic> daysMap) =>
       provider.addDaysMap(daysMap);
+
+  @override
+  Future<UploadTask> uploadFile(
+          File file, String subjectName, String fileName) =>
+      provider.uploadFile(file, subjectName, fileName);
 }

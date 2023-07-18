@@ -1,5 +1,9 @@
+import 'dart:io' show File;
+
 import 'package:flutter/material.dart';
+import 'package:flutter_document_picker/flutter_document_picker.dart';
 import 'package:student_personal_assistant/constants/colors.dart';
+import 'package:student_personal_assistant/services/auth/auth_service.dart';
 
 class CustomOutline extends StatelessWidget {
   const CustomOutline({super.key});
@@ -57,7 +61,25 @@ class CustomOutline extends StatelessWidget {
               ),
             ),
             IconButton(
-              onPressed: () {},
+              onPressed: () async {
+                final paths = await FlutterDocumentPicker.openDocuments();
+
+                if (paths != null && paths.isNotEmpty) {
+                  final path = paths.first;
+
+                  if (path != null) {
+                    final file = File(path);
+                    // Upload the file to Firebase or perform other operations with it
+                    await AuthService.firebase()
+                        .uploadFile(file, "testSubject", "TestName");
+
+                    //Navigator.pop(context);
+                    //  if (context.mounted) {
+                    //               Navigator.of(context).pushNamed(uploadOutlinesRoute);
+                    //             }
+                  }
+                }
+              },
               icon: const Icon(
                 Icons.upload,
                 size: 24,

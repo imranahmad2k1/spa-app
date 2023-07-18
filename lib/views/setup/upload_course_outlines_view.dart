@@ -15,6 +15,7 @@ class UploadCourseOutlinesView extends StatelessWidget {
     final routes =
         ModalRoute.of(context)!.settings.arguments as Map<String, List<String>>;
     final subjectNames = routes["subjectNames"];
+    // print(subjectNames);
 
     return Scaffold(
       appBar: AppBar(),
