@@ -41,7 +41,9 @@ dependencies:
   firebase_core: ^2.14.0
   firebase_analytics: ^10.4.3
   firebase_storage: ^11.2.5
-  flutter_document_picker: ^5.2.3
+  file_picker: ^5.3.2
+  http: ^1.1.0
+  csv: ^5.0.2
 
 dev_dependencies:
   flutter_test:

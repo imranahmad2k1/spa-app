@@ -54,7 +54,9 @@ class UploadCourseOutlinesView extends StatelessWidget {
                     shrinkWrap: true,
                     itemCount: subjectNames!.length,
                     itemBuilder: (context, index) {
-                      return const CustomOutline();
+                      return CustomOutline(
+                        subjectName: subjectNames[index],
+                      );
                     },
                   ),
                   const SizedBox(

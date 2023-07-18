@@ -192,7 +192,7 @@ class FirebaseAuthProvider implements AuthProvider {
         .ref()
         .child('files')
         .child('/$subjectName')
-        .child("/$fileName.pdf");
+        .child("/$fileName.csv");
 
     final metadata = firebase_storage.SettableMetadata(
         contentType: 'file/pdf',
