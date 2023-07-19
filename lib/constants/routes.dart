@@ -8,6 +8,7 @@ const setupRoute = '/setup';
 const uploadOutlinesRoute = '/setup/upload_outlines';
 const reviseRoute = '/revise';
 const studiedTodayRoute = '/revise/studied_today';
+const reviseRecommendRoute = '/revise/recommend';
 const recommendRoute = '/recommend';
 const studyRoute = '/study';
 const recommendSubjectsRoute = '/study/recommend';

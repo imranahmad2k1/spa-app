@@ -19,7 +19,27 @@ class _StudiedTodayViewState extends State<StudiedTodayView> {
   Map<String, dynamic>? subjectsToday;
   Map<String, bool> subjectSwitches = {};
   Map<String, List<bool>> topicDropdowns = {};
+  Map<String, List<String>> subjectTopicDropdowns = {};
+
+  // Map<String, String?> dropdownValues = {};
+
   bool isFirst = true;
+  // void updateSelectedDropdownValue(String? value, String subjectName) {
+  //   setState(() {
+  //     dropdownValues[subjectName] = value;
+  //   });
+  // }
+
+  void updateSelectedDropdownValue(List<String>? values, String subjectName) {
+    setState(() {
+      // Here you can update the value in your desired data structure.
+      // For example, you can use a Map<String, List<String>> to store the values for each subject.
+      if (values != null) {
+        subjectTopicDropdowns[subjectName] =
+            List.from(values); // Create a new list to avoid reference issues
+      }
+    });
+  }
 
   fetchSubjectsFromFirestore() async {
     final subjects = await FirebaseFirestore.instance
@@ -83,6 +103,9 @@ class _StudiedTodayViewState extends State<StudiedTodayView> {
           topicDropdowns = {
             for (var subject in subjectsToday!.values) subject as String: [],
           };
+          subjectTopicDropdowns = {
+            for (var subject in subjectsToday!.values) subject as String: [],
+          };
         }
       });
     });
@@ -118,7 +141,7 @@ class _StudiedTodayViewState extends State<StudiedTodayView> {
                         ),
                         height: 400,
                         child: Scrollbar(
-                          thumbVisibility: true,
+                          // thumbVisibility: true,
                           child: SingleChildScrollView(
                             child: Column(
                               children: [
@@ -156,6 +179,10 @@ class _StudiedTodayViewState extends State<StudiedTodayView> {
                                                 setState(() {
                                                   subjectSwitches[subject] =
                                                       value;
+                                                  if (!value) {
+                                                    subjectTopicDropdowns[
+                                                        subject] = [];
+                                                  }
                                                 });
                                               },
                                             ),
@@ -166,7 +193,15 @@ class _StudiedTodayViewState extends State<StudiedTodayView> {
                                         Row(
                                           children: [
                                             //for loop in the range of length of topicDropdowns
-                                            const CustomTopicDropdown(),
+                                            CustomTopicDropdown(
+                                              subjectName: subject,
+                                              updateSelectedValue: (value) =>
+                                                  updateSelectedDropdownValue(
+                                                      value!, subject),
+                                              selectedValues:
+                                                  subjectTopicDropdowns[
+                                                      subject],
+                                            ),
                                             IconButton(
                                               onPressed: () {
                                                 setState(() {
@@ -184,29 +219,73 @@ class _StudiedTodayViewState extends State<StudiedTodayView> {
                                             )
                                           ],
                                         ),
-                                      for (var i = 0;
-                                          i < topicDropdowns[subject]!.length;
-                                          i++)
-                                        Row(
-                                          children: [
-                                            //for loop in the range of length of topicDropdowns
-                                            const CustomTopicDropdown(),
-                                            IconButton(
-                                              onPressed: () {
-                                                setState(() {
-                                                  //add a new topic dropdown for subject
-                                                  topicDropdowns[subject]!
-                                                      .remove(true);
-                                                  // print("removed $topicDropdowns");
-                                                });
-                                              },
-                                              icon: const Icon(
-                                                Icons.remove,
-                                                size: 24,
-                                              ),
-                                            ),
-                                          ],
+                                      if (subjectSwitches[subject] ?? false)
+                                        ListView.builder(
+                                          shrinkWrap: true,
+                                          physics:
+                                              const NeverScrollableScrollPhysics(),
+                                          itemCount:
+                                              topicDropdowns[subject]!.length,
+                                          itemBuilder: (context, index) {
+                                            return Row(
+                                              children: [
+                                                CustomTopicDropdown(
+                                                  subjectName: subject,
+                                                  updateSelectedValue: (value) =>
+                                                      updateSelectedDropdownValue(
+                                                          value!, subject),
+                                                  selectedValues:
+                                                      subjectTopicDropdowns[
+                                                          subject],
+                                                ),
+                                                IconButton(
+                                                  onPressed: () {
+                                                    setState(() {
+                                                      topicDropdowns[subject]!
+                                                          .remove(true);
+                                                    });
+                                                  },
+                                                  icon: const Icon(
+                                                    Icons.remove,
+                                                    size: 24,
+                                                  ),
+                                                ),
+                                              ],
+                                            );
+                                          },
                                         ),
+
+                                      // for (var i = 0;
+                                      //     i < topicDropdowns[subject]!.length;
+                                      //     i++)
+                                      //   Row(
+                                      //     children: [
+                                      //       //for loop in the range of length of topicDropdowns
+                                      //       CustomTopicDropdown(
+                                      //         subjectName: subject,
+                                      //         updateSelectedValue: (value) =>
+                                      //             updateSelectedDropdownValue(
+                                      //                 value!, subject),
+                                      //         selectedValues:
+                                      //             subjectTopicDropdowns[
+                                      //                 subject],
+                                      //       ),
+                                      //       IconButton(
+                                      //         onPressed: () {
+                                      //           setState(() {
+                                      //             //add a new topic dropdown for subject
+                                      //             topicDropdowns[subject]!
+                                      //                 .remove(true);
+                                      //             // print("removed $topicDropdowns");
+                                      //           });
+                                      //         },
+                                      //         icon: const Icon(
+                                      //           Icons.remove,
+                                      //           size: 24,
+                                      //         ),
+                                      //       ),
+                                      //     ],
+                                      //   ),
                                       const SizedBox(height: 15),
                                     ],
                                   ),
@@ -249,7 +328,10 @@ class _StudiedTodayViewState extends State<StudiedTodayView> {
                     buttonText: "Next",
                     onPressed: () {
                       Navigator.of(context).pushNamedAndRemoveUntil(
-                        recommendRoute,
+                        reviseRecommendRoute,
+                        arguments: {
+                          "subjectTopicDropdowns": subjectTopicDropdowns,
+                        },
                         (_) => false,
                       );
                     },

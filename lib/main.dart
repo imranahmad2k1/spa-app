@@ -19,6 +19,7 @@ void main() {
       homepageRoute: (context) => const HomepageView(),
       reviseRoute: (context) => const ReviseView(),
       studiedTodayRoute: (context) => const StudiedTodayView(),
+      reviseRecommendRoute: (context) => const ReviseRecommendedTopicsView(),
       recommendRoute: (context) => const RecommendedTopicsView(),
       studyRoute: (context) => const StudyView(),
       recommendSubjectsRoute: (context) => const RecommendedSubjectsView(),
