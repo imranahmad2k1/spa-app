@@ -3,7 +3,7 @@ import 'package:student_personal_assistant/components/custom_divider.dart';
 import 'package:student_personal_assistant/components/custom_heading.dart';
 import 'package:student_personal_assistant/components/custom_text.dart';
 import 'package:student_personal_assistant/components/end_study_button.dart';
-import 'package:student_personal_assistant/components/recommendations/carousel_slider.dart';
+import 'package:student_personal_assistant/components/recommendations/revise_carousel_slider.dart';
 import 'package:student_personal_assistant/constants/routes.dart';
 
 class ReviseRecommendedTopicsView extends StatelessWidget {
@@ -29,11 +29,11 @@ class ReviseRecommendedTopicsView extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // SizedBox(height: 83),
-                    CustomHeading(text: "Recommended\nTopics"),
+                    CustomHeading(text: "Revision of\nTopics"),
                     SizedBox(height: 15),
                     CustomText(
                       text:
-                          "Here are your recommended topics\nbased on your weaknesses:",
+                          "Keep the momentum going!\nRevisit today's topics for solid understanding:",
                       alignLeft: true,
                     ),
                     SizedBox(height: 20),
@@ -44,7 +44,9 @@ class ReviseRecommendedTopicsView extends StatelessWidget {
                 Column(
                   children: [
                     //CAROUSEL HERE
-                    CarouselSliderComponent(),
+                    ReviseCarouselSliderComponent(
+                      subjectTopicDropdowns: subjectTopicDropdowns!,
+                    ),
                     const SizedBox(height: 35),
                     Center(
                       child: EndStudyButton(onPressed: () {
