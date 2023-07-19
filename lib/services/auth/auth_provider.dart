@@ -21,5 +21,6 @@ abstract class AuthProvider {
   Future<void> updateEmail(String email);
   Future addUserCredentials(String fName, String lName, String email);
   Future addDaysMap(Map<String, dynamic> daysMap);
+  Future saveSelectedOutlines(Map<String, String?> selectedOutlines);
   // Future getDaysMap(Map<String, String> daysMap);
 }

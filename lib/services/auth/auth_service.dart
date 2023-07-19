@@ -58,4 +58,8 @@ class AuthService implements AuthProvider {
   Future<UploadTask> uploadFile(
           File file, String subjectName, String fileName) =>
       provider.uploadFile(file, subjectName, fileName);
+
+  @override
+  Future saveSelectedOutlines(Map<String, String?> selectedOutlines) =>
+      provider.saveSelectedOutlines(selectedOutlines);
 }

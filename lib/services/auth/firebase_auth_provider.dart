@@ -197,11 +197,40 @@ class FirebaseAuthProvider implements AuthProvider {
     final metadata = firebase_storage.SettableMetadata(
         contentType: 'file/pdf',
         customMetadata: {'picked-file-path': file.path});
-    print("Uploading..!");
+    // print("Uploading..!");
 
     uploadTask = ref.putData(await file.readAsBytes(), metadata);
 
-    print("Done..!");
+    // print("Done..!");
     return Future.value(uploadTask);
+  }
+
+  @override
+  Future saveSelectedOutlines(Map<String, String?> selectedOutlines) async {
+    final user = FirebaseAuth.instance.currentUser;
+
+    //if already exists, then update it
+    bool exists = false;
+    await FirebaseFirestore.instance
+        .collection('SelectedOutlines')
+        .where('Email', isEqualTo: user!.email)
+        .get()
+        .then((value) {
+      for (var element in value.docs) {
+        if (element.exists) {
+          exists = true;
+          element.reference.update({'selectedOutlinesMap': selectedOutlines});
+        }
+      }
+    });
+
+    //if it doesn't, then add it
+    //CAN ADD EXCEPTIONS HERE
+    if (!exists) {
+      await FirebaseFirestore.instance.collection('SelectedOutlines').add({
+        'Email': user.email,
+        'selectedOutlinesMap': selectedOutlines,
+      });
+    }
   }
 }
