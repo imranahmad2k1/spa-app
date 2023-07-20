@@ -13,6 +13,7 @@ export 'package:student_personal_assistant/views/revise/studied_today_view.dart'
 export 'package:student_personal_assistant/views/setup/set_weekly_timetable_view.dart';
 export 'package:student_personal_assistant/views/setup/upload_course_outlines_view.dart';
 export 'package:student_personal_assistant/views/study/study_recommended_topics_view.dart';
+export 'package:student_personal_assistant/views/study/all_study_recommended_topics_view.dart';
 export 'package:student_personal_assistant/views/study/recommended_subjects_view.dart';
 export 'package:student_personal_assistant/views/study/study_view.dart';
 export 'package:student_personal_assistant/views/welcome_view.dart';
