@@ -134,7 +134,7 @@ class _RecommendedSubjectsViewState extends State<RecommendedSubjectsView> {
                                             //PASS ARGUMENT selectedSubject
                                             Navigator.of(context)
                                                 .pushNamedAndRemoveUntil(
-                                                    recommendRoute,
+                                                    studyRecommendRoute,
                                                     arguments: {
                                                       'subject':
                                                           selectedSubject,
