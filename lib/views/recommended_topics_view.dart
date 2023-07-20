@@ -4,7 +4,7 @@ import 'package:student_personal_assistant/components/custom_heading.dart';
 import 'package:student_personal_assistant/components/custom_text.dart';
 import 'package:student_personal_assistant/components/end_study_button.dart';
 import 'package:student_personal_assistant/components/recommendations/carousel_slider.dart';
-import 'package:student_personal_assistant/constants/routes.dart';
+// import 'package:student_personal_assistant/constants/routes.dart';
 
 class RecommendedTopicsView extends StatefulWidget {
   const RecommendedTopicsView({super.key});
@@ -16,9 +16,9 @@ class RecommendedTopicsView extends StatefulWidget {
 class _RecommendedTopicsViewState extends State<RecommendedTopicsView> {
   @override
   Widget build(BuildContext context) {
-    final routes =
-        ModalRoute.of(context)!.settings.arguments as Map<String, String?>;
-    final subject = routes["subject"];
+    // final routes =
+    //     ModalRoute.of(context)!.settings.arguments as Map<String, String?>;
+    // final subject = routes["subject"];
     return Scaffold(
       appBar: AppBar(),
       body: ListView(
@@ -51,7 +51,7 @@ class _RecommendedTopicsViewState extends State<RecommendedTopicsView> {
                     const SizedBox(height: 35),
                     Center(
                       child: EndStudyButton(onPressed: () {
-                        print(subject);
+                        // print(subject);
                         // Navigator.of(context).pushNamed(homepageRoute);
                       }),
                     ),
