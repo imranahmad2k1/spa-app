@@ -45,13 +45,12 @@ class _RecommendedSubjectsViewState extends State<RecommendedSubjectsView> {
         int totalUnderstandingLevel = 0;
 
         for (var topic in topics) {
+          // print(topic['understandingLevel']);
           totalUnderstandingLevel += int.parse(topic["understandingLevel"]);
         }
-
         double averageUnderstandingLevel =
             totalUnderstandingLevel / topics.length.toDouble();
         subjectAverages[subject] = averageUnderstandingLevel;
-
         // Sort subjects based on average understanding level
         sortedSubjects = subjectAverages.entries.toList()
           ..sort((a, b) => a.value.compareTo(b.value));

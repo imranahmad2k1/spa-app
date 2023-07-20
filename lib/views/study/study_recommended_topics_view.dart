@@ -1,5 +1,3 @@
-import 'package:student_personal_assistant/services/auth/auth_service.dart';
-
 import 'topic_class.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -9,9 +7,8 @@ import 'package:student_personal_assistant/components/custom_heading.dart';
 import 'package:student_personal_assistant/components/custom_text.dart';
 import 'package:student_personal_assistant/components/end_study_button.dart';
 import 'package:student_personal_assistant/components/recommendations/study_carousel_slider.dart';
-// import 'package:student_personal_assistant/constants/routes.dart';
-
-import 'dart:developer' show log;
+import 'package:student_personal_assistant/constants/routes.dart';
+import 'package:student_personal_assistant/services/auth/auth_service.dart';
 
 class StudyRecommendedTopicsView extends StatefulWidget {
   const StudyRecommendedTopicsView({super.key});
@@ -29,7 +26,6 @@ class _StudyRecommendedTopicsViewState
   callingRecommenderFunctions(String subject) async {
     List<Topic> topics = await fetchTopics(subject);
     getRecommendedTopics(false, topics);
-    log(globalRecommendedTopics.toString());
   }
 
   fetchTopics(String subject) async {
@@ -228,7 +224,7 @@ class _StudyRecommendedTopicsViewState
     topicsMap[topic.subject]!["topics"]!.add({
       "id": topic.id,
       "topicName": topic.name,
-      "understandingLevel": newUnderstandingLevel,
+      "understandingLevel": newUnderstandingLevel.toString(),
     });
     await AuthService.firebase().saveUnderstandingLevel(topicsMap);
     //SAVE IN DATABASE***********
@@ -270,29 +266,42 @@ class _StudyRecommendedTopicsViewState
                     SizedBox(height: 35),
                   ],
                 ),
-                Column(
-                  children: [
-                    //CAROUSEL HERE
-                    StudyCarouselSliderComponent(
-                      topics: globalRecommendedTopics,
-                      onUnderstandingLevelChanged: (topic, newLevel) {
-                        updateUnderstandingLevel(
-                          topic: topic,
-                          newUnderstandingLevel: newLevel,
+                FutureBuilder(
+                    future: callingRecommenderFunctions(subject!),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Column(
+                          children: [
+                            Center(child: CircularProgressIndicator()),
+                            SizedBox(height: 20),
+                            Text("Loading..."),
+                          ],
                         );
-                      },
-                    ),
-                    const SizedBox(height: 35),
-                    Center(
-                      child: EndStudyButton(onPressed: () async {
-                        await callingRecommenderFunctions(subject!);
-                        // log(subject!);
-                        // Navigator.of(context).pushNamed(homepageRoute);
-                      }),
-                    ),
-                    // SizedBox(height: 200)
-                  ],
-                )
+                      } else {
+                        return Column(
+                          children: [
+                            //CAROUSEL HERE
+                            StudyCarouselSliderComponent(
+                              topics: globalRecommendedTopics,
+                              onUnderstandingLevelChanged: (topic, newLevel) {
+                                updateUnderstandingLevel(
+                                  topic: topic,
+                                  newUnderstandingLevel: newLevel,
+                                );
+                              },
+                            ),
+                            const SizedBox(height: 35),
+                            Center(
+                              child: EndStudyButton(onPressed: () {
+                                Navigator.of(context).pushNamedAndRemoveUntil(
+                                    homepageRoute, (route) => false);
+                              }),
+                            ),
+                            // SizedBox(height: 200)
+                          ],
+                        );
+                      }
+                    })
               ],
             ),
           ),
