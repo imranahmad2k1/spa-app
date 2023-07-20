@@ -235,25 +235,55 @@ class FirebaseAuthProvider implements AuthProvider {
   }
 
   @override
-  Future saveUnderstandingLevel(
-      Map<String, Map<String, List<Map<String, dynamic>>>> topicsMap) async {
+  Future<void> saveUnderstandingLevel(
+    Map<String, Map<String, List<Map<String, dynamic>>>> topicsMap,
+  ) async {
     final userEmail = FirebaseAuth.instance.currentUser!.email;
-
     final collectionRef =
         FirebaseFirestore.instance.collection('UnderstandingLevels');
+
+    // Check if document with the given email exists in the collection
     final querySnapshot =
         await collectionRef.where('Email', isEqualTo: userEmail).get();
+
     if (querySnapshot.docs.isNotEmpty) {
       // If document exists, update the topicsMap field
       final docID = querySnapshot.docs[0].id;
-      await collectionRef.doc(docID).update({'topicsMap': topicsMap});
-      // print("Updated");
+      final existingTopicsMap = querySnapshot.docs[0].data()['topicsMap'];
+
+      // Merge the existing topicsMap with the new topicsMap
+      topicsMap.forEach((subject, data) {
+        if (existingTopicsMap.containsKey(subject)) {
+          // Subject exists in the existingTopicsMap, update or append the topics
+          final existingTopics = existingTopicsMap[subject]!['topics']!;
+          final newTopics = data['topics']!;
+
+          for (final newTopic in newTopics) {
+            final index = existingTopics
+                .indexWhere((topic) => topic['id'] == newTopic['id']);
+            if (index >= 0) {
+              // Topic already exists, update understanding level
+              existingTopics[index]['understandingLevel'] =
+                  newTopic['understandingLevel'];
+            } else {
+              // Topic is new, append it to existing topics
+              existingTopics.add(newTopic);
+            }
+          }
+        } else {
+          // Subject doesn't exist in existingTopicsMap, add new subject and topics
+          existingTopicsMap[subject] = data;
+        }
+      });
+
+      // Update the document with the merged topicsMap
+      await collectionRef.doc(docID).update({'topicsMap': existingTopicsMap});
     } else {
+      // If document does not exist, add a new document
       await collectionRef.add({
         'Email': userEmail,
         'topicsMap': topicsMap,
       });
-      // print("Added");
     }
   }
 }
