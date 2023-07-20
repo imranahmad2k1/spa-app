@@ -62,4 +62,9 @@ class AuthService implements AuthProvider {
   @override
   Future saveSelectedOutlines(Map<String, String?> selectedOutlines) =>
       provider.saveSelectedOutlines(selectedOutlines);
+
+  @override
+  Future saveUnderstandingLevel(
+          Map<String, Map<String, List<Map<String, dynamic>>>> topicsMap) =>
+      provider.saveUnderstandingLevel(topicsMap);
 }

@@ -53,10 +53,8 @@ class _CustomTopicDropdownState extends State<CustomTopicDropdown> {
             querySnapshot.docs[0].data()['selectedOutlinesMap'];
         String version =
             selectedOutlinesData[widget.subjectName].split(' ').last;
-        if (version != null) {
-          await listAllFiles();
-          await downloadURLs(result!, version);
-        }
+        await listAllFiles();
+        await downloadURLs(result!, version);
       }
     }
   }
@@ -88,7 +86,7 @@ class _CustomTopicDropdownState extends State<CustomTopicDropdown> {
       //   print("Topic: ${row[1]}");
       // }
     } else {
-      print('Failed to download CSV file');
+      // print('Failed to download CSV file');
     }
   }
 

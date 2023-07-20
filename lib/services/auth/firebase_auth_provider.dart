@@ -233,4 +233,27 @@ class FirebaseAuthProvider implements AuthProvider {
       });
     }
   }
+
+  @override
+  Future saveUnderstandingLevel(
+      Map<String, Map<String, List<Map<String, dynamic>>>> topicsMap) async {
+    final userEmail = FirebaseAuth.instance.currentUser!.email;
+
+    final collectionRef =
+        FirebaseFirestore.instance.collection('UnderstandingLevels');
+    final querySnapshot =
+        await collectionRef.where('Email', isEqualTo: userEmail).get();
+    if (querySnapshot.docs.isNotEmpty) {
+      // If document exists, update the topicsMap field
+      final docID = querySnapshot.docs[0].id;
+      await collectionRef.doc(docID).update({'topicsMap': topicsMap});
+      // print("Updated");
+    } else {
+      await collectionRef.add({
+        'Email': userEmail,
+        'topicsMap': topicsMap,
+      });
+      // print("Added");
+    }
+  }
 }
