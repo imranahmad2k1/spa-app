@@ -2,23 +2,49 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:student_personal_assistant/constants/colors.dart';
 
-class SubjectsCarouselSliderComponent extends StatelessWidget {
-  // final List<int> items = [1, 2, 3, 4, 5, 6, 7];
-  final List<String> sitems = [
-    "Intro. to Software Engineering",
-    "Database Management System",
-    "Data Structures and Algorithms",
-    "Object Oriented Programming"
-  ];
+class SubjectsCarouselSliderComponent extends StatefulWidget {
+  final List<MapEntry<String, double>> subjects;
+  final Function(String?) onSubjectSelected;
+  const SubjectsCarouselSliderComponent(
+      {super.key, required this.subjects, required this.onSubjectSelected});
 
-  SubjectsCarouselSliderComponent({super.key});
+  @override
+  State<SubjectsCarouselSliderComponent> createState() =>
+      _SubjectsCarouselSliderComponentState();
+}
+
+class _SubjectsCarouselSliderComponentState
+    extends State<SubjectsCarouselSliderComponent> {
+  List<MapEntry<String, double>>? subjectsGrabbed;
+  List<String>? sitems;
+  String? selectedSubject;
+
+  @override
+  void initState() {
+    subjectsGrabbed = widget.subjects;
+    // sitems = widget.subjects.map((entry) => entry.key.toString()+ " (Average Score: "+ entry.value.toString()+")").toList();
+    sitems = widget.subjects.map((entry) => entry.key).toList();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> imageSliders = sitems
-        .map((item) => Container(
+    final List<Widget> imageSliders = sitems!.map((item) {
+      final String subject = item;
+      final bool isSelected = subject == selectedSubject;
+      return GestureDetector(
+        onTap: () {
+          setState(() {
+            selectedSubject = isSelected ? null : subject;
+          });
+          // Pass the selected subject to the callback
+          widget.onSubjectSelected(selectedSubject);
+        },
+        child: Container(
             decoration: BoxDecoration(
-              color: const Color(secondaryColor),
+              color: isSelected
+                  ? const Color(primaryColor)
+                  : const Color(secondaryColor),
               border: Border.all(color: const Color(borderColor)),
             ),
             padding: const EdgeInsets.only(left: 10, top: 12, bottom: 12),
@@ -29,10 +55,11 @@ class SubjectsCarouselSliderComponent extends StatelessWidget {
                 Flexible(
                   child: Text(
                     item,
-                    style: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 12.0,
-                        fontWeight: FontWeight.w300),
+                    style: TextStyle(
+                        color: isSelected ? Colors.white : Colors.black,
+                        fontSize: isSelected ? 14.0 : 12.0,
+                        fontWeight:
+                            isSelected ? FontWeight.w800 : FontWeight.w300),
                   ),
                 ),
                 // IconButton(
@@ -40,8 +67,9 @@ class SubjectsCarouselSliderComponent extends StatelessWidget {
                 //   icon: const Icon(Icons.check_circle_outline),
                 // )
               ],
-            )))
-        .toList();
+            )),
+      );
+    }).toList();
 
     return CarouselSlider(
       options: CarouselOptions(
