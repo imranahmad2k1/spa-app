@@ -1,5 +1,6 @@
-import 'dart:io';
+import 'package:student_personal_assistant/services/auth/auth_service.dart';
 
+import 'topic_class.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,7 @@ class StudyRecommendedTopicsView extends StatefulWidget {
 class _StudyRecommendedTopicsViewState
     extends State<StudyRecommendedTopicsView> {
   Map<String, dynamic>? topicsMap;
-  Set<Topic> globalRecommendedTopics = {};
+  List<Topic> globalRecommendedTopics = [];
 
   callingRecommenderFunctions(String subject) async {
     List<Topic> topics = await fetchTopics(subject);
@@ -219,8 +220,18 @@ class _StudyRecommendedTopicsViewState
   }
 
   void updateUnderstandingLevel(
-      {required Topic topic, required int newUnderstandingLevel}) {
+      {required Topic topic, required int newUnderstandingLevel}) async {
     topic.understandingLevel = newUnderstandingLevel;
+
+    Map<String, Map<String, List<Map<String, dynamic>>>> topicsMap = {};
+    topicsMap[topic.subject] = {"topics": []};
+    topicsMap[topic.subject]!["topics"]!.add({
+      "id": topic.id,
+      "topicName": topic.name,
+      "understandingLevel": newUnderstandingLevel,
+    });
+    await AuthService.firebase().saveUnderstandingLevel(topicsMap);
+    //SAVE IN DATABASE***********
   }
   //END RECOMMENDER ALGORITHM
 
@@ -262,7 +273,15 @@ class _StudyRecommendedTopicsViewState
                 Column(
                   children: [
                     //CAROUSEL HERE
-                    StudyCarouselSliderComponent(),
+                    StudyCarouselSliderComponent(
+                      topics: globalRecommendedTopics,
+                      onUnderstandingLevelChanged: (topic, newLevel) {
+                        updateUnderstandingLevel(
+                          topic: topic,
+                          newUnderstandingLevel: newLevel,
+                        );
+                      },
+                    ),
                     const SizedBox(height: 35),
                     Center(
                       child: EndStudyButton(onPressed: () async {
@@ -281,20 +300,4 @@ class _StudyRecommendedTopicsViewState
       ),
     );
   }
-}
-
-class Topic {
-  final String id;
-  final String name;
-  final String subject;
-  int understandingLevel;
-  final Topic? dependeeTopic;
-
-  Topic({
-    required this.id,
-    required this.name,
-    required this.subject,
-    this.understandingLevel = 7,
-    this.dependeeTopic,
-  });
 }
