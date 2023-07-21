@@ -15,5 +15,6 @@ const recommendSubjectsRoute = '/study/recommend';
 const studyRecommendRoute = '/study/recommend/topics';
 const allRecommendRoute = '/study/recommend/all';
 const quizRoute = '/quiz';
+const quizTestRecommendRoute = '/quiz/recommend';
 const selectSubjectTopicsRoute = '/quiz/select_subject_topics';
 const homepageRoute = '/homepage';

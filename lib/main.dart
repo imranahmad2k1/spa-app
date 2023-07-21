@@ -25,6 +25,8 @@ void main() {
       recommendRoute: (context) => const RecommendedTopicsView(),
       studyRoute: (context) => const StudyView(),
       recommendSubjectsRoute: (context) => const RecommendedSubjectsView(),
+      quizTestRecommendRoute: (context) =>
+          const QuizTestRecommendedTopicsView(),
       quizRoute: (context) => const QuizTestView(),
       selectSubjectTopicsRoute: (context) => const SelectSubjectTopicsView(),
     },

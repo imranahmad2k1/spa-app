@@ -1,32 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:student_personal_assistant/constants/colors.dart';
+import 'package:student_personal_assistant/views/study/topic_class.dart';
 
-class CustomQuizTopicDropdown extends StatelessWidget {
-  const CustomQuizTopicDropdown({super.key});
+class CustomQuizTopicDropdown extends StatefulWidget {
+  final List<Topic> topics;
+  final List<Topic>? selectedTopics;
+  final int index;
+  final Function(Topic) onTopicSelected;
+
+  const CustomQuizTopicDropdown(
+      {super.key,
+      required this.selectedTopics,
+      required this.onTopicSelected,
+      required this.topics,
+      required this.index});
+
+  @override
+  State<CustomQuizTopicDropdown> createState() =>
+      _CustomQuizTopicDropdownState();
+}
+
+class _CustomQuizTopicDropdownState extends State<CustomQuizTopicDropdown> {
+  String? dropdownvalue;
+  // List<Topic>? selectedValues;
+
+  @override
+  void initState() {
+    // selectedValues = widget.selectedValues;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    // Initial Selected Value
-    String dropdownvalue = 'Select topic';
-    String sdropdownvalue = 'Subtopic';
-
-    // List of items in our dropdown menu
-    var items = [
-      'Select topic',
-      'Topic 1',
-      'Topic 2',
-      'Topic 3',
-      'Topic 4',
-      'Topic 5',
-    ];
-    var sitems = [
-      'Subtopic',
-      'Subtopic 1',
-      'Subtopic 2',
-      'Subtopic 3',
-      'Subtopic 4',
-      'Subtopic 5',
-    ];
     return Column(
       children: [
         Row(
@@ -41,27 +46,64 @@ class CustomQuizTopicDropdown extends StatelessWidget {
                 child: SizedBox(
                   height: 37,
                   child: DropdownButton(
+                    hint: Container(
+                      width: 205,
+                      margin: const EdgeInsets.symmetric(
+                        horizontal: 18,
+                      ),
+                      child: const Text(
+                        'Select topic',
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w300,
+                          color: Color(fieldUnselectedTextColor),
+                        ),
+                      ),
+                    ),
                     value: dropdownvalue,
-                    items: items.map((String items) {
+                    items: widget.topics.map((Topic item) {
                       return DropdownMenuItem(
-                        value: items,
+                        value: item.name,
                         child: Container(
-                          // width: 230,
+                          width: 205,
                           margin: const EdgeInsets.symmetric(
                             horizontal: 18,
                           ),
                           child: Text(
-                            items,
+                            item.name,
                             style: const TextStyle(
                               fontSize: 13,
                               fontWeight: FontWeight.w300,
-                              color: Color(fieldUnselectedTextColor),
+                              color: Colors.black,
                             ),
                           ),
                         ),
                       );
                     }).toList(),
-                    onChanged: (String? value) {},
+                    onChanged: (String? value) {
+                      setState(() {
+                        // log(dropdownvalue.toString());
+                        Topic? madeTopic = widget.topics.firstWhere(
+                          (topic) => topic.name == value,
+                        );
+                        if (dropdownvalue != null) {
+                          int prevIndex = widget.selectedTopics!.indexWhere(
+                              (element) => element.name == dropdownvalue);
+
+                          if (prevIndex != -1) {
+                            widget.selectedTopics![prevIndex] = madeTopic;
+                          }
+                        } else {
+                          widget.selectedTopics!.add(madeTopic);
+                        }
+
+                        dropdownvalue = value;
+                      });
+                      // Topic? selectedTopic = widget.topics.firstWhere(
+                      //   (topic) => topic.name == value,
+                      // );
+                      // widget.onTopicSelected(selectedTopic);
+                    },
                   ),
                 ),
               ),
@@ -69,47 +111,6 @@ class CustomQuizTopicDropdown extends StatelessWidget {
             const SizedBox(
               width: 10,
             ),
-            Container(
-              decoration: BoxDecoration(
-                border: Border.all(color: const Color(borderColor)),
-                borderRadius: BorderRadius.circular(3.0),
-                color: const Color(fieldBackgroundColor),
-              ),
-              child: DropdownButtonHideUnderline(
-                child: SizedBox(
-                  height: 37,
-                  child: DropdownButton(
-                    value: sdropdownvalue,
-                    items: sitems.map((String sitems) {
-                      return DropdownMenuItem(
-                        value: sitems,
-                        child: Container(
-                          // width: 230,
-                          margin: const EdgeInsets.symmetric(
-                            horizontal: 18,
-                          ),
-                          child: Text(
-                            sitems,
-                            style: const TextStyle(
-                              fontSize: 13,
-                              fontWeight: FontWeight.w300,
-                              color: Color(fieldUnselectedTextColor),
-                            ),
-                          ),
-                        ),
-                      );
-                    }).toList(),
-                    onChanged: (String? value) {},
-                  ),
-                ),
-              ),
-            ),
-            IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.add,
-                  size: 24,
-                )),
           ],
         ),
       ],
