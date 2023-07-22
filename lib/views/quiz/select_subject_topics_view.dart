@@ -328,6 +328,17 @@ class _SelectSubjectTopicsViewState extends State<SelectSubjectTopicsView> {
                                     }
                                   }
                                   // log(selectedTopics.runtimeType.toString());
+                                  if (uniqueTopics.isEmpty) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text(
+                                          "Please select at least one topic",
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    );
+                                    return;
+                                  }
                                   Navigator.of(context).pushNamedAndRemoveUntil(
                                       quizTestRecommendRoute,
                                       arguments: {

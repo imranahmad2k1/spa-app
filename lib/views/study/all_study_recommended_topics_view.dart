@@ -1,3 +1,5 @@
+import 'package:student_personal_assistant/components/custom_button.dart';
+
 import 'topic_class.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -20,6 +22,13 @@ class AllStudyRecommendedTopicsView extends StatefulWidget {
 
 class _AllStudyRecommendedTopicsViewState
     extends State<AllStudyRecommendedTopicsView> {
+  static Topic defaultTopic = Topic(
+    id: "0",
+    name: "NODEPENDENT",
+    subject: "0",
+    understandingLevel: 7,
+    dependeeTopic: null,
+  );
   Map<String, dynamic>? topicsMap;
   List<Topic> globalRecommendedTopics = [];
 
@@ -60,7 +69,7 @@ class _AllStudyRecommendedTopicsViewState
             }
           }
         } else {
-          dependeeTopic = null;
+          dependeeTopic = defaultTopic;
         }
         Topic topicObj = Topic(
           id: topic['id'],
@@ -280,28 +289,67 @@ class _AllStudyRecommendedTopicsViewState
                             ],
                           );
                         } else {
-                          return Column(
-                            children: [
-                              //CAROUSEL HERE
-                              StudyCarouselSliderComponent(
-                                topics: globalRecommendedTopics,
-                                onUnderstandingLevelChanged: (topic, newLevel) {
-                                  updateUnderstandingLevel(
-                                    topic: topic,
-                                    newUnderstandingLevel: newLevel,
-                                  );
-                                },
+                          if (globalRecommendedTopics.isNotEmpty) {
+                            return Column(
+                              children: [
+                                //CAROUSEL HERE
+                                StudyCarouselSliderComponent(
+                                  topics: globalRecommendedTopics,
+                                  onUnderstandingLevelChanged:
+                                      (topic, newLevel) {
+                                    updateUnderstandingLevel(
+                                      topic: topic,
+                                      newUnderstandingLevel: newLevel,
+                                    );
+                                  },
+                                ),
+                                const SizedBox(height: 35),
+                                Center(
+                                  child: EndStudyButton(onPressed: () {
+                                    Navigator.of(context)
+                                        .pushNamedAndRemoveUntil(
+                                            homepageRoute, (route) => false);
+                                  }),
+                                ),
+                                // SizedBox(height: 200)
+                              ],
+                            );
+                          } else {
+                            return SizedBox(
+                              // height: 250,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                // mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const SizedBox(height: 100),
+                                  //"No recommended topics" in big size and styled
+                                  const Center(
+                                    child: CustomHeading(
+                                      text: "No topics to Study",
+                                    ),
+                                  ),
+                                  const SizedBox(height: 20),
+                                  const CustomText(
+                                    text:
+                                        "You have no topics to study right now. Please revise some topics first.",
+                                    // alignLeft: true,
+                                  ),
+                                  const SizedBox(height: 150),
+                                  //Button to go back to homepage
+                                  Center(
+                                    child: CustomButton(
+                                        buttonText: "Go back to Homepage",
+                                        onPressed: () {
+                                          Navigator.of(context)
+                                              .pushNamedAndRemoveUntil(
+                                                  homepageRoute,
+                                                  (route) => false);
+                                        }),
+                                  ),
+                                ],
                               ),
-                              const SizedBox(height: 35),
-                              Center(
-                                child: EndStudyButton(onPressed: () {
-                                  Navigator.of(context).pushNamedAndRemoveUntil(
-                                      homepageRoute, (route) => false);
-                                }),
-                              ),
-                              // SizedBox(height: 200)
-                            ],
-                          );
+                            );
+                          }
                         }
                       })
                 ],

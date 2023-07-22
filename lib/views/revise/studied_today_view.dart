@@ -20,6 +20,7 @@ class _StudiedTodayViewState extends State<StudiedTodayView> {
   Map<String, bool> subjectSwitches = {};
   Map<String, List<bool>> topicDropdowns = {};
   Map<String, List<String>> subjectTopicDropdowns = {};
+  bool isEmpty = false;
 
   // Map<String, String?> dropdownValues = {};
 
@@ -35,8 +36,8 @@ class _StudiedTodayViewState extends State<StudiedTodayView> {
       // Here you can update the value in your desired data structure.
       // For example, you can use a Map<String, List<String>> to store the values for each subject.
       if (values != null) {
-        subjectTopicDropdowns[subjectName] =
-            List.from(values); // Create a new list to avoid reference issues
+        subjectTopicDropdowns[subjectName] = List.from(
+            Set.from(values)); // Create a new list to avoid reference issues
       }
     });
   }
@@ -202,21 +203,22 @@ class _StudiedTodayViewState extends State<StudiedTodayView> {
                                                   subjectTopicDropdowns[
                                                       subject],
                                             ),
-                                            IconButton(
-                                              onPressed: () {
-                                                setState(() {
-                                                  //add a new topic dropdown for subject
-                                                  topicDropdowns[subject]!
-                                                      .add(true);
-                                                  isFirst = false;
-                                                  // print("added $topicDropdowns");
-                                                });
-                                              },
-                                              icon: const Icon(
-                                                Icons.add,
-                                                size: 24,
-                                              ),
-                                            )
+                                            if (isEmpty == false)
+                                              IconButton(
+                                                onPressed: () {
+                                                  setState(() {
+                                                    //add a new topic dropdown for subject
+                                                    topicDropdowns[subject]!
+                                                        .add(true);
+                                                    isFirst = false;
+                                                    // print("added $topicDropdowns");
+                                                  });
+                                                },
+                                                icon: const Icon(
+                                                  Icons.add,
+                                                  size: 24,
+                                                ),
+                                              )
                                           ],
                                         ),
                                       if (subjectSwitches[subject] ?? false)
@@ -327,13 +329,31 @@ class _StudiedTodayViewState extends State<StudiedTodayView> {
                   child: CustomButton(
                     buttonText: "Next",
                     onPressed: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                        reviseRecommendRoute,
-                        arguments: {
-                          "subjectTopicDropdowns": subjectTopicDropdowns,
-                        },
-                        (_) => false,
-                      );
+                      // log(subjectTopicDropdowns.toString());
+                      int count = 0;
+                      for (var topics in subjectTopicDropdowns.values) {
+                        count = count + topics.length;
+                      }
+                      if (count == 0) {
+                        //Snackbar
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text(
+                              "Please select at least one topic",
+                              textAlign: TextAlign.center,
+                            ),
+                            // backgroundColor: Color(primaryColor),
+                          ),
+                        );
+                      } else {
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                          reviseRecommendRoute,
+                          arguments: {
+                            "subjectTopicDropdowns": subjectTopicDropdowns,
+                          },
+                          (_) => false,
+                        );
+                      }
                     },
                   ),
                 ),

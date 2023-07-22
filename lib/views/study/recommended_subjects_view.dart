@@ -106,6 +106,43 @@ class _RecommendedSubjectsViewState extends State<RecommendedSubjectsView> {
                           ConnectionState.done) {
                         return Builder(builder: (context) {
                           return StatefulBuilder(builder: (context, setState) {
+                            // log(snapshot.data.toString());
+                            if (snapshot.data == null) {
+                              return SizedBox(
+                                // height: 250,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  // mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const SizedBox(height: 100),
+                                    //"No recommended topics" in big size and styled
+                                    const Center(
+                                      child: CustomHeading(
+                                        text: "No topics to study",
+                                      ),
+                                    ),
+                                    const SizedBox(height: 20),
+                                    const CustomText(
+                                      text:
+                                          "You have no topics to study right now. Please revise some topics first.",
+                                      // alignLeft: true,
+                                    ),
+                                    const SizedBox(height: 150),
+                                    //Button to go back to homepage
+                                    Center(
+                                      child: CustomButton(
+                                          buttonText: "Go back to Homepage",
+                                          onPressed: () {
+                                            Navigator.of(context)
+                                                .pushNamedAndRemoveUntil(
+                                                    homepageRoute,
+                                                    (route) => false);
+                                          }),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }
                             return Column(
                               children: [
                                 //CAROUSEL HERE

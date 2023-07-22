@@ -20,6 +20,13 @@ class StudyRecommendedTopicsView extends StatefulWidget {
 
 class _StudyRecommendedTopicsViewState
     extends State<StudyRecommendedTopicsView> {
+  static Topic defaultTopic = Topic(
+    id: "0",
+    name: "NODEPENDENT",
+    subject: "0",
+    understandingLevel: 7,
+    dependeeTopic: null,
+  );
   Map<String, dynamic>? topicsMap;
   List<Topic> globalRecommendedTopics = [];
 
@@ -69,7 +76,7 @@ class _StudyRecommendedTopicsViewState
           }
         }
       } else {
-        dependeeTopic = null;
+        dependeeTopic = defaultTopic;
       }
       Topic topicObj = Topic(
         id: topic['id'],

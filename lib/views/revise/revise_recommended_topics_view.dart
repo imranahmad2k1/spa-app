@@ -34,12 +34,15 @@ class _ReviseRecommendedTopicsViewState
   firebase_storage.FirebaseStorage storage =
       firebase_storage.FirebaseStorage.instance;
 
-  Future<void> listAllFiles(String subjectName) async {
+  Future<void> listAllFiles(String subjectName, String version) async {
     result = await firebase_storage.FirebaseStorage.instance
         .ref()
         .child('files')
         .child(subjectName)
         .listAll();
+    if (context.mounted) {
+      await downloadURLs(result!, version);
+    }
   }
 
   fetchOutlines(String subjectName) async {
@@ -55,8 +58,7 @@ class _ReviseRecommendedTopicsViewState
         final selectedOutlinesData =
             querySnapshot.docs[0].data()['selectedOutlinesMap'];
         String version = selectedOutlinesData[subjectName].split(' ').last;
-        await listAllFiles(subjectName);
-        await downloadURLs(result!, version);
+        await listAllFiles(subjectName, version);
       }
     }
   }
@@ -99,7 +101,6 @@ class _ReviseRecommendedTopicsViewState
     final routes = ModalRoute.of(context)!.settings.arguments
         as Map<String, Map<String, List<String>>>;
     final subjectTopicDropdowns = routes["subjectTopicDropdowns"];
-
     return WillPopScope(
       onWillPop: () async {
         bool? exitConfirmed = await showDialog<bool>(
@@ -295,33 +296,46 @@ class _ReviseRecommendedTopicsViewState
                                   ),
                                 );
                               }
-                              for (var entry in understandingLevels.entries) {
-                                var results = entry.key.split(": ");
-                                String? id;
+
+                              for (var ul in understandingLevels.entries) {
+                                var results = ul.key.split(": ");
                                 String subject = results[0];
+                                if (subject != entry) {
+                                  continue;
+                                }
+                                String? id;
                                 String topicName = results[1];
-                                String understandingLevel = entry.value;
+                                String understandingLevel = ul.value;
                                 String? dependeeTopic;
 
                                 if (context.mounted) {
                                   for (var row in csvList!) {
                                     if (row[1] == results[1]) {
+                                      // log(row.toString());
                                       id = row[0];
                                       dependeeTopic = row[2].toString();
                                       break;
                                     }
                                   }
-
+                                  // log(topicsMap.toString());
                                   if (topicsMap[subject] == null) {
                                     topicsMap[subject] = {"topics": []};
+                                    // log("One had missing");
+                                    // log(topicsMap.toString());
                                   }
                                   // if (dependeeTopic != "0") {
+                                  // LoadingScreen().hide();
+                                  // log("$id - $topicName - $understandingLevel - $dependeeTopic");
+                                  // try {
                                   topicsMap[subject]!["topics"]!.add({
                                     "id": id!,
                                     "topicName": topicName,
                                     "understandingLevel": understandingLevel,
                                     "dependeeTopic": dependeeTopic!
                                   });
+                                  // } catch (e) {
+                                  // log(e.toString());
+                                  // }
                                   // }
                                   // else {
                                   //   topicsMap[subject]!["topics"]!.add([

@@ -71,99 +71,109 @@ class _UploadCourseOutlinesViewState extends State<UploadCourseOutlinesView> {
     });
   }
 
+  setDropdownValues() async {
+    // log("hehe");
+    final user = FirebaseAuth.instance.currentUser;
+    final collectionRef =
+        FirebaseFirestore.instance.collection('SelectedOutlines');
+    final querySnapshot = await collectionRef
+        .where('Email', isEqualTo: user!.email)
+        .limit(1)
+        .get();
+    if (querySnapshot.docs.isNotEmpty) {
+      final outlinesMapData =
+          querySnapshot.docs[0].data()['selectedOutlinesMap'];
+      for (var subject in outlinesMapData.keys) {
+        if (dropdownValues[subject] == null) {
+          dropdownValues[subject] = outlinesMapData[subject];
+        }
+      }
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchSubjects();
+  }
+
   @override
   Widget build(BuildContext context) {
-    // final routes =
-    //     ModalRoute.of(context)!.settings.arguments as Map<String, List<String>>;
-    // final subjectNames = routes["subjectNames"];
-    // print(subjectNames);
-
     return FutureBuilder(
-        future: fetchSubjects(),
+        future: setDropdownValues(),
         builder: (context, snapshot) {
-          switch (snapshot.connectionState) {
-            case ConnectionState.done:
-              return Scaffold(
-                appBar: AppBar(),
-                body: ListView(
-                  children: [
-                    Center(
-                      child: Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 23),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            // const SizedBox(
-                            //   height: 91,
-                            // ),
-                            const CustomHeading(
-                              text: 'Upload your Course\nOutlines',
-                            ),
-                            const SizedBox(
-                              height: 15,
-                            ),
-                            const CustomText(
-                              text:
-                                  "Upload or select your course outlines\nform the dropdown to personalize\nyour study recommendations",
-                              alignLeft: true,
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            const CustomDivider(
-                              alignLeft: true,
-                            ),
-                            const SizedBox(
-                              height: 26,
-                            ),
-                            ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: subjectNames!.length,
-                              itemBuilder: (context, index) {
-                                final subjectName = subjectNames[index];
-                                return CustomOutline(
-                                  subjectName: subjectName,
-                                  onChanged: (value) {
-                                    updateSelectedDropdownValue(
-                                        value, subjectName);
-                                  },
-                                  dropdownValue: dropdownValues[subjectName],
-                                );
-                              },
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            const SizedBox(height: 35),
-                            Center(
-                              child: CustomButton(
-                                buttonText: "Set outlines",
-                                onPressed: () async {
-                                  //upload dropdown values into collection
-                                  await AuthService.firebase()
-                                      .saveSelectedOutlines(dropdownValues);
-                                  if (context.mounted) {
-                                    Navigator.of(context)
-                                        .pushNamedAndRemoveUntil(
-                                            homepageRoute, (route) => false);
-                                  }
-                                },
-                              ),
-                            ),
-                          ],
+          return Scaffold(
+            appBar: AppBar(),
+            body: ListView(
+              children: [
+                Center(
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 23),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // const SizedBox(
+                        //   height: 91,
+                        // ),
+                        const CustomHeading(
+                          text: 'Upload your Course\nOutlines',
                         ),
-                      ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        const CustomText(
+                          text:
+                              "Upload or select your course outlines\nform the dropdown to personalize\nyour study recommendations",
+                          alignLeft: true,
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        const CustomDivider(
+                          alignLeft: true,
+                        ),
+                        const SizedBox(
+                          height: 26,
+                        ),
+                        ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: subjectNames.length,
+                          itemBuilder: (context, index) {
+                            final subjectName = subjectNames[index];
+                            return CustomOutline(
+                              subjectName: subjectName,
+                              onChanged: (value) {
+                                updateSelectedDropdownValue(value, subjectName);
+                              },
+                              dropdownValue: dropdownValues[subjectName],
+                            );
+                          },
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        const SizedBox(height: 35),
+                        Center(
+                          child: CustomButton(
+                            buttonText: "Set outlines",
+                            onPressed: () async {
+                              //upload dropdown values into collection
+                              await AuthService.firebase()
+                                  .saveSelectedOutlines(dropdownValues);
+                              if (context.mounted) {
+                                Navigator.of(context).pushNamedAndRemoveUntil(
+                                    homepageRoute, (route) => false);
+                              }
+                            },
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
-              );
-            default:
-              return const Scaffold(
-                body: Center(
-                  child: CircularProgressIndicator(),
-                ),
-              );
-          }
+              ],
+            ),
+          );
         });
   }
 }
