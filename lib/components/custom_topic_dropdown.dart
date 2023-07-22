@@ -22,6 +22,7 @@ class CustomTopicDropdown extends StatefulWidget {
 }
 
 class _CustomTopicDropdownState extends State<CustomTopicDropdown> {
+  bool isLoading = true;
   // List<String>? get selectedValues => widget.selectedValues; // Add this line
   List<String>? selectedValues;
 
@@ -55,6 +56,9 @@ class _CustomTopicDropdownState extends State<CustomTopicDropdown> {
             selectedOutlinesData[widget.subjectName].split(' ').last;
         await listAllFiles();
         await downloadURLs(result!, version);
+        setState(() {
+          isLoading = false;
+        });
       }
     }
   }
@@ -97,26 +101,12 @@ class _CustomTopicDropdownState extends State<CustomTopicDropdown> {
     //         .selectedValues!) // Create a new list to avoid reference issues
     //     : [];
     selectedValues = widget.selectedValues;
-    // fetchOutlines();
+    fetchOutlines();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    // print("TEST: $csvList");
-
-    // print(csvList);
-    // Initial Selected Value
-    // String dropdownvalue = 'Select topic';
-    // List of items in our dropdown menu
-    // var items = [
-    //   // 'Select topic',
-    //   'Topic 1',
-    //   'Topic 2',
-    //   'Topic 3',
-    //   'Topic 4',
-    //   'Topic 5',
-    // ];
     return FutureBuilder<void>(
       future: fetchOutlines(),
       builder: (context, snapshot) {
@@ -125,165 +115,180 @@ class _CustomTopicDropdownState extends State<CustomTopicDropdown> {
         // child: CircularProgressIndicator(),
         // );
         // } else
-        if (snapshot.hasError) {
-          return const Center(
-            child: Text('Something went wrong'),
+        if (isLoading) {
+          // If loading is true, show "Loading..." text
+          return const Column(
+            children: [
+              // Show "Loading..." text
+              Center(
+                child: Text('Loading...'),
+              ),
+            ],
           );
         } else {
-          var items = csvList != null
-              ? csvList!.map((row) => row[1].toString()).toList()
-              : ['Loading...'];
-          return Column(
-            children: [
-              Row(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(color: const Color(borderColor)),
-                      borderRadius: BorderRadius.circular(3.0),
-                      // color: Colors.white,
-                      // color: const Color(fieldBackgroundColor),
-                    ),
-                    child: DropdownButtonHideUnderline(
-                      child: SizedBox(
-                        height: 37,
-                        child: DropdownButton(
-                          hint: Container(
-                              width: 205,
-                              margin: const EdgeInsets.symmetric(
-                                horizontal: 18,
-                              ),
-                              child: const Text(
-                                'Select topic that you read today',
-                                style: TextStyle(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w300,
-                                  color: Color(fieldUnselectedTextColor),
-                                ),
-                              )),
-                          value: dropdownvalue,
-                          items: items.map((String item) {
-                            // int index = items.indexOf(item);
-                            return DropdownMenuItem(
-                              value: item,
-                              child: Container(
+          if (snapshot.hasError) {
+            return const Center(
+              child: Text('Something went wrong'),
+            );
+          } else {
+            var items = csvList != null
+                ? csvList!.map((row) => row[1].toString()).toList()
+                : ['Loading...'];
+            return Column(
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: const Color(borderColor)),
+                        borderRadius: BorderRadius.circular(3.0),
+                        // color: Colors.white,
+                        // color: const Color(fieldBackgroundColor),
+                      ),
+                      child: DropdownButtonHideUnderline(
+                        child: SizedBox(
+                          height: 37,
+                          child: DropdownButton(
+                            hint: Container(
                                 width: 205,
                                 margin: const EdgeInsets.symmetric(
                                   horizontal: 18,
                                 ),
-                                child: Text(
-                                  item,
-                                  style: const TextStyle(
+                                child: const Text(
+                                  'Select topic that you read today',
+                                  style: TextStyle(
                                     fontSize: 13,
                                     fontWeight: FontWeight.w300,
-                                    color: Colors.black,
+                                    color: Color(fieldUnselectedTextColor),
+                                  ),
+                                )),
+                            value: dropdownvalue,
+                            items: items.map((String item) {
+                              // int index = items.indexOf(item);
+                              return DropdownMenuItem(
+                                value: item,
+                                child: Tooltip(
+                                  message: item,
+                                  child: Container(
+                                    width: 205,
+                                    margin: const EdgeInsets.symmetric(
+                                      horizontal: 18,
+                                    ),
+                                    child: Text(
+                                      item,
+                                      style: const TextStyle(
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w300,
+                                        color: Colors.black,
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              ),
-                            );
-                          }).toList(),
-                          onChanged: (String? value) {
-                            setState(() {
-                              if (dropdownvalue != null) {
-                                // Find the index of the previously selected value
-                                int prevIndex =
-                                    selectedValues!.indexOf(dropdownvalue!);
-                                if (prevIndex != -1) {
-                                  // Replace the previously selected value with the new value
-                                  selectedValues![prevIndex] = value!;
+                              );
+                            }).toList(),
+                            onChanged: (String? value) {
+                              setState(() {
+                                if (dropdownvalue != null) {
+                                  // Find the index of the previously selected value
+                                  int prevIndex =
+                                      selectedValues!.indexOf(dropdownvalue!);
+                                  if (prevIndex != -1) {
+                                    // Replace the previously selected value with the new value
+                                    selectedValues![prevIndex] = value!;
+                                  }
+                                } else {
+                                  // Add the new selected value to the list
+                                  if (value != null) {
+                                    selectedValues!.add(value);
+                                  }
                                 }
-                              } else {
-                                // Add the new selected value to the list
-                                if (value != null) {
-                                  selectedValues!.add(value);
-                                }
-                              }
-                              dropdownvalue = value;
-                              widget.updateSelectedValue(selectedValues);
-                            });
-                          },
-                          // onChanged: (String? value) {
-                          //   setState(() {
-                          //     //CHATGPT, I somehow want to access Previously selected value here
-                          //     print("PREV: $dropdownvalue");
-                          //     print("NOW: $value");
-                          //     if (dropdownvalue != null) {
-                          //       int index =
-                          //           selectedValues!.indexOf(dropdownvalue!);
-                          //       if (index != -1) {
-                          //         // Replace 'C' with 'D'
-                          //         print(
-                          //             "PREV INDEXED: ${selectedValues![index]}");
-                          //         selectedValues![index] = value!;
-                          //         print(
-                          //             "NOW INDEXED: ${selectedValues![index]}");
-                          //       }
-                          //       // else {
-                          //       //   print('Element not found in the list');
-                          //       // }
-                          //     } else {
-                          //       if (value != null) {
-                          //         selectedValues!
-                          //             .add(value); // Add the new selected value
-                          //       }
-                          //     }
-                          //     dropdownvalue = value;
-                          //     print(selectedValues);
-                          //     // Call the callback function to update the selected value in StudiedTodayView
-                          //     widget.updateSelectedValue(selectedValues);
-                          //   });
-                          // },
+                                dropdownvalue = value;
+                                widget.updateSelectedValue(selectedValues);
+                              });
+                            },
+                            // onChanged: (String? value) {
+                            //   setState(() {
+                            //     //CHATGPT, I somehow want to access Previously selected value here
+                            //     print("PREV: $dropdownvalue");
+                            //     print("NOW: $value");
+                            //     if (dropdownvalue != null) {
+                            //       int index =
+                            //           selectedValues!.indexOf(dropdownvalue!);
+                            //       if (index != -1) {
+                            //         // Replace 'C' with 'D'
+                            //         print(
+                            //             "PREV INDEXED: ${selectedValues![index]}");
+                            //         selectedValues![index] = value!;
+                            //         print(
+                            //             "NOW INDEXED: ${selectedValues![index]}");
+                            //       }
+                            //       // else {
+                            //       //   print('Element not found in the list');
+                            //       // }
+                            //     } else {
+                            //       if (value != null) {
+                            //         selectedValues!
+                            //             .add(value); // Add the new selected value
+                            //       }
+                            //     }
+                            //     dropdownvalue = value;
+                            //     print(selectedValues);
+                            //     // Call the callback function to update the selected value in StudiedTodayView
+                            //     widget.updateSelectedValue(selectedValues);
+                            //   });
+                            // },
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  // const SizedBox(
-                  //   width: 150,
-                  //   height: 39,
-                  //   child: TextField(
-                  //     maxLines: 1,
-                  //     textAlignVertical: TextAlignVertical.bottom,
-                  //     style: TextStyle(
-                  //       fontSize: 13,
-                  //       fontWeight: FontWeight.w300,
-                  //       color: Colors.black,
-                  //     ),
-                  //     decoration: InputDecoration(
-                  //       isDense: true,
-                  //       hintText: 'Enter subtopic',
-                  //       hintStyle: TextStyle(
-                  //         fontSize: 13,
-                  //         fontWeight: FontWeight.w300,
-                  //         color: Color(fieldUnselectedTextColor),
-                  //       ),
-                  //       border: OutlineInputBorder(
-                  //         borderSide: BorderSide(
-                  //           color: Color(borderColor),
-                  //         ),
-                  //         borderRadius: BorderRadius.zero,
-                  //       ),
-                  //       enabledBorder: OutlineInputBorder(
-                  //         borderSide: BorderSide(
-                  //           color: Color(borderColor),
-                  //         ),
-                  //         borderRadius: BorderRadius.zero,
-                  //       ),
-                  //       focusedBorder: OutlineInputBorder(
-                  //         borderSide: BorderSide(
-                  //           color: Color(borderColor),
-                  //         ),
-                  //         borderRadius: BorderRadius.zero,
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
-                ],
-              ),
-            ],
-          );
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    // const SizedBox(
+                    //   width: 150,
+                    //   height: 39,
+                    //   child: TextField(
+                    //     maxLines: 1,
+                    //     textAlignVertical: TextAlignVertical.bottom,
+                    //     style: TextStyle(
+                    //       fontSize: 13,
+                    //       fontWeight: FontWeight.w300,
+                    //       color: Colors.black,
+                    //     ),
+                    //     decoration: InputDecoration(
+                    //       isDense: true,
+                    //       hintText: 'Enter subtopic',
+                    //       hintStyle: TextStyle(
+                    //         fontSize: 13,
+                    //         fontWeight: FontWeight.w300,
+                    //         color: Color(fieldUnselectedTextColor),
+                    //       ),
+                    //       border: OutlineInputBorder(
+                    //         borderSide: BorderSide(
+                    //           color: Color(borderColor),
+                    //         ),
+                    //         borderRadius: BorderRadius.zero,
+                    //       ),
+                    //       enabledBorder: OutlineInputBorder(
+                    //         borderSide: BorderSide(
+                    //           color: Color(borderColor),
+                    //         ),
+                    //         borderRadius: BorderRadius.zero,
+                    //       ),
+                    //       focusedBorder: OutlineInputBorder(
+                    //         borderSide: BorderSide(
+                    //           color: Color(borderColor),
+                    //         ),
+                    //         borderRadius: BorderRadius.zero,
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
+                  ],
+                ),
+              ],
+            );
+          }
         }
       },
     );

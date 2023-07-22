@@ -5,7 +5,10 @@ import 'package:student_personal_assistant/components/custom_heading.dart';
 import 'package:student_personal_assistant/components/custom_text.dart';
 import 'package:student_personal_assistant/components/custom_text_field.dart';
 import 'package:student_personal_assistant/constants/routes.dart';
+import 'package:student_personal_assistant/helpers/loading/loading_screen.dart';
+import 'package:student_personal_assistant/services/auth/auth_exceptions.dart';
 import 'package:student_personal_assistant/services/auth/auth_service.dart';
+import 'package:student_personal_assistant/utilities/show_error_dialog.dart';
 
 class ForgotPasswordView extends StatefulWidget {
   const ForgotPasswordView({super.key});
@@ -69,13 +72,32 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                         CustomButton(
                           buttonText: "Send me a password reset link",
                           onPressed: () async {
-                            await AuthService.firebase()
-                                .resetPassword(_email.text);
-                            if (context.mounted) {
-                              Navigator.of(context)
-                                  .pushNamed(resetPassworRoute, arguments: {
-                                "email": _email.text,
-                              });
+                            try {
+                              LoadingScreen().show(
+                                  context: context,
+                                  text: "Sending password reset email...");
+                              await AuthService.firebase()
+                                  .resetPassword(_email.text);
+                              LoadingScreen().hide();
+                              if (context.mounted) {
+                                Navigator.of(context)
+                                    .pushNamed(resetPassworRoute, arguments: {
+                                  "email": _email.text,
+                                });
+                              }
+                            } on InvalidEmailAuthException {
+                              LoadingScreen().hide();
+                              showErrorDialog(context,
+                                  "Invalid email address format.\nPlease make sure you enter a valid email for password reset.");
+                            } on UserNotFoundAuthException {
+                              showErrorDialog(context,
+                                  "Email address not associated with any user account.");
+                            } on GenericAuthException {
+                              showErrorDialog(context, "Something went wrong");
+                            } catch (e) {
+                              LoadingScreen().hide();
+                              showErrorDialog(context,
+                                  "Unexpected error occured!\nPlease make sure you enter a valid email.");
                             }
                           },
                         ),

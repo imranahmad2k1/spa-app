@@ -45,6 +45,13 @@ class MyDrawer extends StatelessWidget {
             },
           ),
           ListTile(
+            leading: const Icon(Icons.edit_document),
+            title: const Text('Edit Outlines'),
+            onTap: () {
+              Navigator.of(context).pushNamed(uploadOutlinesRoute);
+            },
+          ),
+          ListTile(
             leading: const Icon(Icons.logout),
             title: const Text('Sign out'),
             onTap: () async {

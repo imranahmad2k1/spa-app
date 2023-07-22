@@ -127,6 +127,9 @@ class _ReviseCarouselSliderComponentState
                     understandingLevels.containsKey(subjectTopic)
                         ? Icons.check_circle
                         : Icons.check_circle_outline,
+                    color: understandingLevels.containsKey(subjectTopic)
+                        ? const Color(primaryColor)
+                        : Colors.black,
                   ),
                 ),
               ],

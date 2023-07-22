@@ -6,7 +6,7 @@ import 'package:student_personal_assistant/views/views_import.dart';
 void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    title: 'SPA',
+    title: 'Student Personal Assistant',
     routes: {
       initialRoute: (context) => const WelcomeView(),
       loginRoute: (context) => const LoginView(),

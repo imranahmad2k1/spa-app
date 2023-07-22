@@ -127,6 +127,9 @@ class _StudyCarouselSliderComponentState
                   understandingLevels.containsKey(topicName)
                       ? Icons.check_circle
                       : Icons.check_circle_outline,
+                  color: understandingLevels.containsKey(topicName)
+                      ? const Color(primaryColor)
+                      : Colors.black,
                 ),
               ),
             ],

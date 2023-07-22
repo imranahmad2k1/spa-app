@@ -103,10 +103,14 @@ class _AllStudyRecommendedTopicsViewState
       row.add(sum);
     }
     globalRecommendedTopics.clear();
-    //SORTIN
     List<Topic> recommendations = bubbleSortLevel2(allTopics);
+    Set<String> addedTopicIds = {};
+    //SORTIN
     for (Topic t in recommendations) {
-      globalRecommendedTopics.add(t);
+      if (!addedTopicIds.contains(t.id)) {
+        globalRecommendedTopics.add(t);
+        addedTopicIds.add(t.id);
+      }
     }
   }
 
@@ -212,71 +216,99 @@ class _AllStudyRecommendedTopicsViewState
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: ListView(
-        children: [
-          Container(
-            margin: const EdgeInsets.symmetric(horizontal: 23),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                const Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // SizedBox(height: 83),
-                    CustomHeading(text: "Recommended\nTopics"),
-                    SizedBox(height: 15),
-                    CustomText(
-                      text:
-                          "Here are your recommended topics\nbased on your weaknesses:",
-                      alignLeft: true,
-                    ),
-                    SizedBox(height: 20),
-                    CustomDivider(alignLeft: true),
-                    SizedBox(height: 35),
-                  ],
+    return WillPopScope(
+      onWillPop: () async {
+        bool? exitConfirmed = await showDialog<bool>(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: const Text("Confirm Exit"),
+              content: const Text("Are you sure you want to stop Studying?"),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(false),
+                  child: const Text("Cancel"),
                 ),
-                FutureBuilder(
-                    future: callingRecommenderFunctions(),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Column(
-                          children: [
-                            Center(child: CircularProgressIndicator()),
-                            SizedBox(height: 20),
-                            Text("Loading..."),
-                          ],
-                        );
-                      } else {
-                        return Column(
-                          children: [
-                            //CAROUSEL HERE
-                            StudyCarouselSliderComponent(
-                              topics: globalRecommendedTopics,
-                              onUnderstandingLevelChanged: (topic, newLevel) {
-                                updateUnderstandingLevel(
-                                  topic: topic,
-                                  newUnderstandingLevel: newLevel,
-                                );
-                              },
-                            ),
-                            const SizedBox(height: 35),
-                            Center(
-                              child: EndStudyButton(onPressed: () {
-                                Navigator.of(context).pushNamedAndRemoveUntil(
-                                    homepageRoute, (route) => false);
-                              }),
-                            ),
-                            // SizedBox(height: 200)
-                          ],
-                        );
-                      }
-                    })
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                        homepageRoute, (route) => false);
+                  },
+                  child: const Text("Exit"),
+                ),
               ],
+            );
+          },
+        );
+        return exitConfirmed == true;
+      },
+      child: Scaffold(
+        appBar: AppBar(),
+        body: ListView(
+          children: [
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 23),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  const Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // SizedBox(height: 83),
+                      CustomHeading(text: "Recommended\nTopics"),
+                      SizedBox(height: 15),
+                      CustomText(
+                        text:
+                            "Here are your recommended topics\nbased on your weaknesses:",
+                        alignLeft: true,
+                      ),
+                      SizedBox(height: 20),
+                      CustomDivider(alignLeft: true),
+                      SizedBox(height: 35),
+                    ],
+                  ),
+                  FutureBuilder(
+                      future: callingRecommenderFunctions(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Column(
+                            children: [
+                              Center(child: CircularProgressIndicator()),
+                              SizedBox(height: 20),
+                              Text("Loading..."),
+                            ],
+                          );
+                        } else {
+                          return Column(
+                            children: [
+                              //CAROUSEL HERE
+                              StudyCarouselSliderComponent(
+                                topics: globalRecommendedTopics,
+                                onUnderstandingLevelChanged: (topic, newLevel) {
+                                  updateUnderstandingLevel(
+                                    topic: topic,
+                                    newUnderstandingLevel: newLevel,
+                                  );
+                                },
+                              ),
+                              const SizedBox(height: 35),
+                              Center(
+                                child: EndStudyButton(onPressed: () {
+                                  Navigator.of(context).pushNamedAndRemoveUntil(
+                                      homepageRoute, (route) => false);
+                                }),
+                              ),
+                              // SizedBox(height: 200)
+                            ],
+                          );
+                        }
+                      })
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

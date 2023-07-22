@@ -12,6 +12,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:http/http.dart' as http;
 import 'package:csv/csv.dart';
+import 'package:student_personal_assistant/helpers/loading/loading_screen.dart';
 import 'package:student_personal_assistant/services/auth/auth_service.dart';
 
 class ReviseRecommendedTopicsView extends StatefulWidget {
@@ -99,118 +100,279 @@ class _ReviseRecommendedTopicsViewState
         as Map<String, Map<String, List<String>>>;
     final subjectTopicDropdowns = routes["subjectTopicDropdowns"];
 
-    return Scaffold(
-      appBar: AppBar(),
-      body: ListView(
-        children: [
-          Container(
-            margin: const EdgeInsets.symmetric(horizontal: 23),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                const Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // SizedBox(height: 83),
-                    CustomHeading(text: "Revision of\nTopics"),
-                    SizedBox(height: 15),
-                    CustomText(
-                      text:
-                          "Keep the momentum going!\nRevisit today's topics for solid understanding:",
-                      alignLeft: true,
-                    ),
-                    SizedBox(height: 20),
-                    CustomDivider(alignLeft: true),
-                    SizedBox(height: 35),
-                  ],
+    return WillPopScope(
+      onWillPop: () async {
+        bool? exitConfirmed = await showDialog<bool>(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: const Text("Confirm Exit"),
+              content: const Text("Are you sure you want to stop Revision?"),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(false),
+                  child: const Text("Cancel"),
                 ),
-                Column(
-                  children: [
-                    //CAROUSEL HERE
-                    ReviseCarouselSliderComponent(
-                      subjectTopicDropdowns: subjectTopicDropdowns!,
-                      onUnderstandingLevelChanged:
-                          (subjectTopic, topic, level) {
-                        setState(() {
-                          understandingLevels["$subjectTopic: $topic"] = level;
-                        });
-                      },
-                    ),
-                    const SizedBox(height: 35),
-                    Center(
-                      child: EndStudyButton(onPressed: () async {
-                        Map<String, Map<String, List<Map<String, dynamic>>>>
-                            topicsMap = {};
+                TextButton(
+                  onPressed: () async {
+                    LoadingScreen()
+                        .show(context: context, text: "Saving progress...");
+                    Map<String, Map<String, List<Map<String, dynamic>>>>
+                        topicsMap = {};
 
-                        Set<String> uniqueKeys = {};
-                        for (var entry in understandingLevels.entries) {
-                          String key = entry.key.split(": ")[0];
-                          uniqueKeys.add(key);
-                        }
+                    Set<String> uniqueKeys = {};
+                    for (var entry in understandingLevels.entries) {
+                      String key = entry.key.split(": ")[0];
+                      uniqueKeys.add(key);
+                    }
 
-                        for (var entry in uniqueKeys) {
-                          await fetchOutlines(entry);
-                          for (var entry in understandingLevels.entries) {
-                            var results = entry.key.split(": ");
-                            String? id;
-                            String subject = results[0];
-                            String topicName = results[1];
-                            String understandingLevel = entry.value;
-                            String? dependeeTopic;
+                    for (var entry in uniqueKeys) {
+                      try {
+                        await fetchOutlines(entry);
+                      } catch (e) {
+                        LoadingScreen().hide();
+                        //Snackbar
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              "Error occured: $e",
+                              style: const TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                            backgroundColor: Colors.red,
+                          ),
+                        );
+                      }
+                      for (var entry in understandingLevels.entries) {
+                        var results = entry.key.split(": ");
+                        String? id;
+                        String subject = results[0];
+                        String topicName = results[1];
+                        String understandingLevel = entry.value;
+                        String? dependeeTopic;
 
-                            if (context.mounted) {
-                              for (var row in csvList!) {
-                                if (row[1] == results[1]) {
-                                  id = row[0];
-                                  dependeeTopic = row[2].toString();
-                                  break;
-                                }
-                              }
-
-                              if (topicsMap[subject] == null) {
-                                topicsMap[subject] = {"topics": []};
-                              }
-                              // if (dependeeTopic != "0") {
-                              topicsMap[subject]!["topics"]!.add({
-                                "id": id!,
-                                "topicName": topicName,
-                                "understandingLevel": understandingLevel,
-                                "dependeeTopic": dependeeTopic!
-                              });
-                              // }
-                              // else {
-                              //   topicsMap[subject]!["topics"]!.add([
-                              //     id!,
-                              //     topicName,
-                              //     understandingLevel,
-                              //     dependeeTopic!,
-                              //   ]);
-                              // }
+                        if (context.mounted) {
+                          for (var row in csvList!) {
+                            if (row[1] == results[1]) {
+                              id = row[0];
+                              dependeeTopic = row[2].toString();
+                              break;
                             }
                           }
-                        }
-                        // print(topicsMap);
-                        //FOR SPECIFIC SUBJECT NOW
-                        try {
-                          await AuthService.firebase()
-                              .saveUnderstandingLevel(topicsMap);
-                          // print("Saved understanding levels!");
-                          if (context.mounted) {
-                            Navigator.of(context).pushNamedAndRemoveUntil(
-                                homepageRoute, (route) => false);
+
+                          if (topicsMap[subject] == null) {
+                            topicsMap[subject] = {"topics": []};
                           }
-                        } catch (e) {
-                          // print("Error occured: $e");
+                          // if (dependeeTopic != "0") {
+                          topicsMap[subject]!["topics"]!.add({
+                            "id": id!,
+                            "topicName": topicName,
+                            "understandingLevel": understandingLevel,
+                            "dependeeTopic": dependeeTopic!
+                          });
+                          // }
+                          // else {
+                          //   topicsMap[subject]!["topics"]!.add([
+                          //     id!,
+                          //     topicName,
+                          //     understandingLevel,
+                          //     dependeeTopic!,
+                          //   ]);
+                          // }
                         }
-                      }),
-                    ),
-                    // SizedBox(height: 200)
-                  ],
-                )
+                      }
+                    }
+                    // print(topicsMap);
+                    //FOR SPECIFIC SUBJECT NOW
+                    try {
+                      await AuthService.firebase()
+                          .saveUnderstandingLevel(topicsMap);
+                      // print("Saved understanding levels!");
+                      if (context.mounted) {
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                            homepageRoute, (route) => false);
+                      }
+                    } catch (e) {
+                      LoadingScreen().hide();
+                      //Snackbar
+                      if (context.mounted) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              "Error occured: $e",
+                              style: const TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                            backgroundColor: Colors.red,
+                          ),
+                        );
+                      }
+                    }
+                    LoadingScreen().hide();
+                    if (context.mounted) {
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                          homepageRoute, (route) => false);
+                    }
+                  },
+                  child: const Text("Exit"),
+                ),
               ],
+            );
+          },
+        );
+        return exitConfirmed == true;
+      },
+      child: Scaffold(
+        appBar: AppBar(),
+        body: ListView(
+          children: [
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 23),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  const Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // SizedBox(height: 83),
+                      CustomHeading(text: "Revision of\nTopics"),
+                      SizedBox(height: 15),
+                      CustomText(
+                        text:
+                            "Keep the momentum going!\nRevisit today's topics for solid understanding:",
+                        alignLeft: true,
+                      ),
+                      SizedBox(height: 20),
+                      CustomDivider(alignLeft: true),
+                      SizedBox(height: 35),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      //CAROUSEL HERE
+                      ReviseCarouselSliderComponent(
+                        subjectTopicDropdowns: subjectTopicDropdowns!,
+                        onUnderstandingLevelChanged:
+                            (subjectTopic, topic, level) {
+                          setState(() {
+                            understandingLevels["$subjectTopic: $topic"] =
+                                level;
+                          });
+                        },
+                      ),
+                      const SizedBox(height: 35),
+                      Center(
+                        child: EndStudyButton(
+                          onPressed: () async {
+                            LoadingScreen().show(
+                                context: context, text: "Saving progress...");
+                            Map<String, Map<String, List<Map<String, dynamic>>>>
+                                topicsMap = {};
+
+                            Set<String> uniqueKeys = {};
+                            for (var entry in understandingLevels.entries) {
+                              String key = entry.key.split(": ")[0];
+                              uniqueKeys.add(key);
+                            }
+
+                            for (var entry in uniqueKeys) {
+                              try {
+                                await fetchOutlines(entry);
+                              } catch (e) {
+                                LoadingScreen().hide();
+                                //Snackbar
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      "Error occured: $e",
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    backgroundColor: Colors.red,
+                                  ),
+                                );
+                              }
+                              for (var entry in understandingLevels.entries) {
+                                var results = entry.key.split(": ");
+                                String? id;
+                                String subject = results[0];
+                                String topicName = results[1];
+                                String understandingLevel = entry.value;
+                                String? dependeeTopic;
+
+                                if (context.mounted) {
+                                  for (var row in csvList!) {
+                                    if (row[1] == results[1]) {
+                                      id = row[0];
+                                      dependeeTopic = row[2].toString();
+                                      break;
+                                    }
+                                  }
+
+                                  if (topicsMap[subject] == null) {
+                                    topicsMap[subject] = {"topics": []};
+                                  }
+                                  // if (dependeeTopic != "0") {
+                                  topicsMap[subject]!["topics"]!.add({
+                                    "id": id!,
+                                    "topicName": topicName,
+                                    "understandingLevel": understandingLevel,
+                                    "dependeeTopic": dependeeTopic!
+                                  });
+                                  // }
+                                  // else {
+                                  //   topicsMap[subject]!["topics"]!.add([
+                                  //     id!,
+                                  //     topicName,
+                                  //     understandingLevel,
+                                  //     dependeeTopic!,
+                                  //   ]);
+                                  // }
+                                }
+                              }
+                            }
+                            // print(topicsMap);
+                            //FOR SPECIFIC SUBJECT NOW
+                            try {
+                              await AuthService.firebase()
+                                  .saveUnderstandingLevel(topicsMap);
+                              // print("Saved understanding levels!");
+                              if (context.mounted) {
+                                Navigator.of(context).pushNamedAndRemoveUntil(
+                                    homepageRoute, (route) => false);
+                              }
+                            } catch (e) {
+                              LoadingScreen().hide();
+                              //Snackbar
+                              if (context.mounted) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      "Error occured: $e",
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    backgroundColor: Colors.red,
+                                  ),
+                                );
+                              }
+                            }
+                            LoadingScreen().hide();
+                          },
+                        ),
+                      ),
+                      // SizedBox(height: 200)
+                    ],
+                  )
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
