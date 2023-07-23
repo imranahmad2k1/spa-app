@@ -7,8 +7,8 @@ import 'package:student_personal_assistant/views/views_import.dart';
 
 void main() {
   // AuthService.firebase().initialize();
-  WidgetsFlutterBinding.ensureInitialized();
-  FlutterNativeSplash.remove();
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     title: 'Student Personal Assistant',
@@ -45,4 +45,5 @@ void main() {
     ),
     home: const WelcomeView(),
   ));
+  FlutterNativeSplash.remove();
 }
