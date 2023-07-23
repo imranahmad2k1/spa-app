@@ -133,7 +133,7 @@ class _StudiedTodayViewState extends State<StudiedTodayView> {
                     const SizedBox(height: 20),
                     const CustomDivider(alignLeft: true),
                     const SizedBox(height: 14),
-                    if (subjectsToday != null)
+                    if (subjectsToday?.isNotEmpty ?? false)
                       Container(
                         padding: const EdgeInsets.only(left: 7),
                         decoration: BoxDecoration(
@@ -294,6 +294,29 @@ class _StudiedTodayViewState extends State<StudiedTodayView> {
                                 const SizedBox(height: 99),
                               ],
                             ),
+                          ),
+                        ),
+                      )
+                    else if (subjectsToday?.isEmpty ?? true)
+                      const SizedBox(
+                        height: 400,
+                        child: Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Trying to find any subject or outline\nPlease go back and set up your weekly timetable and outlines if you haven't",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal,
+                                ),
+                              ),
+                              SizedBox(height: 16),
+                              CircularProgressIndicator(
+                                color: Color(primaryColor),
+                              ),
+                            ],
                           ),
                         ),
                       )
