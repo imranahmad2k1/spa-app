@@ -1,3 +1,6 @@
+import 'dart:developer';
+import 'dart:io';
+
 import 'topic_class.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -110,12 +113,13 @@ class _StudyRecommendedTopicsViewState
     for (List<dynamic> row in allTopics) {
       int sum = 0;
       for (Topic topic in row) {
-        // stdout.write('${topic.name}:${topic.understandingLevel} > ');
+        // log('${topic.name}:${topic.understandingLevel} > ');
         sum += topic.understandingLevel;
       }
-      // print('Sum: $sum\n--');
+      // log('Sum: $sum\n--');
       // level2Sum.add(sum);
       row.add(sum);
+      // log('---');
     }
     globalRecommendedTopics.clear();
     List<Topic> recommendations = bubbleSortLevel2(allTopics);
@@ -128,6 +132,7 @@ class _StudyRecommendedTopicsViewState
         addedTopicIds.add(t.id);
       }
     }
+    // log(recommendations[0].name.toString());
     // log(allTopics.toString());
 
     //SORTED

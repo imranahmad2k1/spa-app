@@ -122,7 +122,9 @@ class _AllStudyRecommendedTopicsViewState
         addedTopicIds[t.subject] = {};
         addedTopicIds[t.subject]!.add("0");
         addedTopicIds[t.subject]!.add(t.id);
-        globalRecommendedTopics.add(t);
+        if (t.name != "NODEPENDENT") {
+          globalRecommendedTopics.add(t);
+        }
       } else {
         if (!addedTopicIds[t.subject]!.contains(t.id)) {
           globalRecommendedTopics.add(t);
