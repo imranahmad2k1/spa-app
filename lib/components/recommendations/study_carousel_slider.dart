@@ -44,11 +44,28 @@ class _StudyCarouselSliderComponentState
                 // crossAxisAlignment: CrossAxisAlignment.start,
                 children: List.generate(7, (index) {
                   final level = index + 1;
+                  String label = '';
+                  if (index == 0) {
+                    label = 'Didn’t\nunderstand\n(0-10%)';
+                  } else if (index == 1) {
+                    label = '10-30%\n\n';
+                  } else if (index == 2) {
+                    label = '30-50%\n\n';
+                  } else if (index == 3) {
+                    label = 'Neutral\n(50%)\n';
+                  } else if (index == 4) {
+                    label = '50-70%\n\n';
+                  } else if (index == 5) {
+                    label = '70-90%\n\n';
+                  } else if (index == 6) {
+                    label = 'Fully\nUnderstand\n(90-100%)';
+                  }
                   return Column(
                     mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       SizedBox(
-                        width: 37,
+                        width: 35,
                         child: Radio<int>(
                           value: level,
                           groupValue: selectedLevel,
@@ -60,10 +77,12 @@ class _StudyCarouselSliderComponentState
                         ),
                       ),
                       Text(
-                        level.toString(),
+                        label,
+                        textAlign: TextAlign.center,
                         style: const TextStyle(
-                            fontSize:
-                                16.0), // Adjust the radio button font size
+                          fontSize: 8.0,
+                          color: Colors.black,
+                        ),
                       ),
                     ],
                   );

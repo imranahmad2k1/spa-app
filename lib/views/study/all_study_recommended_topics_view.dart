@@ -158,6 +158,7 @@ class _AllStudyRecommendedTopicsViewState
         break;
       }
     }
+    // log(allTopics[0][0].name.toString());
     return bubbleSortLevel1(allTopics);
   }
 
@@ -327,6 +328,7 @@ class _AllStudyRecommendedTopicsViewState
                               ],
                             );
                           } else {
+                            // log(globalRecommendedTopics.toString());
                             return SizedBox(
                               // height: 250,
                               child: Column(
