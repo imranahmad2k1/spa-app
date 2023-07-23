@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:student_personal_assistant/components/custom_button.dart';
 
 import 'topic_class.dart';
