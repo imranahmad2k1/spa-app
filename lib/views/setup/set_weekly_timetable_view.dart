@@ -554,8 +554,61 @@ class _SetWeeklyTimetableViewState extends State<SetWeeklyTimetableView> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           // const SizedBox(height: 91),
-                          const CustomHeading(
-                            text: 'Set your Weekly \nTimetable',
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const CustomHeading(
+                                text: 'Set your Weekly \nTimetable',
+                              ),
+                              InkWell(
+                                child: const Icon(Icons.info_outline_rounded),
+                                //i want a small box of  text to appear
+                                //when the user clicks on the icon
+                                onTap: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        title: const Text(
+                                          "How to set your Timetable",
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        content: const Text(
+                                          "1. Based on your timetable, Tap on the cell to add a subject.\n2. A new popup will open asking you to enter subject. Enter your subject name for that day\n3.Tap on 'Set' button to set the subject\n4. Repeat this process for all your subjects.\n5. Tap on 'All set' button to save your timetable.\n\nIf you don't want to set Timetable now, tap on the 'Skip for now' button to skip this step. You can set timetable later.",
+                                        ),
+                                        actions: [
+                                          TextButton(
+                                              onPressed: () {
+                                                launchUrl(
+                                                  Uri(
+                                                      scheme: 'https',
+                                                      host: 'github.com',
+                                                      path:
+                                                          'meetimran/spa-app'),
+                                                );
+                                              },
+                                              child:
+                                                  const Text('Visit Github')),
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: const Text(
+                                              "Close",
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                },
+                              ),
+                            ],
                           ),
                           const SizedBox(
                             height: 15,
