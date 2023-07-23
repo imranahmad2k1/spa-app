@@ -28,32 +28,42 @@ class _StudyCarouselSliderComponentState
         builder: (BuildContext context) {
           return StatefulBuilder(builder: (context, setState) {
             return AlertDialog(
-              title: Text(
-                'Please set your understanding level for:\n${topic.name}',
-                style: const TextStyle(
-                    fontSize: 16.0), // Adjust the title font size
-              ),
-              content: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
+              title: Text.rich(TextSpan(children: [
+                const TextSpan(
+                    text: "Please set your understanding level for the topic:",
+                    style: TextStyle(
+                      fontSize: 13.0,
+                    )),
+                TextSpan(
+                    text: '\n${topic.name}',
+                    style: const TextStyle(
+                        fontSize: 15.0, fontWeight: FontWeight.bold)),
+              ])),
+              content: Row(
+                mainAxisSize: MainAxisSize.max,
+                // crossAxisAlignment: CrossAxisAlignment.start,
                 children: List.generate(7, (index) {
                   final level = index + 1;
-                  return Row(
+                  return Column(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
-                      Radio<int>(
-                        value: level,
-                        groupValue: selectedLevel,
-                        onChanged: (value) {
-                          setState(() {
-                            selectedLevel = value;
-                          });
-                        },
+                      SizedBox(
+                        width: 37,
+                        child: Radio<int>(
+                          value: level,
+                          groupValue: selectedLevel,
+                          onChanged: (value) {
+                            setState(() {
+                              selectedLevel = value;
+                            });
+                          },
+                        ),
                       ),
                       Text(
                         level.toString(),
                         style: const TextStyle(
                             fontSize:
-                                12.0), // Adjust the radio button font size
+                                16.0), // Adjust the radio button font size
                       ),
                     ],
                   );
