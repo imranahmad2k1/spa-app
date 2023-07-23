@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:student_personal_assistant/components/custom_button.dart';
 
 import 'topic_class.dart';
@@ -113,15 +115,24 @@ class _AllStudyRecommendedTopicsViewState
     }
     globalRecommendedTopics.clear();
     List<Topic> recommendations = bubbleSortLevel2(allTopics);
-    Set<String> addedTopicIds = {};
-    addedTopicIds.add("0"); //NODEPENDENT
+    Map<String, Set<String>> addedTopicIds = {};
+    // addedTopicIds.add("0"); //NODEPENDENT
     //SORTIN
     for (Topic t in recommendations) {
-      if (!addedTopicIds.contains(t.id)) {
+      // log(t.name.toString());
+      if (addedTopicIds[t.subject] == null) {
+        addedTopicIds[t.subject] = {};
+        addedTopicIds[t.subject]!.add("0");
+        addedTopicIds[t.subject]!.add(t.id);
         globalRecommendedTopics.add(t);
-        addedTopicIds.add(t.id);
+      } else {
+        if (!addedTopicIds[t.subject]!.contains(t.id)) {
+          globalRecommendedTopics.add(t);
+          addedTopicIds[t.subject]!.add(t.id);
+        }
       }
     }
+    // log(addedTopicIds.toString());
   }
 
   List<Topic> bubbleSortLevel2(List<List<dynamic>> allTopics) {
