@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:student_personal_assistant/constants/colors.dart';
 import 'package:student_personal_assistant/constants/routes.dart';
+// import 'package:student_personal_assistant/services/auth/auth_service.dart';
 import 'package:student_personal_assistant/views/views_import.dart';
 
 void main() {
+  // AuthService.firebase().initialize();
+  WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.remove();
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     title: 'Student Personal Assistant',

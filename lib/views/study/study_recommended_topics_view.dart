@@ -120,6 +120,7 @@ class _StudyRecommendedTopicsViewState
     globalRecommendedTopics.clear();
     List<Topic> recommendations = bubbleSortLevel2(allTopics);
     Set<String> addedTopicIds = {};
+    addedTopicIds.add("0"); //NODEPENDENT
     //SORTIN
     for (Topic t in recommendations) {
       if (!addedTopicIds.contains(t.id)) {

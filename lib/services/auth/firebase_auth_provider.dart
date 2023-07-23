@@ -12,11 +12,15 @@ import 'package:firebase_auth/firebase_auth.dart'
 import 'package:student_personal_assistant/firebase_options.dart';
 
 class FirebaseAuthProvider implements AuthProvider {
+  static bool _initialized = false;
   @override
   Future<void> initialize() async {
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
+    if (!_initialized) {
+      await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      );
+      _initialized = true;
+    }
   }
 
   @override

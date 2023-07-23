@@ -1,3 +1,5 @@
+// import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +14,7 @@ import 'package:student_personal_assistant/constants/routes.dart';
 import 'package:student_personal_assistant/services/auth/auth_service.dart';
 import 'package:student_personal_assistant/utilities/show_exit_dialog.dart';
 import 'package:student_personal_assistant/utilities/show_logout_dialog.dart';
+// import 'package:student_personal_assistant/views/homepage_view.dart';
 
 class SetWeeklyTimetableView extends StatefulWidget {
   const SetWeeklyTimetableView({super.key});
@@ -21,6 +24,7 @@ class SetWeeklyTimetableView extends StatefulWidget {
 }
 
 class _SetWeeklyTimetableViewState extends State<SetWeeklyTimetableView> {
+  bool fromLogin = true;
   static Map<String, dynamic> daysMap = {};
   static List<String> subjectNames = [];
   bool isLoading = true;
@@ -65,7 +69,7 @@ class _SetWeeklyTimetableViewState extends State<SetWeeklyTimetableView> {
   @override
   Widget build(BuildContext context) {
     // var args = ModalRoute.of(context)?.settings.arguments as Map<String, bool>?;
-    // final forOutlines = args?['forOutlines'] ?? false;
+    // final fromChange = args?['fromChange'] ?? false;
 
     return WillPopScope(
       onWillPop: () async {
@@ -107,6 +111,19 @@ class _SetWeeklyTimetableViewState extends State<SetWeeklyTimetableView> {
             if (snapshot.hasData) {
               final daysMapData = snapshot.data as Map<String, dynamic>;
               daysMap = daysMapData;
+              // if (context.mounted) {
+              //   if (fromChange) {
+              //     fromLogin = false;
+              //   }
+              //   if (fromLogin) {
+              //     WidgetsBinding.instance.addPostFrameCallback((_) {
+              //       Navigator.of(context).pushReplacement(MaterialPageRoute(
+              //           builder: (context) => const HomepageView()));
+              //     });
+              //     // return const SizedBox.shrink();
+              //     // }
+              //   }
+              // }
               return ListView(
                 children: [
                   Center(

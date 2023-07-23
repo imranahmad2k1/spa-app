@@ -41,7 +41,9 @@ class MyDrawer extends StatelessWidget {
             leading: const Icon(Icons.edit),
             title: const Text('Edit Timetable'),
             onTap: () {
-              Navigator.of(context).pushNamed(setupRoute);
+              Navigator.of(context).pushNamed(setupRoute, arguments: {
+                'fromChange': true,
+              });
             },
           ),
           ListTile(
