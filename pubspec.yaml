@@ -46,6 +46,7 @@ dependencies:
   csv: ^5.0.2
   flutter_launcher_icons: ^0.13.1
   flutter_native_splash: ^2.3.1
+  url_launcher: ^6.1.12
 
 # dart run flutter_native_splash:create
 # To restore Flutter's default white splash screen, run the following command in the terminal:

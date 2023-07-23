@@ -8,6 +8,7 @@ import 'package:student_personal_assistant/components/custom_text.dart';
 import 'package:student_personal_assistant/components/outlines/dropdown_outline.dart';
 import 'package:student_personal_assistant/constants/routes.dart';
 import 'package:student_personal_assistant/services/auth/auth_service.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class UploadCourseOutlinesView extends StatefulWidget {
   // final List<String> subjectNames;
@@ -115,8 +116,60 @@ class _UploadCourseOutlinesViewState extends State<UploadCourseOutlinesView> {
                   // const SizedBox(
                   //   height: 91,
                   // ),
-                  const CustomHeading(
-                    text: 'Upload your Course\nOutlines',
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const CustomHeading(
+                        text: 'Upload your Course\nOutlines',
+                      ),
+                      InkWell(
+                        child: const Icon(Icons.info_outline_rounded),
+                        //i want a small box of  text to appear
+                        //when the user clicks on the icon
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: const Text(
+                                  "How to upload your own outlines",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                content: const Text(
+                                  "If you want to upload your outlines, here are the instructions:\n1. The outlines should be in CSV format\n2. The outlines must have 3 columns i.e ID, Topic Name, Dependee Topic ID\n4. Independent Topic's dependee topic will take '0' as dependee topic\n\n If you want to access pre-defined course outlines repository, it's in the Readme section of our Project's Github.\n\n If you have made your own CSV outlines for a subject, please contribute to our outlines repository in our GitHub to help the community.",
+                                ),
+                                actions: [
+                                  TextButton(
+                                      onPressed: () {
+                                        launchUrl(
+                                          Uri(
+                                              scheme: 'https',
+                                              host: 'github.com',
+                                              path: 'meetimran/spa-app'),
+                                        );
+                                      },
+                                      child: const Text('Visit Github')),
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: const Text(
+                                      "Close",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        },
+                      ),
+                    ],
                   ),
                   const SizedBox(
                     height: 15,
